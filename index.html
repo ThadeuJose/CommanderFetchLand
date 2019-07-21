@@ -3,19 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>Magic Fetch Land</title>
+    <link rel="stylesheet" href="css/main.css">
     <script src="js/main.js" charset="utf-8"></script>
   </head>
   <body>
-    <p>Choose two or more color</p>
-    <input type="checkbox" name="white" id="white"><label for="white">White</label>
-    <input type="checkbox" name="blue"  id="blue" ><label for="blue">Blue</label>
-    <input type="checkbox" name="black" id="black"><label for="black">Black</label>
-    <input type="checkbox" name="red"   id="red"  ><label for="red">Red</label>
-    <input type="checkbox" name="green" id="green"><label for="green">Green</label>
-    <button onclick='Submit()'>Submit </button>
-    <div class="output">
-        <p>Lands</p>
-      <textarea name="output" id="output" cols="30" rows="30" class="output"></textarea>
+    <div class="input_box">
+      <p class="input_title">Choose 2 or more color</p>
+      <input type="checkbox" name="white" id="white" onchange="onChecked(this)"><label class = 'label' for="white">White</label>
+      <input type="checkbox" name="blue"  id="blue"  onchange="onChecked(this)"><label class = 'label' for="blue">Blue</label>
+      <input type="checkbox" name="black" id="black" onchange="onChecked(this)"><label class = 'label' for="black">Black</label>
+      <input type="checkbox" name="red"   id="red"   onchange="onChecked(this)"><label class = 'label' for="red">Red</label>
+      <input type="checkbox" name="green" id="green" onchange="onChecked(this)"><label class = 'label' for="green">Green</label>
+    </div>
+    <div class="output_box ">
+      <textarea name="output" class='output'id="output" placeholder="Click to copy the lands" cols="40" rows="1" class="output" wrap="off" readonly onclick="copyToClipboard(event)"></textarea>
     </div>
   </body>
 </html>

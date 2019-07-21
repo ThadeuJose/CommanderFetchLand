@@ -1,6 +1,9 @@
 # CommanderFetchLand
 A personal project to write a template of a mana base to a Commander Deck
-
+# Next Step 
+	Make the 4 manabase
+	
 # TODO 
-	Improve the interface 
-	Make the 3,4,5 manabase
+	Make the 4,5 manabase
+	
+# Technical Debt
