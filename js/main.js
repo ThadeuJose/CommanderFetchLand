@@ -41,45 +41,45 @@ function printLands(colorArr) {
     let resp = "";
     if (qtdColor == 2){
        resp = "".concat(getBasicLands(colorArr),
-                           getFetchLands(colorArr),'\n',
-                           getShockLands(colorArr),'\n',
-                           getOriginalLands(colorArr),'\n',
-                           getScryLands(colorArr),'\n',
-                           getPainLands(colorArr),'\n',
-                           getBattleLands(colorArr),'\n',
-                           getCheckLands(colorArr),'\n',
-                           getFilterLands(colorArr),'\n',
-                           getBounceLands(colorArr),'\n',
-                           getAnyColorLand(colorArr),'\n',
-                           getUtilityLand(colorArr),'\n',
+                           getFetchLands(colorArr),
+                           getShockLands(colorArr),
+                           getOriginalLands(colorArr),
+                           getScryLands(colorArr),
+                           getPainLands(colorArr),
+                           getBattleLands(colorArr),
+                           getCheckLands(colorArr),
+                           getFilterLands(colorArr),
+                           getBounceLands(colorArr),
+                           getAnyColorLand(colorArr),
+                           getUtilityLand(colorArr),
                            getManaRocks(colorArr));
 
     }
     if (qtdColor == 3){
       resp = "".concat(getBasicLands(colorArr),
-                       getFetchLands(colorArr),'\n',
-                       getShockLands(colorArr),'\n',
-                       getOriginalLands(colorArr),'\n',
-                       '//Other Lands: 3\n3 [OTHER LAND]\n\n',
-                       getAnyColorLand(colorArr),'\n',
-                       getUtilityLand(colorArr),'\n',
+                       getFetchLands(colorArr),
+                       getShockLands(colorArr),
+                       getOriginalLands(colorArr),
+                       '//Other Lands: 3\n3 [OTHER LAND]\n',
+                       getAnyColorLand(colorArr),
+                       getUtilityLand(colorArr),
                        getManaRocks(colorArr));
     }
     if (qtdColor == 4){
       resp = "".concat(getBasicLands(colorArr),
-                       getFetchLands(colorArr),'\n',
-                       getShockLands(colorArr),'\n',
-                       getOriginalLands(colorArr),'\n',
-                       getBattleLands(colorArr),'\n',
-                       getFilterLands(colorArr),'\n',
-                       getTriLands(colorArr),'\n',
-                       getAnyColorLand(colorArr),'\n',
-                       getUtilityLand(colorArr),'\n',
+                       getFetchLands(colorArr),
+                       getShockLands(colorArr),
+                       getOriginalLands(colorArr),
+                       getBattleLands(colorArr),
+                       getFilterLands(colorArr),
+                       getTriLands(colorArr),
+                       getAnyColorLand(colorArr),
+                       getUtilityLand(colorArr),
                        getManaRocks(colorArr));
     }
     if (qtdColor == 5){
       resp = "".concat(getBasicLands(colorArr),
-                       getFetchLands(colorArr),'\n',
+                       getFetchLands(colorArr),
                        getOriginalLands(colorArr),'\n',
                        getAnyColorLand(colorArr),'\n',
                        getManaRocks(colorArr));
@@ -128,49 +128,45 @@ function getBasicLands(colorArr, qtdColor = colorArr.length) {
   return resp+'\n';
 }
 
-function getFetchLands(colorArr) {
-  let qtdColor = colorArr.length;
-  let resp = '';
+function getFetchLands(colorArr, qtdColor = colorArr.length) {
+  let resp = '//Fetch Land: ';
   if (qtdColor == 5) {
-    resp+='//Fetch Land: 10\n'
+    resp+='10\n'
     for(c of Object.keys(COLORS_TO_FETCH_LAND)){
       resp+= `1 ${COLORS_TO_FETCH_LAND[c]}\n`
     }
-    return resp;
   }else if (qtdColor == 4) {
-    resp+='//Fetch Land: 6\n'
-    let result = ORDER_COLOR.filter(value => !colorArr.includes(value))
-    for(c of Object.keys(COLORS_TO_FETCH_LAND)){
-      if(!c.includes(result)){
-        resp+= `1 ${COLORS_TO_FETCH_LAND[c]}\n`
+    resp+='6\n'
+    let excludedColorPair = ORDER_COLOR.filter(value => !colorArr.includes(value))
+    for(colorPair of Object.keys(COLORS_TO_FETCH_LAND)){
+      if(!colorPair.includes(excludedColorPair)){
+        resp+= `1 ${COLORS_TO_FETCH_LAND[colorPair]}\n`
       }
     }
-    return resp;
   }else if (qtdColor == 3) {
-    resp+='//Fetch Land: 3\n'
+    resp+='3\n'
     let landSet = new Set()
     let colorPairs = getColorPair(colorArr);
     for (cp of colorPairs) {
       landSet.add(COLORS_TO_FETCH_LAND[cp])
     }
-    for(e of landSet){
-      resp+= `1 ${e}\n`;
+    for(land of landSet){
+      resp+= `1 ${land}\n`;
     }
-    return resp;
   }else if (qtdColor == 2) {
-    resp+='//Fetch Land: 3\n'
+    resp+='3\n'
     let landSet = new Set()
-    for (c of colorArr) {
-      for(k of Object.keys(COLORS_TO_FETCH_LAND))
-        if(k.includes(c)){
-            landSet.add(COLORS_TO_FETCH_LAND[k])
+    for (color of colorArr) {
+      for(colorPair of Object.keys(COLORS_TO_FETCH_LAND))
+        if(colorPair.includes(color)){
+            landSet.add(COLORS_TO_FETCH_LAND[colorPair])
         }
     }
-    for(e of landSet){
-      resp+= `1 ${e}\n`;
+    for(land of landSet){
+      resp+= `1 ${land}\n`;
     }
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getShockLands(colorArr) {
@@ -184,7 +180,6 @@ function getShockLands(colorArr) {
         resp+= `1 ${COLORS_TO_SHOCK_LAND[c]}\n`
       }
     }
-    return resp;
   }else if (qtdColor == 3) {
     resp+='//Shock Land: 3\n'
     let landSet = new Set()
@@ -195,13 +190,12 @@ function getShockLands(colorArr) {
     for(e of landSet){
       resp+= `1 ${e}\n`;
     }
-    return resp;
   }else if (qtdColor == 2) {
     resp+='//Shock Land: 1\n'
     let colorPair = `${colorArr[0]}${colorArr[1]}`
     resp += `1 ${COLORS_TO_SHOCK_LAND[colorPair]}\n`
-    return resp
   }
+  return resp+'\n';
 }
 
 function getOriginalLands(colorArr) {
@@ -212,7 +206,6 @@ function getOriginalLands(colorArr) {
     for(c of Object.keys(COLORS_TO_ORIGINAL_LAND)){
       resp+= `1 ${COLORS_TO_ORIGINAL_LAND[c]}\n`
     }
-    return resp;
   }else if (qtdColor == 4) {
     resp+='//Original Land: 4\n'
     let landSet = new Set()
@@ -223,7 +216,6 @@ function getOriginalLands(colorArr) {
     for(e of landSet){
       resp+= `1 ${e}\n`;
     }
-    return resp;
   }else if (qtdColor == 3) {
     resp+='//Original Land: 3\n'
     let landSet = new Set()
@@ -241,6 +233,7 @@ function getOriginalLands(colorArr) {
     resp+= `1 ${COLORS_TO_ORIGINAL_LAND[color]}\n`
     return resp
   }
+  return resp+'\n';
 }
 
 function getScryLands(colorArr) {
@@ -250,8 +243,8 @@ function getScryLands(colorArr) {
     resp+='//Scry Land: 1\n'
     let color = `${colorArr[0]}${colorArr[1]}`
     resp += `1 ${COLORS_TO_SCRY_LAND[color]}\n`
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getPainLands(colorArr) {
@@ -261,8 +254,8 @@ function getPainLands(colorArr) {
     resp+='//Pain Land: 1\n'
     let color = `${colorArr[0]}${colorArr[1]}`
     resp += `1 ${COLORS_TO_PAIN_LAND[color]}\n`
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getBattleLands(colorArr) {
@@ -275,13 +268,12 @@ function getBattleLands(colorArr) {
     for (var c of colorPairs) {
       resp += `1 ${COLORS_TO_BATTLE_AND_FAST_LAND[c]}\n`
     }
-    return resp;
   }else if (qtdColor == 2) {
     resp+='//Battle or Fast Land: 1\n'
     let color = `${colorArr[0]}${colorArr[1]}`
     resp += `1 ${COLORS_TO_BATTLE_AND_FAST_LAND[color]}\n`
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getManLands(colorArr) {
@@ -291,8 +283,8 @@ function getManLands(colorArr) {
     resp+='//Main Land: 1\n'
     let color = `${colorArr[0]}${colorArr[1]}`
     resp += `1 ${COLORS_TO_MAN_LAND[color]}\n`
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getCheckLands(colorArr) {
@@ -302,8 +294,8 @@ function getCheckLands(colorArr) {
     resp+='//Check Land: 1\n'
     let color = `${colorArr[0]}${colorArr[1]}`
     resp+= `1 ${COLORS_TO_CHECK_LAND[color]}\n`
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getFilterLands(colorArr) {
@@ -315,7 +307,6 @@ function getFilterLands(colorArr) {
     for (var c of colorPairs) {
       resp+= `1 ${COLORS_TO_FILTER_LAND_1[c]}\n`;
     }
-    return resp;
   }else if (qtdColor == 2) {
     resp+='//Filter Land: 2\n';
     let colors =`${colorArr[0]}${colorArr[1]}`;
@@ -325,8 +316,8 @@ function getFilterLands(colorArr) {
     }else {
       resp+= '1 Unknown Shores\n'
     }
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getBounceLands(colorArr) {
@@ -338,6 +329,7 @@ function getBounceLands(colorArr) {
     resp +=`1 ${COLORS_TO_BOUNCE_LAND[color]}\n`
     return resp;
   }
+  return resp+'\n';
 }
 
 function getTriLands(colorArr) {
@@ -348,7 +340,7 @@ function getTriLands(colorArr) {
   resp+= `1 ${COLORS_TO_TRI_LAND[colors]}\n`
   colors = colorArr.slice(1,4).join('');
   resp+= `1 ${COLORS_TO_TRI_LAND[colors]}\n`
-  return resp;
+  return resp+'\n';
 }
 
 function getAnyColorLand(colorArr){
@@ -361,22 +353,21 @@ function getAnyColorLand(colorArr){
   }else if (qtdColor == 2 || qtdColor == 3 ) {
     resp = "//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n1 Reflecting Pool\n"
   }
-  return resp
+  return resp+'\n';
 }
 
 function getUtilityLand(colorArr){
   let qtdColor = colorArr.length;
   if(qtdColor == 4){
-    return '//Utility Land or Mono Color: 4\n4 [UTILITY LAND]'
+    return '//Utility Land or Mono Color: 4\n4 [UTILITY LAND]\n'
   }
-  return '//Utility Land or Mono Color: 6\n6 [UTILITY LAND]'
+  return '//Utility Land or Mono Color: 6\n6 [UTILITY LAND]\n'
 }
 
 function getManaRocks(colorArr){
   let qtdColor = colorArr.length;
   let resp = '';
   if (qtdColor == 5) {
-    let colorPair = `${colorArr[0]}${colorArr[1]}`
     resp = `//Mana Ramp: 10
 1 Sol Ring
 1 Chromatic Lantern
@@ -418,7 +409,7 @@ function getManaRocks(colorArr){
 1 Sol Ring
   `;
   }
-  return resp
+  return resp+'\n';
 }
 
 function getColorPair(colorArr) {
