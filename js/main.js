@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function resetView(event) {
   var inputList = document.getElementsByTagName("input");
   for (var i = 0; i < inputList.length; ++i) {
     inputList[i].checked = false;
@@ -18,21 +18,16 @@ function copyToClipboard(e) {
 let checked = { 'white':false, 'blue':false,'black':false,'green':false,'red':false }
 
 function onChecked(obj) {
-  let key = obj.name
-  let value = obj.checked
-  checked[key] = value
+  let key = obj.name;
+  let value = obj.checked;
   let colorArr = [];
+  checked[key] = value;
   for (var c of ORDER_COLOR) {
     if(checked[c])
       colorArr.push(c);
   }
-  if(colorArr.length == 5){
-      printLands(colorArr);
-  } else if(colorArr.length == 4){
-      printLands(colorArr);
-  } else if(colorArr.length == 3){
-      printLands(colorArr);
-  } else if(colorArr.length == 2){
+
+  if(colorArr.length >= 2){
       printLands(colorArr);
   } else {
       document.getElementById('output').value = 'Click to copy the lands';
@@ -45,7 +40,7 @@ function printLands(colorArr) {
     let qtdColor = colorArr.length;
     let resp = "";
     if (qtdColor == 2){
-       resp = "".concat(getBasicLands(colorArr),'\n',
+       resp = "".concat(getBasicLands(colorArr),
                            getFetchLands(colorArr),'\n',
                            getShockLands(colorArr),'\n',
                            getOriginalLands(colorArr),'\n',
@@ -61,7 +56,7 @@ function printLands(colorArr) {
 
     }
     if (qtdColor == 3){
-      resp = "".concat(getBasicLands(colorArr),'\n',
+      resp = "".concat(getBasicLands(colorArr),
                        getFetchLands(colorArr),'\n',
                        getShockLands(colorArr),'\n',
                        getOriginalLands(colorArr),'\n',
@@ -71,7 +66,7 @@ function printLands(colorArr) {
                        getManaRocks(colorArr));
     }
     if (qtdColor == 4){
-      resp = "".concat(getBasicLands(colorArr),'\n',
+      resp = "".concat(getBasicLands(colorArr),
                        getFetchLands(colorArr),'\n',
                        getShockLands(colorArr),'\n',
                        getOriginalLands(colorArr),'\n',
@@ -83,7 +78,7 @@ function printLands(colorArr) {
                        getManaRocks(colorArr));
     }
     if (qtdColor == 5){
-      resp = "".concat(getBasicLands(colorArr),'\n',
+      resp = "".concat(getBasicLands(colorArr),
                        getFetchLands(colorArr),'\n',
                        getOriginalLands(colorArr),'\n',
                        getAnyColorLand(colorArr),'\n',
@@ -99,42 +94,38 @@ function printLands(colorArr) {
 
 }
 
-function getBasicLands(colorArr) {
-  let qtdColor = colorArr.length;
-  let resp = '';
+function getBasicLands(colorArr, qtdColor = colorArr.length) {
+  let resp = '//Basic Lands: ';
   if (qtdColor == 5) {
-    resp+='//Basic Lands:14 (2-3-3-3-3)\n'
+    resp+='14 (2-3-3-3-3)\n'
     qtdArr = [2,3,3,3,3];
     for (i = 0; i < qtdColor; i++) {
       let color = colorArr[i];
       let land = COLOR_TO_LAND[color]
       resp += `${qtdArr[i]} ${land}\n`;
     }
-    return resp;
   }else if (qtdColor == 4) {
-    resp+='//Basic Lands: 9 (3-3-2-1 or 4-4-1-1)\n'
+    resp+='9 (3-3-2-1 or 4-4-1-1)\n'
     qtdArr = [3,3,2,1];
     for (i = 0; i < qtdColor; i++) {
       let color = colorArr[i];
       let land = COLOR_TO_LAND[color]
       resp += `${qtdArr[i]} ${land}\n`;
     }
-    return resp;
   }else if (qtdColor == 3) {
-    resp+='//Basic Lands: 9\n'
+    resp+='9\n'
     for (c of colorArr) {
       let land = COLOR_TO_LAND[c]
       resp += `3 ${land}\n`;
     }
-    return resp;
   }else if (qtdColor == 2) {
-    resp+='//Basic Lands: 8-20 (14 land in Average)\n'
+    resp+='8-20 (14 land in Average)\n'
     for (c of colorArr) {
       let land = COLOR_TO_LAND[c]
       resp += `7 ${land}\n`;
     }
-    return resp;
   }
+  return resp+'\n';
 }
 
 function getFetchLands(colorArr) {

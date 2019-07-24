@@ -1,6 +1,6 @@
-let ORDER_COLOR = ['white', 'blue', 'black', 'red', 'green']
+const ORDER_COLOR = ['white', 'blue', 'black', 'red', 'green']
 
-let COLOR_TO_LAND = {
+const COLOR_TO_LAND = {
   'white': 'Plains',
   'blue':  'Island',
   'black': 'Swamp',
@@ -8,7 +8,7 @@ let COLOR_TO_LAND = {
   'green': 'Florest'
 }
 
-let COLORS_TO_FETCH_LAND = {
+const COLORS_TO_FETCH_LAND = {
   'whiteblue':  'Flooded Strand',
   'blueblack':  'Polluted Delta',
   'blackred':   'Bloodstained Mire',
@@ -21,7 +21,7 @@ let COLORS_TO_FETCH_LAND = {
   'greenblue':  'Misty Rainforest',
 }
 
-let COLORS_TO_ORIGINAL_LAND = {
+const COLORS_TO_ORIGINAL_LAND = {
   'whiteblue':  'Tundra',
   'blueblack':  'Underground Sea',
   'blackred':   'Badlands',
@@ -34,7 +34,7 @@ let COLORS_TO_ORIGINAL_LAND = {
   'greenblue':  'Tropical Island',
 }
 
-let COLORS_TO_SHOCK_LAND = {
+const COLORS_TO_SHOCK_LAND = {
   'whiteblue':  'Hallowed Fountain',
   'blueblack':  'Watery Grave',
   'blackred':   'Blood Crypt',
@@ -47,7 +47,7 @@ let COLORS_TO_SHOCK_LAND = {
   'greenblue':  'Breeding Pool',
 }
 
-let COLORS_TO_SCRY_LAND = {
+const COLORS_TO_SCRY_LAND = {
   'whiteblue':  'Temple of Enlightenment',
   'blueblack':  'Temple of Deceit',
   'blackred':   'Temple of Malice',
@@ -60,7 +60,7 @@ let COLORS_TO_SCRY_LAND = {
   'greenblue':  'Temple of Mystery',
 }
 
-let COLORS_TO_PAIN_LAND = {
+const COLORS_TO_PAIN_LAND = {
   'whiteblue':  'Adarkar Wastes',
   'blueblack':  'Underground River',
   'blackred':   'Sulfurous Springs',
@@ -73,7 +73,7 @@ let COLORS_TO_PAIN_LAND = {
   'greenblue':  'Yavimaya Coast',
 }
 
-let COLORS_TO_BATTLE_AND_FAST_LAND = {
+const COLORS_TO_BATTLE_AND_FAST_LAND = {
   'whiteblue':  'Prairie Stream',
   'blueblack':  'Sunken Hollow',
   'blackred':   'Smoldering Marsh',
@@ -86,7 +86,7 @@ let COLORS_TO_BATTLE_AND_FAST_LAND = {
   'greenblue':  'Botanical Sanctum',
 }
 
-let COLORS_TO_MAN_LAND = {
+const COLORS_TO_MAN_LAND = {
   'whiteblue':  'Celestial Colonnade',
   'blueblack':  'Creeping Tar Pit',
   'blackred':   'Lavaclaw Reaches',
@@ -99,7 +99,7 @@ let COLORS_TO_MAN_LAND = {
   'greenblue':  'Lumbering Falls',
 }
 
-let COLORS_TO_CHECK_LAND = {
+const COLORS_TO_CHECK_LAND = {
   'whiteblue':  'Glacial Fortress',
   'blueblack':  'Drowned Catacomb',
   'blackred':   'Dragonskull Summit',
@@ -112,7 +112,7 @@ let COLORS_TO_CHECK_LAND = {
   'greenblue':  'Hinterland Harbor',
 }
 
-let COLORS_TO_FILTER_LAND_1 = {
+const COLORS_TO_FILTER_LAND_1 = {
   'whiteblue':  'Mystic Gate',
   'blueblack':  'Sunken Ruins',
   'blackred':   'Graven Cairns',
@@ -125,7 +125,7 @@ let COLORS_TO_FILTER_LAND_1 = {
   'greenblue':  'Flooded Grove',
 }
 
-let COLORS_TO_FILTER_LAND_2 = {
+const COLORS_TO_FILTER_LAND_2 = {
   'whiteblue':  'Skycloud Expanse',
   'blueblack':  'Darkwater Catacombs',
   'blackred':   'Shadowblood Ridge',
@@ -134,7 +134,7 @@ let COLORS_TO_FILTER_LAND_2 = {
 
 }
 
-let COLORS_TO_BOUNCE_LAND = {
+const COLORS_TO_BOUNCE_LAND = {
   'whiteblue':  'Azorius Chancery',
   'blueblack':  'Dimir Aqueduct',
   'blackred':   'Rakdos Carnarium',
@@ -147,7 +147,7 @@ let COLORS_TO_BOUNCE_LAND = {
   'greenblue':  'Simic Growth Chamber',
 }
 
-let COLORS_TO_GUILD = {
+const COLORS_TO_GUILD = {
   'whiteblue':  'Azorius',
   'blueblack':  'Dimir',
   'blackred':   'Rakdos',
@@ -160,7 +160,7 @@ let COLORS_TO_GUILD = {
   'greenblue':  'Simic',
 }
 
-let COLORS_TO_PAIN_TALISMAN = {
+const COLORS_TO_PAIN_TALISMAN = {
   'whiteblue':  'Progress',
   'blueblack':  'Dominance',
   'blackred':   'Indulgence',
@@ -173,7 +173,7 @@ let COLORS_TO_PAIN_TALISMAN = {
   'greenblue':  'Curiosity',
 }
 
-let COLORS_TO_TRI_LAND = {
+const COLORS_TO_TRI_LAND = {
   'whitebluegreen':'Seaside Citadel',
   'whiteblueblack':'Arcane Sanctum',
   'blueblackred':'Crumbling Necropolis',
