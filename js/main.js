@@ -214,7 +214,9 @@ function onChecked(obj) {
     if(checked[c])
       colorArr.push(c);
   }
-  if(colorArr.length == 4){
+  if(colorArr.length == 5){
+      printLands(colorArr);
+  } else if(colorArr.length == 4){
       printLands(colorArr);
   } else if(colorArr.length == 3){
       printLands(colorArr);
@@ -268,6 +270,13 @@ function printLands(colorArr) {
                        getUtilityLand(colorArr),'\n',
                        getManaRocks(colorArr));
     }
+    if (qtdColor == 5){
+      resp = "".concat(getBasicLands(colorArr),'\n',
+                       getFetchLands(colorArr),'\n',
+                       getOriginalLands(colorArr),'\n',
+                       getAnyColorLand(colorArr),'\n',
+                       getManaRocks(colorArr));
+    }
 
 
 
@@ -281,7 +290,16 @@ function printLands(colorArr) {
 function getBasicLands(colorArr) {
   let qtdColor = colorArr.length;
   let resp = '';
-  if (qtdColor == 4) {
+  if (qtdColor == 5) {
+    resp+='//Basic Lands:14 (2-3-3-3-3)\n'
+    qtdArr = [2,3,3,3,3];
+    for (i = 0; i < qtdColor; i++) {
+      let color = colorArr[i];
+      let land = COLOR_TO_LAND[color]
+      resp += `${qtdArr[i]} ${land}\n`;
+    }
+    return resp;
+  }else if (qtdColor == 4) {
     resp+='//Basic Lands: 9 (3-3-2-1 or 4-4-1-1)\n'
     qtdArr = [3,3,2,1];
     for (i = 0; i < qtdColor; i++) {
@@ -310,7 +328,13 @@ function getBasicLands(colorArr) {
 function getFetchLands(colorArr) {
   let qtdColor = colorArr.length;
   let resp = '';
-  if (qtdColor == 4) {
+  if (qtdColor == 5) {
+    resp+='//Fetch Land: 10\n'
+    for(c of Object.keys(COLORS_TO_FETCH_LAND)){
+      resp+= `1 ${COLORS_TO_FETCH_LAND[c]}\n`
+    }
+    return resp;
+  }else if (qtdColor == 4) {
     resp+='//Fetch Land: 6\n'
     let result = ORDER_COLOR.filter(value => !colorArr.includes(value))
     for(c of Object.keys(COLORS_TO_FETCH_LAND)){
@@ -380,7 +404,13 @@ function getShockLands(colorArr) {
 function getOriginalLands(colorArr) {
   let qtdColor = colorArr.length;
   let resp = '';
-  if (qtdColor == 4) {
+  if (qtdColor == 5) {
+    resp+='//Original Land: 10\n'
+    for(c of Object.keys(COLORS_TO_ORIGINAL_LAND)){
+      resp+= `1 ${COLORS_TO_ORIGINAL_LAND[c]}\n`
+    }
+    return resp;
+  }else if (qtdColor == 4) {
     resp+='//Original Land: 4\n'
     let landSet = new Set()
     let colorPairs = getColorPair(colorArr);
@@ -521,7 +551,9 @@ function getTriLands(colorArr) {
 function getAnyColorLand(colorArr){
   let qtdColor = colorArr.length;
   let resp = '';
-  if (qtdColor == 4 ) {
+  if (qtdColor == 5) {
+    resp = "//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n1 Reflecting Pool\n"
+  }else if (qtdColor == 4 ) {
     resp = "//Any Color Lands: 3\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n"
   }else if (qtdColor == 2 || qtdColor == 3 ) {
     resp = "//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n1 Reflecting Pool\n"
@@ -540,7 +572,21 @@ function getUtilityLand(colorArr){
 function getManaRocks(colorArr){
   let qtdColor = colorArr.length;
   let resp = '';
-  if (qtdColor == 4 || qtdColor == 3) {
+  if (qtdColor == 5) {
+    let colorPair = `${colorArr[0]}${colorArr[1]}`
+    resp = `//Mana Ramp: 10
+1 Sol Ring
+1 Chromatic Lantern
+1 Spectral Searchlight
+1 Vessel of Endless Rest
+1 Coalition Relic
+1 Fellwar Stone
+1 Mana Geode
+1 Manalith
+1 Commander's Sphere
+1 Darksteel Ingot
+  `;
+}else if (qtdColor == 4 || qtdColor == 3) {
     let colorPairs =getColorPair(colorArr);
     resp = `\n//Mana Ramp: 10
 1 Sol Ring
