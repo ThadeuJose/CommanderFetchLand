@@ -5,7 +5,7 @@ const COLOR_TO_LAND = {
   'blue':  'Island',
   'black': 'Swamp',
   'red':   'Mountain',
-  'green': 'Florest'
+  'green': 'Forest'
 }
 
 const COLORS_TO_FETCH_LAND = {
