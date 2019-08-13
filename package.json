@@ -1,0 +1,32 @@
+{
+  "name": "commanderfetchland",
+  "version": "1.0.0",
+  "description": "A personal project to write a template of a mana base to a Commander Deck\r # Next Step",
+  "main": "main.js",
+  "scripts": {
+    "start": "gulp",
+    "lint": "gulp lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThadeuJose/CommanderFetchLand.git"
+  },
+  "author": "Thadeu José",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ThadeuJose/CommanderFetchLand/issues"
+  },
+  "homepage": "https://github.com/ThadeuJose/CommanderFetchLand#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "gulp-useref": "^3.1.6"
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Magic Fetch Land</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- build:js bundle.js -->
+    <script src="js/constants.js" charset="utf-8"></script>
+    <script src="js/utility-functions.js" charset="utf-8"></script>
+    <script src="js/lands-code/any-color-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/basic-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/battle-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/bounce-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/check-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/fetch-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/filter-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/man-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/mana-rock.js" charset="utf-8"></script>
+    <script src="js/lands-code/original-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/other-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/pain-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/scry-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/shock-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/tri-lands.js" charset="utf-8"></script>
+    <script src="js/lands-code/utility-lands.js" charset="utf-8"></script>
+    <script src="js/main.js" charset="utf-8"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <div class="input_box">
+      <p class="input_title">Choose 2 or more color</p>
+      <input type="checkbox" name="white" id="white" onchange="onChecked(this)"><label class = 'label' for="white">White</label>
+      <input type="checkbox" name="blue"  id="blue"  onchange="onChecked(this)"><label class = 'label' for="blue">Blue</label>
+      <input type="checkbox" name="black" id="black" onchange="onChecked(this)"><label class = 'label' for="black">Black</label>
+      <input type="checkbox" name="red"   id="red"   onchange="onChecked(this)"><label class = 'label' for="red">Red</label>
+      <input type="checkbox" name="green" id="green" onchange="onChecked(this)"><label class = 'label' for="green">Green</label>
+    </div>
+    <div class="output_box " title="Click here to copy">
+      <textarea name="output" class='output'id="output" placeholder="Click to copy the lands" cols="40" rows="1" class="output" wrap="off" readonly onclick="copyToClipboard(event)"></textarea>
+    </div>
+  </body>
+</html>
