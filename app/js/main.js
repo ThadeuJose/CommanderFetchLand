@@ -52,11 +52,10 @@ function printLands(colorArr, qtdColor = colorArr.length) {
     getScryLands(colorArr),
     getBattleLands(colorArr),
     getCheckLands(colorArr),
-    getFilterLands(colorArr),
     getBounceLands(colorArr),
     getAnyColorLand(colorArr),
     getUtilityLand(colorArr),
-    getManaRocks(colorArr),
+    getManaRamp(colorArr),
   ].map((elem) => {
     if (elem) {
       return `${elem}\n`;

@@ -1,4 +1,4 @@
-function getManaRocks(colorArr, qtdColor = colorArr.length){
+function getManaRamp(colorArr, qtdColor = colorArr.length){
   if (qtdColor == 5) {
     return `//Mana Ramp: 10
 1 Sol Ring
@@ -25,7 +25,7 @@ function getManaRocks(colorArr, qtdColor = colorArr.length){
 1 Commander's Sphere
 1 Darksteel Ingot\n`;
   }else if (qtdColor == 2) {
-    let colorPair = `${colorArr[0]}${colorArr[1]}`
+    let colorPair = validPair(colorArr[0],colorArr[1]);
     return `//Mana Ramp: 10
 1 ${COLORS_TO_GUILD[colorPair]} Signet
 1 ${COLORS_TO_GUILD[colorPair]} Keyrune

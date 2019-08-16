@@ -10,7 +10,7 @@ function getBattleLands(colorArr, qtdColor = colorArr.length) {
     }
   } else if (qtdColor === 2) {
     resp += '//Battle or Fast Land: 1\n';
-    const color = `${colorArr[0]}${colorArr[1]}`;
+    const color = validPair(colorArr[0],colorArr[1]);
     resp += `1 ${COLORS_TO_BATTLE_AND_FAST_LAND[color]}\n`;
   }
   return resp;

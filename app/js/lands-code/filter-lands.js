@@ -8,7 +8,7 @@ function getFilterLands(colorArr, qtdColor = colorArr.length) {
     }
   }else if (qtdColor == 2) {
     resp+='//Filter Land: 2\n';
-    let colors =`${colorArr[0]}${colorArr[1]}`;
+    let colors = validPair(colorArr[0],colorArr[1]);
     resp+=  `1 ${COLORS_TO_FILTER_LAND_1[colors]}\n`;
     if (colors in COLORS_TO_FILTER_LAND_2){
       resp+= `1 ${COLORS_TO_FILTER_LAND_2[colors]}\n`;

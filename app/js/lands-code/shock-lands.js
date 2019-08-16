@@ -21,7 +21,7 @@ function getShockLands(colorArr) {
     }
   }else if (qtdColor == 2) {
     resp+='//Shock Land: 1\n'
-    let colorPair = `${colorArr[0]}${colorArr[1]}`
+    let colorPair = validPair(colorArr[0],colorArr[1]);
     resp += `1 ${COLORS_TO_SHOCK_LAND[colorPair]}\n`
   }
   return resp;

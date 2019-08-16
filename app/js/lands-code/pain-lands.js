@@ -5,9 +5,9 @@ function getPainLands(colorArr, qtdColor = colorArr.length) {
     let colorPairs = getColorPair(colorArr).slice(0,3);
     for (var c of colorPairs) {
       resp+= `1 ${COLORS_TO_PAIN_LAND[c]}\n`;
-    }    
+    }
   }else if (qtdColor == 2) {
-    let color = `${colorArr[0]}${colorArr[1]}`
+    let color = validPair(colorArr[0],colorArr[1]);
     resp = `//Pain Land: 1\n1 ${COLORS_TO_PAIN_LAND[color]}\n`
   }
   return resp;

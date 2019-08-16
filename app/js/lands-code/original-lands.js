@@ -28,7 +28,7 @@ function getOriginalLands(colorArr) {
     }
   }else if (qtdColor == 2) {
     resp+='//Original Land: 1\n'
-    let color = `${colorArr[0]}${colorArr[1]}`
+    let color = validPair(colorArr[0],colorArr[1]);
     resp+= `1 ${COLORS_TO_ORIGINAL_LAND[color]}\n`
   }
   return resp;

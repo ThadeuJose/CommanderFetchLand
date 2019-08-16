@@ -24,13 +24,14 @@ function getFetchLands(colorArr, qtdColor = colorArr.length) {
       resp += `1 ${land}\n`;
     }
   }else if (qtdColor === 2) {
-    resp += '3\n';
+    resp += '7\n';
     let landSet = new Set();
     for (color of colorArr) {
-      for (colorPair of Object.keys(COLORS_TO_FETCH_LAND));
+      for (colorPair of Object.keys(COLORS_TO_FETCH_LAND)){
         if (colorPair.includes(color)) {
             landSet.add(COLORS_TO_FETCH_LAND[colorPair]);
         }
+      }
     }
     for(land of landSet){
       resp += `1 ${land}\n`;
