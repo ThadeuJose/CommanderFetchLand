@@ -536,11 +536,13 @@ document.addEventListener('DOMContentLoaded', function resetView() {
 });
 
 function copyToClipboard(event) {
-  const copyText = document.getElementById('output');
   event.preventDefault();
-  copyText.select();
+
+  const copyText = document.getElementById('output');
+
   if (copyText.value !== 'Click to copy the lands') {
-    document.execCommand('copy');
+    navigator.clipboard.writeText(copyText.value);
+    console.log("Copied the text: " + copyText.value);
   }
 }
 
