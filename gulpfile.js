@@ -39,7 +39,7 @@ function watchFiles() {
   watch(
     ['app/js/*.js', 'app/js/**/*.js'],
     { events: 'all', ignoreInitial: false },
-    series(lint,js)
+    js
   );
 }
 

@@ -12,19 +12,6 @@ FAZER AUTOMATIZED TEST
        Branch Refactor
        Tirar aquela coisa de checklist?
 
-Consertar firefox copy
-
-https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
-     https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
-
-
-https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
-
-
-Caso você queira mandar o fodasse
-
-https://clipboardjs.com
-
 -------+++----+++++++++-----+
 
 Colocar as constantes de land na classe de lands quando possivel. Tipo fetchlands na class de fetch lands.
@@ -60,3 +47,9 @@ Terminar o projeto quando os 3 features acima estiverem prontos
 
 # Technical Debt
 	Upgrade the logic of Basic Land, Fetch and use Jest to make tests
+
+# Source
+	Source for the new copy command
+		https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
+		https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
+		https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
