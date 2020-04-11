@@ -1,3 +1,21 @@
+const getColorPair = require('../utility-functions').getColorPair;
+const validPair = require('../utility-functions').validPair;
+
+const ORDER_COLOR = ['white', 'blue', 'black', 'red', 'green'];
+
+const COLORS_TO_SHOCK_LAND = {
+  whiteblue: 'Hallowed Fountain',
+  blueblack: 'Watery Grave',
+  blackred: 'Blood Crypt',
+  redgreen: 'Stomping Ground ',
+  greenwhite: 'Temple Garden',
+  whiteblack: 'Godless Shrine',
+  bluered: 'Steam Vents',
+  blackgreen: 'Overgrown Tomb',
+  redwhite: 'Sacred Foundry',
+  greenblue: 'Breeding Pool',
+};
+
 function getShockLands(colorArr) {
   let qtdColor = colorArr.length;
   let resp = '';
@@ -26,3 +44,5 @@ function getShockLands(colorArr) {
   }
   return resp;
 }
+
+module.exports = getShockLands;

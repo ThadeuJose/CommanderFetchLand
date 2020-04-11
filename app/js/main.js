@@ -1,3 +1,21 @@
+const getBasicLands = require('./lands-code/basic-lands');
+const getFetchLands = require('./lands-code/fetch-lands');
+const getDuals = require('./lands-code/dual-lands');
+const getShockLands = require('./lands-code/shock-lands');
+const getPainLands = require('./lands-code/pain-lands');
+const getManLands = require('./lands-code/man-lands');
+const getFilterLands = require('./lands-code/filter-lands');
+const getOtherLands = require('./lands-code/other-lands');
+const getTriLands = require('./lands-code/tri-lands');
+const getScryLands = require('./lands-code/scry-lands');
+const getBattleLands = require('./lands-code/battle-lands');
+const getCheckLands = require('./lands-code/check-lands');
+const getBounceLands = require('./lands-code/bounce-lands');
+const getAnyColorLand = require('./lands-code/any-color-lands');
+const getUtilityLand = require('./lands-code/utility-lands');
+const getManaRamp = require('./lands-code/mana-ramp');
+
+
 document.addEventListener('DOMContentLoaded', function resetView() {
   const inputList = document.getElementsByTagName('input');
   for (let i = 0; i < inputList.length; i += 1) {
@@ -6,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function resetView() {
   document.getElementById('output').value = 'Click to copy the lands';
 });
 
-function copyToClipboard(event) {
+window.copyToClipboard = function (obj) {
+
   event.preventDefault();
 
   const copyText = document.getElementById('output');
@@ -21,7 +40,9 @@ const checked = {
   white: false, blue: false, black: false, green: false, red: false
 };
 
-function onChecked(obj) {
+const ORDER_COLOR = ['white', 'blue', 'black', 'red', 'green'];
+
+window.onChecked = function (obj) {
   const key = obj.name;
   const value = obj.checked;
   const colorArr = [];
@@ -44,10 +65,11 @@ function printLands(colorArr, qtdColor = colorArr.length) {
 
   resp = [
     getBasicLands(colorArr),
-    getOriginalLands(colorArr),
     getFetchLands(colorArr),
+    getDuals(colorArr),
     getShockLands(colorArr),
     getPainLands(colorArr),
+    getManLands(colorArr),
     getFilterLands(colorArr),
     getOtherLands(colorArr),
     getTriLands(colorArr),

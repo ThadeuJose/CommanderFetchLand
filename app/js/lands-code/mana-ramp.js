@@ -1,3 +1,32 @@
+const getColorPair = require('../utility-functions').getColorPair;
+const validPair = require('../utility-functions').validPair;
+
+const COLORS_TO_GUILD = {
+  whiteblue: 'Azorius',
+  blueblack: 'Dimir',
+  blackred: 'Rakdos',
+  redgreen: 'Gruul',
+  greenwhite: 'Selesnya',
+  whiteblack: 'Orzhov',
+  bluered: 'Izzet',
+  blackgreen: 'Golgari',
+  redwhite: 'Boros',
+  greenblue: 'Simic',
+};
+
+const COLORS_TO_PAIN_TALISMAN = {
+  whiteblue: 'Progress',
+  blueblack: 'Dominance',
+  blackred: 'Indulgence',
+  redgreen: 'Impulse',
+  greenwhite: 'Unity',
+  whiteblack: 'Hierarchy',
+  bluered: 'Creativity ',
+  blackgreen: 'Resilience',
+  redwhite: 'Conviction',
+  greenblue: 'Curiosity',
+};
+
 function getManaRamp(colorArr, qtdColor = colorArr.length){
   if (qtdColor == 5) {
     return `//Mana Ramp: 10
@@ -40,3 +69,5 @@ function getManaRamp(colorArr, qtdColor = colorArr.length){
   }
   return '';
 }
+
+module.exports = getManaRamp;

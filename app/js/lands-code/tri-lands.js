@@ -1,3 +1,16 @@
+const COLORS_TO_TRI_LAND = {
+  whitebluegreen: 'Seaside Citadel',
+  whiteblueblack: 'Arcane Sanctum',
+  blueblackred: 'Crumbling Necropolis',
+  blackredgreen: 'Savage Lands',
+  whiteredgreen: 'Jungle Shrine',
+  whiteblackgreen: 'Indatha Triome',
+  whitebluered: 'Raugrin Triome',
+  blueblackgreen: 'Zagoth Triome',
+  whiteblackred: 'Savai Triome',
+  blueredgreen: 'Ketria Triome',
+};
+
 function getTriLands(colorArr, qtdColor = colorArr.length) {
   if (qtdColor == 3) {
     color = colorArr.slice(0,3).join('');
@@ -9,3 +22,5 @@ function getTriLands(colorArr, qtdColor = colorArr.length) {
   }
   return '';
 }
+
+module.exports = getTriLands;

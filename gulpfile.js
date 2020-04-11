@@ -3,10 +3,14 @@ const eslint = require('gulp-eslint');
 const useref = require('gulp-useref');
 const browsersync = require('browser-sync').create();
 const fs = require('fs');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+
 
 function js() {
-  return src('app/*.html')
-      .pipe(useref())
+  return browserify('app/js/main.js').bundle()
+      //Pass desired output filename to vinyl-source-stream
+      .pipe(source('bundle.js'))
       .pipe(dest('dist'))
       .pipe(browsersync.reload({ stream: true }));
 }

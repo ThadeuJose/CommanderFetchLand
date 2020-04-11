@@ -7,3 +7,5 @@ function getUtilityLand(colorArr, qtdColor = colorArr.length){
   }
   return resp;
 }
+
+module.exports = getUtilityLand;

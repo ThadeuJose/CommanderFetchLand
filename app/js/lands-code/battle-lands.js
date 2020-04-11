@@ -1,3 +1,19 @@
+const getColorPair = require('../utility-functions').getColorPair;
+const validPair = require('../utility-functions').validPair;
+
+const COLORS_TO_BATTLE_AND_FAST_LAND = {
+  whiteblue: 'Prairie Stream',
+  blueblack: 'Sunken Hollow',
+  blackred: 'Smoldering Marsh',
+  redgreen: 'Cinder Glade',
+  greenwhite: 'Canopy Vista ',
+  whiteblack: 'Concealed Courtyard',
+  bluered: 'Spirebluff Canal',
+  blackgreen: 'Blooming Marsh',
+  redwhite: 'Inspiring Vantage',
+  greenblue: 'Botanical Sanctum',
+};
+
 function getBattleLands(colorArr, qtdColor = colorArr.length) {
   // #TODO Separar battle from fast
   // Because 4 color only need fast
@@ -15,3 +31,5 @@ function getBattleLands(colorArr, qtdColor = colorArr.length) {
   }
   return resp;
 }
+
+module.exports = getBattleLands;

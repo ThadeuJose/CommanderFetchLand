@@ -1,3 +1,19 @@
+const getColorPair = require('../utility-functions').getColorPair;
+const validPair = require('../utility-functions').validPair;
+
+const COLORS_TO_PAIN_LAND = {
+  whiteblue: 'Adarkar Wastes',
+  blueblack: 'Underground River',
+  blackred: 'Sulfurous Springs',
+  redgreen: 'Karplusan Forest',
+  greenwhite: 'Brushland ',
+  whiteblack: 'Caves of Koilos',
+  bluered: 'Shivan Reef',
+  blackgreen: 'Llanowar Wastes',
+  redwhite: 'Battlefield Forge',
+  greenblue: 'Yavimaya Coast',
+};
+
 function getPainLands(colorArr, qtdColor = colorArr.length) {
   let resp = '';
   if (qtdColor == 4 || qtdColor == 3) {
@@ -12,3 +28,5 @@ function getPainLands(colorArr, qtdColor = colorArr.length) {
   }
   return resp;
 }
+
+module.exports = getPainLands;
