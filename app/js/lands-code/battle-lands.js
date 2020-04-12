@@ -15,8 +15,6 @@ const COLORS_TO_BATTLE_AND_FAST_LAND = {
 };
 
 function getBattleLands(colorArr, qtdColor = colorArr.length) {
-  // #TODO Separar battle from fast
-  // Because 4 color only need fast
   let resp = '';
   if (qtdColor === 4) {
     resp += '//Battle or Fast Land: 2\n';

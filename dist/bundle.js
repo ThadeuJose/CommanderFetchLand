@@ -1,4 +1,7 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const validPair = require('../utility-functions').validPair;
+
+
 const COLORS_TO_CANOPY_LAND = {
   greenwhite: 'Horizon Canopy',
   whiteblack: 'Silent Clearing',
@@ -10,24 +13,66 @@ const COLORS_TO_CANOPY_LAND = {
 
 function getAnyColorLand(colorArr) {
   let qtdColor = colorArr.length;
-  if (qtdColor === 5) {
-    return '//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n1 Reflecting Pool\n';
+
+  if (qtdColor === 1) {
+    return '';
   }
+
   if (qtdColor === 4) {
-    return '//Any Color Lands: 3\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n';
+    return '//Any Color Lands: 3\n1 Command Tower\n1 Mana Confluence\n'+getCanopyLand(colorArr);
   }
-  if (qtdColor === 3) {
-    return '//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n1 Reflecting Pool\n';
+
+  return '//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 Reflecting Pool\n'+getCanopyLand(colorArr);
+
+}
+
+function getCanopyLand(colorArr) {
+  let qtdColor = colorArr.length;
+  let cityOfBrass = '1 City of Brass\n';
+
+  if(qtdColor === 2) {
+      let colorPair = validPair(colorArr[0], colorArr[1]);
+      if(colorPair in COLORS_TO_CANOPY_LAND) {
+        return `1 ${COLORS_TO_CANOPY_LAND[colorPair]}\n`;
+      }
   }
-  if (qtdColor === 2) {
-    return '//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 City of Brass\n1 Reflecting Pool\n';
+
+  if(qtdColor === 3) {
+      let validPairs = [validPair(colorArr[0], colorArr[1]), validPair(colorArr[0], colorArr[2]),
+                        validPair(colorArr[1], colorArr[2]),
+                      ];
+      for (var pair of validPairs) {
+        if(pair in COLORS_TO_CANOPY_LAND) {
+          return `1 ${COLORS_TO_CANOPY_LAND[pair]}\n`;
+        }
+      }
   }
-  return '';
+
+  if(qtdColor === 4) {
+      let validPairs = [validPair(colorArr[0], colorArr[1]), validPair(colorArr[0], colorArr[2]),validPair(colorArr[0], colorArr[3]),
+                        validPair(colorArr[1], colorArr[2]),validPair(colorArr[1], colorArr[3]),
+                        validPair(colorArr[2], colorArr[3]),
+                      ];
+      for (var pair of validPairs) {
+        if(pair in COLORS_TO_CANOPY_LAND) {
+          return `1 ${COLORS_TO_CANOPY_LAND[pair]}\n`;
+        }
+      }
+
+
+  }
+
+  if(qtdColor === 5){
+    return '1 Waterlogged Grove\n'; // The Simic one (Green Blue);
+  }
+
+  return cityOfBrass;
+
 }
 
 module.exports = getAnyColorLand;
 
-},{}],2:[function(require,module,exports){
+},{"../utility-functions":18}],2:[function(require,module,exports){
 const COLOR_TO_BASIC_LAND = {
   white: 'Plains',
   blue: 'Island',
@@ -92,8 +137,6 @@ const COLORS_TO_BATTLE_AND_FAST_LAND = {
 };
 
 function getBattleLands(colorArr, qtdColor = colorArr.length) {
-  // #TODO Separar battle from fast
-  // Because 4 color only need fast
   let resp = '';
   if (qtdColor === 4) {
     resp += '//Battle or Fast Land: 2\n';
@@ -743,6 +786,7 @@ function printLands(colorArr, qtdColor = colorArr.length) {
 }
 
 },{"./lands-code/any-color-lands":1,"./lands-code/basic-lands":2,"./lands-code/battle-lands":3,"./lands-code/bounce-lands":4,"./lands-code/check-lands":5,"./lands-code/dual-lands":6,"./lands-code/fetch-lands":7,"./lands-code/filter-lands":8,"./lands-code/man-lands":9,"./lands-code/mana-ramp":10,"./lands-code/other-lands":11,"./lands-code/pain-lands":12,"./lands-code/scry-lands":13,"./lands-code/shock-lands":14,"./lands-code/tri-lands":15,"./lands-code/utility-lands":16}],18:[function(require,module,exports){
+//Return pair of valid color
 function validPair(color1, color2) {
   const allColorPairValid = ['whiteblue', 'blueblack', 'blackred', 'redgreen',
                             'greenwhite', 'whiteblack', 'bluered',
@@ -753,7 +797,7 @@ function validPair(color1, color2) {
     return `${color2}${color1}`;
   }
 }
-
+//Return all valid pair of 3 or 4 color 
 function getColorPair(colorArr) {
   const qtdColor = colorArr.length;
   if (qtdColor === 3) {
