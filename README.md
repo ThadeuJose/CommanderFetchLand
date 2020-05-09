@@ -1,11 +1,9 @@
 # CommanderFetchLand
 A personal project to write a template of a mana base to a Commander Deck
 # Next Step
-
+Refactor the visual
 
 # TODO
-
-Tirar o node_modules para commitar em paz
 
 Put Test in place
 
@@ -25,18 +23,21 @@ FAZER AUTOMATIZED TEST
 
 Terminar o projeto quando as features abaixo estiverem prontos
 
-	Colocar a lista de monocolor do manabase ratios
-			Make the 1 color mana base with is Manabase Ratios
+	Refactor the visual
+		Put a breadcrumb when the user copy the list
+		Put a option to show without title
+		Change the title to 'Commander Fetchlands'
+		Change the options to show in the color like Red toogle with color of Red
+		Remove the color
+		Project before with Figma
+
 
 	Split battle from fast because 4 color only need fast
-
-
-
 
 	Testar as lands para ver se estão vindo corretas
 	Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands
 
-	Colocar o novo feature de trocar entre lands detalhadas(tipo scrylands mostrado) pelo modo que eu copio agora(Lands,basic,utility) sendo que o modo atual deve vir como default
+	Colocar o novo feature de trocar entre lands detalhadas(tipo scrylands mostrado) pelo modo que eu copio agora(Lands,basic,utility) sendo que o modo atual deve vir como default e contar as lands
 
 		So tirar a primeira e a ultima linha
 
@@ -57,10 +58,10 @@ Terminar o projeto quando as features abaixo estiverem prontos
 			GetColorPair
 
 	Atualizar a parte de mana ramp e utility lands
+		Colocar a parte de 1 manabase ramp
 
-	Colocar um warningzinho quando o usuario tiver copiado a lista
-		Refactor the visual
-			Project before with Figma
+
+
 
 	How to make a lint for segmented js files
 
@@ -68,6 +69,7 @@ Terminar o projeto quando as features abaixo estiverem prontos
 
 # Technical Debt
 	Upgrade the logic of Basic Land, Fetch
+	Separate Mocha test in files
 
 # Source
 	Source for the new copy command

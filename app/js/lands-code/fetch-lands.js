@@ -82,6 +82,8 @@ function getFetchLands(colorArr) {
     for(land of landSet){
       resp += `1 ${land}\n`;
     }
+  } else if (qtdColor === 1) {
+    return '';
   }
   return resp;
 }

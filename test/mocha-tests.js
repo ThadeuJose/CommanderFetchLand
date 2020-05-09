@@ -2,6 +2,7 @@ const assert = require('assert');
 const getFetchs = require('../app/js/lands-code/fetch-lands');
 const getDuals = require('../app/js/lands-code/dual-lands');
 const getAnyColor = require('../app/js/lands-code/any-color-lands');
+const getBasic = require('../app/js/lands-code/basic-lands');
 
 describe('Fetch Lands', function() {
   it('should return the right lands', function() {
@@ -92,6 +93,23 @@ describe('Any Color Lands', function() {
     let colorArrTest = ['white', 'blue', 'black', 'red', 'green'];
 
     assert.equal(getAnyColor(colorArrTest),expectedText);
+  });
+
+});
+
+describe('Basic Lands', function() {
+  it('4 Color - Green Black Blue White', function() {
+    let expectedText = '//Basic Lands: 9\n3 Forest\n3 Swamp\n2 Island\n1 Plains\n';
+    let colorArrTest = ['white', 'blue', 'black', 'green'];
+
+    assert.equal(getBasic(colorArrTest),expectedText);
+  });
+
+  it('4 Color - Green Black Blue Red', function() {
+    let expectedText = '//Basic Lands: 9\n3 Forest\n3 Swamp\n2 Island\n1 Mountain\n';
+    let colorArrTest = ['blue', 'black', 'red', 'green'];
+
+    assert.equal(getBasic(colorArrTest),expectedText);
   });
 
 });

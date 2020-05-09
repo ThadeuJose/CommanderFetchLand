@@ -52,7 +52,7 @@ window.onChecked = function (obj) {
       colorArr.push(c);
     }
   }
-  if (colorArr.length >= 2) {
+  if (colorArr.length >= 1) {
     printLands(colorArr);
   } else {
     document.getElementById('output').value = 'Click to copy the lands';
