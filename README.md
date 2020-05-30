@@ -3,7 +3,7 @@ A personal project to write a template of a mana base to a Commander Deck
 Use Font Awesome
 
 # Next Step
-	Colocar o novo feature de trocar entre lands detalhadas
+Split battle from fast because 4 color only need fast
 
 # TODO
 https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-264e19514d0a
@@ -69,9 +69,13 @@ Terminar o projeto quando as features abaixo estiverem prontos
 
 	Proxima Versão 	
 
+		Colocar checklands em vez de scrylands no other lands
+
+		Ajeitar a ordem de basic no 4 color 
+
 		Tirar do text area e colocar em divs
 
-		Mudar o design para ficar mais horizontal
+		Mudar o design para ficar mais horizontal		
 
 		Testar as lands para ver se estão vindo corretas
 			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands

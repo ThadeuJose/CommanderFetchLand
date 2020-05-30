@@ -3,6 +3,7 @@ const getFetchs = require('../app/js/lands-code/fetch-lands');
 const getDuals = require('../app/js/lands-code/dual-lands');
 const getAnyColor = require('../app/js/lands-code/any-color-lands');
 const getBasic = require('../app/js/lands-code/basic-lands');
+const getBattle = require('../app/js/lands-code/battle-and-fast-lands');
 
 describe('Fetch Lands', function() {
   it('should return the right lands', function() {
@@ -98,18 +99,36 @@ describe('Any Color Lands', function() {
 });
 
 describe('Basic Lands', function() {
-  it('4 Color - Green Black Blue White', function() {
+  it('4 Color - White Blue Black Green', function() {
     let expectedText = '//Basic Lands: 9\n3 Forest\n3 Swamp\n2 Island\n1 Plains\n';
     let colorArrTest = ['white', 'blue', 'black', 'green'];
 
     assert.equal(getBasic(colorArrTest),expectedText);
   });
 
-  it('4 Color - Green Black Blue Red', function() {
+  it('4 Color - Blue Black Red Green', function() {
     let expectedText = '//Basic Lands: 9\n3 Forest\n3 Swamp\n2 Island\n1 Mountain\n';
     let colorArrTest = ['blue', 'black', 'red', 'green'];
 
     assert.equal(getBasic(colorArrTest),expectedText);
+  });
+
+});
+
+
+describe('Battle Lands', function() {
+  it('4 Color - White Black Red Green', function() {
+    let expectedText = '//Fast Land: 2\n1 Smoldering Marsh\n1 Cinder Glade\n';
+    let colorArrTest = ['white', 'black', 'red', 'green'];
+
+    assert.equal(getBattle(colorArrTest),expectedText);
+  });
+
+  it('4 Color - Blue Black Red Green', function() {
+    let expectedText = '//Fast Land: 2\n1 Sunken Hollow\n1 Smoldering Marsh\n';
+    let colorArrTest = ['blue', 'black', 'red', 'green'];
+
+    assert.equal(getBattle(colorArrTest),expectedText);
   });
 
 });

@@ -162,6 +162,14 @@ module.exports = getBasicLands;
 const getColorPair = require('../utility-functions').getColorPair;
 const validPair = require('../utility-functions').validPair;
 
+const COLORS_TO_BATTLE_LAND = {
+  whiteblue: 'Prairie Stream',
+  blueblack: 'Sunken Hollow',
+  blackred: 'Smoldering Marsh',
+  redgreen: 'Cinder Glade',
+  greenwhite: 'Canopy Vista ',
+};
+
 const COLORS_TO_BATTLE_AND_FAST_LAND = {
   whiteblue: 'Prairie Stream',
   blueblack: 'Sunken Hollow',
@@ -178,10 +186,17 @@ const COLORS_TO_BATTLE_AND_FAST_LAND = {
 function getBattleLands(colorArr, qtdColor = colorArr.length) {
   let resp = '';
   if (qtdColor === 4) {
-    resp += '//Battle or Fast Land: 2\n';
-    const colorPairs = getColorPair(colorArr).slice(0, 2);
+    resp += '//Fast Land: 2\n';
+    const colorPairs = getColorPair(colorArr);
+    let quantLand = 0;
     for (var c of colorPairs) {
-      resp += `1 ${COLORS_TO_BATTLE_AND_FAST_LAND[c]}\n`;
+      if(COLORS_TO_BATTLE_LAND[c]){
+        resp += `1 ${COLORS_TO_BATTLE_LAND[c]}\n`;
+        quantLand++;
+      }
+      if(quantLand == 2){
+        break;
+      }
     }
   } else if (qtdColor === 2) {
     resp += '//Battle or Fast Land: 1\n';
@@ -739,7 +754,7 @@ const getFilterLands = require('./lands-code/filter-lands');
 const getOtherLands = require('./lands-code/other-lands');
 const getTriLands = require('./lands-code/tri-lands');
 const getScryLands = require('./lands-code/scry-lands');
-const getBattleLands = require('./lands-code/battle-lands');
+const getBattleLands = require('./lands-code/battle-and-fast-lands');
 const getCheckLands = require('./lands-code/check-lands');
 const getBounceLands = require('./lands-code/bounce-lands');
 const getAnyColorLand = require('./lands-code/any-color-lands');
@@ -850,7 +865,7 @@ function showSnackbar() {
   }, 3000);
 }
 
-},{"./lands-code/any-color-lands":1,"./lands-code/basic-lands":2,"./lands-code/battle-lands":3,"./lands-code/bounce-lands":4,"./lands-code/check-lands":5,"./lands-code/dual-lands":6,"./lands-code/fetch-lands":7,"./lands-code/filter-lands":8,"./lands-code/man-lands":9,"./lands-code/mana-ramp":10,"./lands-code/other-lands":11,"./lands-code/pain-lands":12,"./lands-code/scry-lands":13,"./lands-code/shock-lands":14,"./lands-code/tri-lands":15,"./lands-code/utility-lands":16}],18:[function(require,module,exports){
+},{"./lands-code/any-color-lands":1,"./lands-code/basic-lands":2,"./lands-code/battle-and-fast-lands":3,"./lands-code/bounce-lands":4,"./lands-code/check-lands":5,"./lands-code/dual-lands":6,"./lands-code/fetch-lands":7,"./lands-code/filter-lands":8,"./lands-code/man-lands":9,"./lands-code/mana-ramp":10,"./lands-code/other-lands":11,"./lands-code/pain-lands":12,"./lands-code/scry-lands":13,"./lands-code/shock-lands":14,"./lands-code/tri-lands":15,"./lands-code/utility-lands":16}],18:[function(require,module,exports){
 //Return pair of valid color
 function validPair(color1, color2) {
   const allColorPairValid = ['whiteblue', 'blueblack', 'blackred', 'redgreen',
