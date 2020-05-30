@@ -17,38 +17,62 @@ body {
     font-size: 2rem;
 }
 
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.output {
+	resize: none;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.header {
+	padding: 2rem 0;
+}
+
+.title {
+	text-align: center;
+}
+
 .input_box {
-  margin: auto;
-  width: 50%;
-  padding: 1rem;
-  text-align: center;
+	padding-right: 2rem;
 }
 
-.input_title{
-  padding-bottom: .9rem;
+.line {
+	padding-bottom: 0.5rem;
 }
 
-.label{
-  padding-right: .9rem;
-  padding-top: 1rem;
+.line--title {
+	padding-bottom: 1.5rem;
+  line-height: 1;
 }
 
-.output_box {
-  margin: auto;
-  width: 50%;
-  padding: 1rem;
+.checkbox_box {
+  padding: 0 2rem;
 }
 
 .output {
   font: inherit;
   cursor: pointer;
   user-select: none;
-  border: 0;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border: 1px solid black;
   resize: none;
   width: 100%;
-  padding: 3rem 3rem 0 3rem;
+  padding-left: 1rem;
+}
+
+.detail {
+  cursor: pointer;
+  user-select: none;
+  background-color: red;
+	display: inline-block;
+	padding: 0 1rem;
+	border-radius: 10%;
+	font-weight: 800;
 }
 
 input[type=checkbox] {
@@ -61,31 +85,30 @@ input[type=checkbox] {
 input[type=checkbox] + label {
   position: relative;
   cursor: pointer;
-  padding-left: 25px;
+  padding-left: 3rem;
+
 }
 
 input[type=checkbox] + label::before {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 0;
-  bottom: 0;
+  left: 0rem;
+  bottom: 0rem;
+  width: 2rem;
+  height: 2rem;
   background-color: lightgray;
   vertical-align: bottom;
   border-radius: 100%;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 input[type=checkbox]:checked + label::after {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
-  left: 0;
-  bottom: 0;
+  left: 0rem;
+  bottom: 0rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 100%;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #white:checked + label::after {
@@ -106,4 +129,50 @@ input[type=checkbox]:checked + label::after {
 
 #red:checked + label::after {
   background-color: rgb(211,32,42);
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+ visibility: hidden; /* Hidden by default. Visible on click */
+ min-width: 250px; /* Set a default minimum width */
+ margin-left: -125px; /* Divide value of min-width by 2 */
+ background-color: #333; /* Black background color */
+ color: #fff; /* White text color */
+ text-align: center; /* Centered text */
+ border-radius: 2px; /* Rounded borders */
+ padding: 16px; /* Padding */
+ position: fixed; /* Sit on top of the screen */
+ z-index: 1; /* Add a z-index if needed */
+ left: 50%; /* Center the snackbar */
+ bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+ visibility: visible; /* Show the snackbar */
+ /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+ However, delay the fade out process for 2.5 seconds */
+ -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+ animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+ from {bottom: 0; opacity: 0;}
+ to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+ from {bottom: 0; opacity: 0;}
+ to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+ from {bottom: 30px; opacity: 1;}
+ to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+ from {bottom: 30px; opacity: 1;}
+ to {bottom: 0; opacity: 0;}
 }

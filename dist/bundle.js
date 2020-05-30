@@ -746,7 +746,6 @@ const getAnyColorLand = require('./lands-code/any-color-lands');
 const getUtilityLand = require('./lands-code/utility-lands');
 const getManaRamp = require('./lands-code/mana-ramp');
 
-
 document.addEventListener('DOMContentLoaded', function resetView() {
   const inputList = document.getElementsByTagName('input');
   for (let i = 0; i < inputList.length; i += 1) {
@@ -764,6 +763,7 @@ window.copyToClipboard = function (obj) {
   if (copyText.value !== 'Click to copy the lands') {
     navigator.clipboard.writeText(copyText.value);
     console.log("Copied the text: " + copyText.value);
+    showSnackbar();
   }
 }
 
@@ -819,11 +819,35 @@ function printLands(colorArr, qtdColor = colorArr.length) {
     }
   }).join('');
 
-  const qtdRows = resp.split(/\r\n|\r|\n/).length;
-
-  document.getElementById('output').rows = qtdRows;
+  //const qtdRows = resp.split(/\r\n|\r|\n/).length;
+  //document.getElementById('output').rows = qtdRows;
   document.getElementById('output').value = resp;
 
+}
+
+let detail_checked = false;
+
+window.check_icon = function () {
+  detail_checked = !detail_checked;
+  if(detail_checked){
+    document.getElementById('detail').style.backgroundColor = "green";
+  }else{
+    document.getElementById('detail').style.backgroundColor = "red";
+  }
+}
+
+
+function showSnackbar() {
+  // Get the snackbar DIV
+  var snackbar = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  snackbar.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){
+    snackbar.className = snackbar.className.replace("show", "");
+  }, 3000);
 }
 
 },{"./lands-code/any-color-lands":1,"./lands-code/basic-lands":2,"./lands-code/battle-lands":3,"./lands-code/bounce-lands":4,"./lands-code/check-lands":5,"./lands-code/dual-lands":6,"./lands-code/fetch-lands":7,"./lands-code/filter-lands":8,"./lands-code/man-lands":9,"./lands-code/mana-ramp":10,"./lands-code/other-lands":11,"./lands-code/pain-lands":12,"./lands-code/scry-lands":13,"./lands-code/shock-lands":14,"./lands-code/tri-lands":15,"./lands-code/utility-lands":16}],18:[function(require,module,exports){

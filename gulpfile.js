@@ -41,7 +41,7 @@ function browserSync(done) {
 
 function watchFiles() {
   watch(
-    ['app/js/*.js', 'app/js/**/*.js'],
+    ['dist/index.html','dist/css/main.css','app/js/*.js', 'app/js/**/*.js'],
     { events: 'all', ignoreInitial: false },
     js
   );

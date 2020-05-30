@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Magic Fetch Land</title>
+    <title>Commander Fetchlands</title>
     <link rel="stylesheet" href="css/main.css">
     <!-- build:js bundle.js -->
     <script src="js/constants.js" charset="utf-8"></script>
@@ -12,16 +12,21 @@
     <!-- endbuild -->
   </head>
   <body>
-    <div class="input_box">
-      <p class="input_title">Choose 2 or more color</p>
-      <input type="checkbox" name="white" id="white" onchange="onChecked(this)"><label class = 'label' for="white">White</label>
-      <input type="checkbox" name="blue"  id="blue"  onchange="onChecked(this)"><label class = 'label' for="blue">Blue</label>
-      <input type="checkbox" name="black" id="black" onchange="onChecked(this)"><label class = 'label' for="black">Black</label>
-      <input type="checkbox" name="red"   id="red"   onchange="onChecked(this)"><label class = 'label' for="red">Red</label>
-      <input type="checkbox" name="green" id="green" onchange="onChecked(this)"><label class = 'label' for="green">Green</label>
+    <header><h1 class="title">Commander Fetchlands</h1></header>
+    <div class="master_box">
+      <div class="input_box">
+        <p class="input_title">Choose 1 or more color:</p>
+        <input type="checkbox" id="white" name="white" onchange="onChecked(this)"><label class='label' for="white">White</label>
+        <input type="checkbox" id="blue" name="blue" onchange="onChecked(this)"><label class='label' for="blue">Blue</label>
+        <input type="checkbox" id="black" name="black" onchange="onChecked(this)"><label class='label' for="black">Black</label>
+        <input type="checkbox" id="red" name="red" onchange="onChecked(this)"><label class='label' for="red">Red</label>
+        <input type="checkbox" id="green" name="green" onchange="onChecked(this)"><label class='label' for="green">Green</label>
+        <span class="detail">Details</span>
+      </div>
+      <div class="output_box">
+        <textarea class='output' id="output" name="output" cols="40" rows="1" class="output" wrap="off" onclick="copyToClipboard(event)" readonly></textarea>
+      </div>
     </div>
-    <div class="output_box " title="Click here to copy">
-      <textarea name="output" class='output'id="output" placeholder="Click to copy the lands" cols="40" rows="1" class="output" wrap="off" readonly onclick="copyToClipboard(event)"></textarea>
-    </div>
+
   </body>
 </html>

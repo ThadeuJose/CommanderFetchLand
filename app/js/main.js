@@ -15,7 +15,6 @@ const getAnyColorLand = require('./lands-code/any-color-lands');
 const getUtilityLand = require('./lands-code/utility-lands');
 const getManaRamp = require('./lands-code/mana-ramp');
 
-
 document.addEventListener('DOMContentLoaded', function resetView() {
   const inputList = document.getElementsByTagName('input');
   for (let i = 0; i < inputList.length; i += 1) {
@@ -33,6 +32,7 @@ window.copyToClipboard = function (obj) {
   if (copyText.value !== 'Click to copy the lands') {
     navigator.clipboard.writeText(copyText.value);
     console.log("Copied the text: " + copyText.value);
+    showSnackbar();
   }
 }
 
@@ -88,9 +88,33 @@ function printLands(colorArr, qtdColor = colorArr.length) {
     }
   }).join('');
 
-  const qtdRows = resp.split(/\r\n|\r|\n/).length;
-
-  document.getElementById('output').rows = qtdRows;
+  //const qtdRows = resp.split(/\r\n|\r|\n/).length;
+  //document.getElementById('output').rows = qtdRows;
   document.getElementById('output').value = resp;
 
+}
+
+let detail_checked = false;
+
+window.check_icon = function () {
+  detail_checked = !detail_checked;
+  if(detail_checked){
+    document.getElementById('detail').style.backgroundColor = "green";
+  }else{
+    document.getElementById('detail').style.backgroundColor = "red";
+  }
+}
+
+
+function showSnackbar() {
+  // Get the snackbar DIV
+  var snackbar = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  snackbar.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){
+    snackbar.className = snackbar.className.replace("show", "");
+  }, 3000);
 }
