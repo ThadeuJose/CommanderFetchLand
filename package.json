@@ -7,7 +7,7 @@
     "start": "gulp",
     "lint": "gulp lint",
     "browserify": "gulp browserify_task",
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "repository": {
     "type": "git",

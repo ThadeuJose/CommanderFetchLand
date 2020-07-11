@@ -1,3 +1,5 @@
+const LandsRepository = require('../LandsRepository');
+
 const getColorPair = require('../utility-functions').getColorPair;
 const validPair = require('../utility-functions').validPair;
 
@@ -22,4 +24,14 @@ function getBounceLands(colorArr, qtdColor = colorArr.length) {
   return '';
 }
 
-module.exports = getBounceLands;
+function getBounceLands_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Bounce Land');
+  if (colorManager.qtdColor() === 2) {
+    let colorPair = colorManager.getAllColorPairs()[0]
+    landsRepository.addLand(1,COLORS_TO_BOUNCE_LAND[colorPair]);
+  }
+  return landsRepository;
+}
+
+module.exports.getBounceLands = getBounceLands;
+module.exports.getBounceLands_NEW = getBounceLands_NEW;

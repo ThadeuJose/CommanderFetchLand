@@ -1,5 +1,4 @@
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
+const LandsRepository = require('../LandsRepository');
 
 const COLORS_TO_MAN_LAND = {
   whiteblue: 'Celestial Colonnade',
@@ -22,4 +21,14 @@ function getManLands(colorArr, qtdColor = colorArr.length) {
   return '';
 }
 
-module.exports = getManLands;
+function getManLands_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Man Land');
+  if (colorManager.qtdColor() === 2) {
+    let colorPair = colorManager.getAllColorPairs()[0]
+    landsRepository.addLand(1,COLORS_TO_MAN_LAND[colorPair]);
+  }
+  return landsRepository;
+}
+
+module.exports.getManLands = getManLands;
+module.exports.getManLands_NEW = getManLands_NEW;

@@ -1,3 +1,5 @@
+const LandsRepository = require('../LandsRepository');
+
 const getColorPair = require('../utility-functions').getColorPair;
 const validPair = require('../utility-functions').validPair;
 
@@ -22,4 +24,14 @@ function getCheckLands(colorArr, qtdColor = colorArr.length) {
   return '';
 }
 
-module.exports = getCheckLands;
+function getCheckLands_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Check Land');
+  if (colorManager.qtdColor() === 2) {
+    let colorPair = colorManager.getAllColorPairs()[0]
+    landsRepository.addLand(1,COLORS_TO_CHECK_LAND[colorPair]);
+  }
+  return landsRepository;
+}
+
+module.exports.getCheckLands = getCheckLands;
+module.exports.getCheckLands_NEW = getCheckLands_NEW;

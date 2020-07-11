@@ -1,3 +1,5 @@
+const LandsRepository = require('../LandsRepository');
+
 const getColorPair = require('../utility-functions').getColorPair;
 const validPair = require('../utility-functions').validPair;
 
@@ -6,7 +8,7 @@ const COLORS_TO_PAIN_LAND = {
   blueblack: 'Underground River',
   blackred: 'Sulfurous Springs',
   redgreen: 'Karplusan Forest',
-  greenwhite: 'Brushland ',
+  greenwhite: 'Brushland',
   whiteblack: 'Caves of Koilos',
   bluered: 'Shivan Reef',
   blackgreen: 'Llanowar Wastes',
@@ -29,4 +31,27 @@ function getPainLands(colorArr, qtdColor = colorArr.length) {
   return resp;
 }
 
-module.exports = getPainLands;
+
+function getPainLands_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Pain Land');
+  if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
+    const maxQtdLands = 3;
+    const colorPairs = colorManager.getAllColorPairs();
+    for (var colorPair of colorPairs) {
+      if(COLORS_TO_PAIN_LAND[colorPair]){
+        landsRepository.addLand(1, COLORS_TO_PAIN_LAND[colorPair]);
+      }
+      if(landsRepository.qtdLands() == maxQtdLands){
+        return landsRepository;
+      }
+    }
+  }
+  if (colorManager.qtdColor() === 2) {
+    let colorPair = colorManager.getAllColorPairs()[0]
+    landsRepository.addLand(1,COLORS_TO_PAIN_LAND[colorPair]);
+  }
+  return landsRepository;
+}
+
+module.exports.getPainLands = getPainLands;
+module.exports.getPainLands_NEW = getPainLands_NEW;

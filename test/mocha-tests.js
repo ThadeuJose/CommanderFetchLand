@@ -1,9 +1,9 @@
-const assert = require('assert');
-const getFetchs = require('../app/js/lands-code/fetch-lands');
-const getDuals = require('../app/js/lands-code/dual-lands');
-const getAnyColor = require('../app/js/lands-code/any-color-lands');
-const getBasic = require('../app/js/lands-code/basic-lands');
-const getBattle = require('../app/js/lands-code/battle-and-fast-lands');
+const getFetchs = require('../app/js/lands-code/fetch-lands').getFetchLands;
+const getDuals = require('../app/js/lands-code/dual-lands').getDualLands;
+const getAnyColor = require('../app/js/lands-code/any-color-lands').getAnyColorLand;
+const getBasic = require('../app/js/lands-code/basic-lands').getBasicLands;
+const getBattle = require('../app/js/lands-code/battle-and-fast-lands').getBattleLands;
+
 
 describe('Fetch Lands', function() {
   it('should return the right lands', function() {
@@ -130,5 +130,4 @@ describe('Battle Lands', function() {
 
     assert.equal(getBattle(colorArrTest),expectedText);
   });
-
 });

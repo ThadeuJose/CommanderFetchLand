@@ -1,3 +1,5 @@
+const LandsRepository = require('../LandsRepository');
+
 const getColorPair = require('../utility-functions').getColorPair;
 const validPair = require('../utility-functions').validPair;
 
@@ -43,4 +45,31 @@ function getFilterLands(colorArr, qtdColor = colorArr.length) {
   return resp;
 }
 
-module.exports = getFilterLands;
+function getFilterLands_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Filter Land');
+  if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
+    const maxQtdLands = 3;
+    const colorPairs = colorManager.getAllColorPairs();
+    for (var colorPair of colorPairs) {
+      if(COLORS_TO_FILTER_LAND_1[colorPair]){
+        landsRepository.addLand(1, COLORS_TO_FILTER_LAND_1[colorPair]);
+      }
+      if(landsRepository.qtdLands() == maxQtdLands){
+        break;
+      }
+    }
+  }
+  if (colorManager.qtdColor() === 2) {
+    const colorPair = colorManager.getAllColorPairs()[0];
+    landsRepository.addLand(1, COLORS_TO_FILTER_LAND_1[colorPair]);
+    if (colorPair in COLORS_TO_FILTER_LAND_2){
+      landsRepository.addLand(1, COLORS_TO_FILTER_LAND_2[colorPair]);
+    } else {
+      landsRepository.addLand(1, 'Unknown Shores');
+    }
+  }
+  return landsRepository;
+}
+
+module.exports.getFilterLands = getFilterLands;
+module.exports.getFilterLands_NEW = getFilterLands_NEW;

@@ -1,5 +1,8 @@
+const LandsRepository = require('../LandsRepository');
+
 const getColorPair = require('../utility-functions').getColorPair;
 const validPair = require('../utility-functions').validPair;
+
 
 const COLORS_TO_SCRY_LAND = {
   whiteblue: 'Temple of Enlightenment',
@@ -22,4 +25,14 @@ function getScryLands(colorArr, qtdColor = colorArr.length) {
   return '';
 }
 
-module.exports = getScryLands;
+function getScryLands_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Scry Land');
+  if (colorManager.qtdColor() == 2) {
+    let colorPair = colorManager.getAllColorPairs()[0]
+    landsRepository.addLand(1,COLORS_TO_SCRY_LAND[colorPair]);
+  }
+  return landsRepository;
+}
+
+module.exports.getScryLands = getScryLands;
+module.exports.getScryLands_NEW = getScryLands_NEW;

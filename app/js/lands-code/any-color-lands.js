@@ -1,5 +1,6 @@
-const validPair = require('../utility-functions').validPair;
+const LandsRepository = require('../LandsRepository');
 
+const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_CANOPY_LAND = {
   greenwhite: 'Horizon Canopy',
@@ -69,4 +70,45 @@ function getCanopyLand(colorArr) {
 
 }
 
-module.exports = getAnyColorLand;
+
+
+function getAnyColorLand_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Any Color Lands');
+  if (colorManager.qtdColor() === 1) {
+    return landsRepository;
+  }
+
+  if (colorManager.qtdColor() === 4) {
+    landsRepository.addLand(1, 'Command Tower');
+    landsRepository.addLand(1, 'Mana Confluence');
+    landsRepository.addLand(1, getCanopyLand_NEW(colorManager));
+    return landsRepository;
+  } else {
+    landsRepository.addLand(1, 'Command Tower');
+    landsRepository.addLand(1, 'Mana Confluence');
+    landsRepository.addLand(1, 'Reflecting Pool');
+    landsRepository.addLand(1, getCanopyLand_NEW(colorManager));
+    return landsRepository;
+  }
+}
+
+function getCanopyLand_NEW(colorManager) {
+  const cityOfBrass = 'City of Brass';
+
+  if(colorManager.qtdColor() === 5) {
+    return COLORS_TO_CANOPY_LAND['greenblue'];
+  }
+
+  let validPairs = colorManager.getAllColorPairs();
+  for (var pair of validPairs) {
+    if(pair in COLORS_TO_CANOPY_LAND) {
+      return COLORS_TO_CANOPY_LAND[pair];
+    }
+  }
+
+  return cityOfBrass;
+
+}
+
+module.exports.getAnyColorLand = getAnyColorLand;
+module.exports.getAnyColorLand_NEW = getAnyColorLand_NEW;

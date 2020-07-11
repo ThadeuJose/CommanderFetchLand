@@ -1,3 +1,5 @@
+const LandsRepository = require('../LandsRepository');
+
 const getColorPair = require('../utility-functions').getColorPair;
 const validPair = require('../utility-functions').validPair;
 
@@ -7,7 +9,7 @@ const COLORS_TO_SHOCK_LAND = {
   whiteblue: 'Hallowed Fountain',
   blueblack: 'Watery Grave',
   blackred: 'Blood Crypt',
-  redgreen: 'Stomping Ground ',
+  redgreen: 'Stomping Ground',
   greenwhite: 'Temple Garden',
   whiteblack: 'Godless Shrine',
   bluered: 'Steam Vents',
@@ -45,4 +47,17 @@ function getShockLands(colorArr) {
   return resp;
 }
 
-module.exports = getShockLands;
+
+function getShockLands_NEW(colorManager) {
+  let landsRepository = new LandsRepository('Shock Land');
+  if (colorManager.qtdColor() > 1 && colorManager.qtdColor() < 5) {
+    for (pair of colorManager.getAllColorPairs()) {
+      landsRepository.addLand(1, COLORS_TO_SHOCK_LAND[pair]);
+    }
+  }
+  return landsRepository;
+
+}
+
+module.exports.getShockLands = getShockLands;
+module.exports.getShockLands_NEW = getShockLands_NEW;

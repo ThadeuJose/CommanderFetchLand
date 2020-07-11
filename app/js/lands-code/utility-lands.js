@@ -1,3 +1,5 @@
+const LandsRepository = require('../LandsRepository');
+
 function getUtilityLand(colorArr, qtdColor = colorArr.length){
   let resp = '';
   if(qtdColor == 4){
@@ -8,4 +10,16 @@ function getUtilityLand(colorArr, qtdColor = colorArr.length){
   return resp;
 }
 
-module.exports = getUtilityLand;
+function getUtilityLand_NEW(colorManager){
+  let landsRepository = new LandsRepository('Utility Land');
+  if(colorManager.qtdColor() === 4){
+    landsRepository.addLand(4, 'UTILITY LAND');
+  }
+  if (colorManager.qtdColor() === 3 || colorManager.qtdColor() === 2 ) {
+    landsRepository.addLand(6, 'UTILITY LAND');
+  }
+  return landsRepository;
+}
+
+module.exports.getUtilityLand = getUtilityLand;
+module.exports.getUtilityLand_NEW = getUtilityLand_NEW;

@@ -9,7 +9,7 @@ function validPair(color1, color2) {
     return `${color2}${color1}`;
   }
 }
-//Return all valid pair of 3 or 4 color 
+//Return all valid pair of 3 or 4 color
 function getColorPair(colorArr) {
   const qtdColor = colorArr.length;
   if (qtdColor === 3) {
