@@ -2,7 +2,7 @@
 A personal project to write a template of a mana base to a Commander Deck
 
 # Next Step
-Colocar o novo feature de trocar entre lands detalhadas(tipo scrylands mostrado) pelo modo que eu copio agora(Lands,basic,utility) sendo que o modo atual deve vir como default e contar as lands
+Technical Debt
 
 # TODO
 
@@ -12,12 +12,6 @@ https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-2
 
 The fast way to concat a string is with string template: `${res}${data[i]}`
 
-Arrow Head Anti Pattern
-	http://wiki.c2.com/?ArrowAntiPattern
-	https://blog.codinghorror.com/flattening-arrow-code/
-Se usar o lint
-	eslint specifying global
-
 FAZER AUTOMATIZED TEST
        Fez uma modificação no código faz um test
        Branch Refactor
@@ -25,37 +19,32 @@ FAZER AUTOMATIZED TEST
 
 browserify scope is local. Go nuts
 
--------+++----+++++++++-----+
+---
 
-Terminar o projeto quando as features abaixo estiverem prontos
-
-	Ver o numero de lands certinho 	- 2 e 4 estão erradas				
-
-	Atualizar a parte de mana ramp e utility lands
-		Colocar a parte de 1 manabase ramp
-		Signets and Talisman
-		Sol Ring
-		Cultivate
-		Grow from the Ashes
-		Kodama's Reach
-		Commander's Sphere
-		Smothering Tithe
-		Wayfarer's Bauble
-		Sakura-Tribe Elder
-		Land Tax
-		Farseek
-		Rampant Growth
-		Nature's Lore
-		Three Visits
-		Untamed Wilds
-
-	test and put the code in the master branch
-
-
-
-	Proxima Versão 	
+Terminar o projeto quando as features abaixo estiverem prontas:
 
 		Colocar o index.html do app sendo exportado para o dist
+
+		Instalar o eslint do atom e go nuts
+			How to make a lint for segmented js files
+			eslint specifying global
+
+		Atualizar a parte de mana ramp e utility lands
+			Signets and Talisman
+			Sol Ring
+			Cultivate
+			Grow from the Ashes
+			Kodama's Reach
+			Commander's Sphere
+			Smothering Tithe
+			Wayfarer's Bauble
+			Sakura-Tribe Elder
+			Land Tax
+			Farseek
+			Rampant Growth
+			Nature's Lore
+			Three Visits
+			Untamed Wilds
 
 		Colocar os exports direito
 			sem require(...).function
@@ -121,15 +110,15 @@ Terminar o projeto quando as features abaixo estiverem prontos
 		Testar as lands para ver se estão vindo corretas
 			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands
 
-		How to make a lint for segmented js files
 
-		After the lint, test and put the code in the master branch
+
+		Test and put the code in the master branch
 
 # Technical Debt
 	Update the technical debt
 	Fix two index.html
 	Upgrade the logic of Basic Land, Fetch
-	Separate Mocha test in files
+
 
 # Source
 	Source for the new copy command
