@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Commander Fetchlands</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- build:js bundle.js -->
+    <script src="js/constants.js" charset="utf-8"></script>
+    <script src="js/utility-functions.js" charset="utf-8"></script>
+    <script src="js/lands-code/fetch-lands.js" charset="utf-8"></script>
+    <script src="js/main.js" charset="utf-8"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <header><h1 class="title">Commander Fetchlands</h1></header>
+    <div class="master_box">
+      <div class="input_box">
+        <p class="input_title">Choose 1 or more color:</p>
+        <input type="checkbox" id="white" name="white" onchange="onChecked(this)"><label class='label' for="white">White</label>
+        <input type="checkbox" id="blue" name="blue" onchange="onChecked(this)"><label class='label' for="blue">Blue</label>
+        <input type="checkbox" id="black" name="black" onchange="onChecked(this)"><label class='label' for="black">Black</label>
+        <input type="checkbox" id="red" name="red" onchange="onChecked(this)"><label class='label' for="red">Red</label>
+        <input type="checkbox" id="green" name="green" onchange="onChecked(this)"><label class='label' for="green">Green</label>
+        <span class="detail">Details</span>
+      </div>
+      <div class="output_box">
+        <textarea class='output' id="output" name="output" cols="40" rows="1" class="output" wrap="off" onclick="copyToClipboard(event)" readonly></textarea>
+      </div>
+    </div>
+
+  </body>
+</html>
