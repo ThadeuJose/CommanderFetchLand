@@ -16,10 +16,11 @@ const COLORS_TO_DUAL_LAND = {
 function getDualLands(colorManager) {
   if (colorManager.qtdColor() > 1) {
     let landsRepository = new LandsRepository('Dual Land');
+    const MAX_QTD_LANDS = 3
     if (colorManager.qtdColor() === 4) {
       for (pair of colorManager.getAllColorPairs()) {
         landsRepository.addLand(1, COLORS_TO_DUAL_LAND[pair]);
-        if (landsRepository.qtdLands() === 4) {
+        if (landsRepository.qtdLands() === MAX_QTD_LANDS) {
           return landsRepository;
         }
       }

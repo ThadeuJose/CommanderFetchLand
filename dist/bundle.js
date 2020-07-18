@@ -366,13 +366,13 @@ function getBattleLands(colorManager) {
   let landsRepository = new LandsRepository('Battle or Fast Land');
   if (colorManager.qtdColor() === 4) {
     landsRepository = new LandsRepository('Fast Land');
-    const maxQtdLands = 2;
+    const MAX_QTD_LANDS = 2;
     const colorPairs = colorManager.getAllColorPairs();
     for (var colorPair of colorPairs) {
       if(COLORS_TO_BATTLE_LAND[colorPair]){
         landsRepository.addLand(1, COLORS_TO_BATTLE_LAND[colorPair]);
       }
-      if(landsRepository.qtdLands() == maxQtdLands){
+      if(landsRepository.qtdLands() == MAX_QTD_LANDS){
         return landsRepository;
       }
     }
@@ -461,10 +461,11 @@ const COLORS_TO_DUAL_LAND = {
 function getDualLands(colorManager) {
   if (colorManager.qtdColor() > 1) {
     let landsRepository = new LandsRepository('Dual Land');
+    const MAX_QTD_LANDS = 3
     if (colorManager.qtdColor() === 4) {
       for (pair of colorManager.getAllColorPairs()) {
         landsRepository.addLand(1, COLORS_TO_DUAL_LAND[pair]);
-        if (landsRepository.qtdLands() === 4) {
+        if (landsRepository.qtdLands() === MAX_QTD_LANDS) {
           return landsRepository;
         }
       }
@@ -733,14 +734,14 @@ const COLORS_TO_PAIN_LAND = {
 
 function getPainLands(colorManager) {
   let landsRepository = new LandsRepository('Pain Land');
-  if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
-    const maxQtdLands = 3;
+  if (colorManager.qtdColor() === 3) {
+    const MAX_QTD_LANDS = 3;
     const colorPairs = colorManager.getAllColorPairs();
     for (var colorPair of colorPairs) {
       if(COLORS_TO_PAIN_LAND[colorPair]){
         landsRepository.addLand(1, COLORS_TO_PAIN_LAND[colorPair]);
       }
-      if(landsRepository.qtdLands() == maxQtdLands){
+      if(landsRepository.qtdLands() == MAX_QTD_LANDS){
         return landsRepository;
       }
     }

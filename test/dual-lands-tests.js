@@ -40,7 +40,6 @@ describe('Dual Lands', function() {
     expected.addLand(1, 'Volcanic Island');
     expected.addLand(1, 'Tropical Island');
     expected.addLand(1, 'Underground Sea');
-    expected.addLand(1, 'Badlands');
 
     assert.deepEqual(getDual(colorManagerTest),expected);
   });

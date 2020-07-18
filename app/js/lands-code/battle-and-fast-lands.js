@@ -25,13 +25,13 @@ function getBattleLands(colorManager) {
   let landsRepository = new LandsRepository('Battle or Fast Land');
   if (colorManager.qtdColor() === 4) {
     landsRepository = new LandsRepository('Fast Land');
-    const maxQtdLands = 2;
+    const MAX_QTD_LANDS = 2;
     const colorPairs = colorManager.getAllColorPairs();
     for (var colorPair of colorPairs) {
       if(COLORS_TO_BATTLE_LAND[colorPair]){
         landsRepository.addLand(1, COLORS_TO_BATTLE_LAND[colorPair]);
       }
-      if(landsRepository.qtdLands() == maxQtdLands){
+      if(landsRepository.qtdLands() == MAX_QTD_LANDS){
         return landsRepository;
       }
     }

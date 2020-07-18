@@ -15,14 +15,14 @@ const COLORS_TO_PAIN_LAND = {
 
 function getPainLands(colorManager) {
   let landsRepository = new LandsRepository('Pain Land');
-  if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
-    const maxQtdLands = 3;
+  if (colorManager.qtdColor() === 3) {
+    const MAX_QTD_LANDS = 3;
     const colorPairs = colorManager.getAllColorPairs();
     for (var colorPair of colorPairs) {
       if(COLORS_TO_PAIN_LAND[colorPair]){
         landsRepository.addLand(1, COLORS_TO_PAIN_LAND[colorPair]);
       }
-      if(landsRepository.qtdLands() == maxQtdLands){
+      if(landsRepository.qtdLands() == MAX_QTD_LANDS){
         return landsRepository;
       }
     }
