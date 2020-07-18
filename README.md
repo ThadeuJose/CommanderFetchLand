@@ -5,14 +5,13 @@ A personal project to write a template of a mana base to a Commander Deck
 Colocar o novo feature de trocar entre lands detalhadas(tipo scrylands mostrado) pelo modo que eu copio agora(Lands,basic,utility) sendo que o modo atual deve vir como default e contar as lands
 
 # TODO
+
 https://github.com/airbnb/javascript
 
 https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-264e19514d0a
 
 The fast way to concat a string is with string template: `${res}${data[i]}`
 
-Separar a classe que cria a lista de land da classe que imprime
-Criar um metodo printBasicNoTitle e printBasicTitle que chama printBasic(bFlagTitle)
 Arrow Head Anti Pattern
 	http://wiki.c2.com/?ArrowAntiPattern
 	https://blog.codinghorror.com/flattening-arrow-code/
@@ -30,47 +29,7 @@ browserify scope is local. Go nuts
 
 Terminar o projeto quando as features abaixo estiverem prontos
 
-	Colocar o novo feature de trocar entre lands detalhadas(tipo scrylands mostrado) pelo modo que eu copio agora(Lands,basic,utility) sendo que o modo atual deve vir como default e contar as lands
-
-			Retirar a parte velha
-				utility-functions
-
-			Commitar sem mexer na utility e mana ramp
-
-			Ver o numero de lands certinho 	- Acho que 2,3 e 4 estão erradas
-
-
-			Manter a interface do man land principal getManLand
-				Lentamente criar as classes que imprime
-				O objeto que classe que imprime recebe tipo {name:'ManLand',elements:{Land 1:1,Land 3:2,,...]}
-				Dar um sufixo tipo NEW para os novos metodos e classes que eu criar
-				Colocar tudo com testes
-
-			Separar a classe que cria a lista de land da classe que imprime
-
-			Criar um metodo printBasicNoTitle e printBasicTitle que chama printBasic(bFlagTitle)
-
-			Contar as lands
-
-			Existe duas maneiras de imprimir as lands agora
-				De maneira detalhada que é atual
-				Nova maneira
-					Not Basic Lands
-					Lands
-					Utility Lands
-					Mana Ramp
-
-			TODAS AS FUNÇÕES TEM QUE TER RETURN ''
-
-			Add option of print lands without format:
-				Lands: 3..(All the others lands)
-
-				Basic Lands:
-					3 swamps
-					3 Islands
-
-				Utility Lands
-					Put Strip Mine, Dust Bowl ...
+	Ver o numero de lands certinho 	- 2 e 4 estão erradas				
 
 	Atualizar a parte de mana ramp e utility lands
 		Colocar a parte de 1 manabase ramp
@@ -90,30 +49,16 @@ Terminar o projeto quando as features abaixo estiverem prontos
 		Three Visits
 		Untamed Wilds
 
-
-
-	Testar as lands que tem um algoritmo estranho
-
-	Testar
-		filter land
-			testar unknown shores
-			testar 4 cores
-			testar 3 cores
-			testar 2 cores
-		tri-lands
-			Testar
-		Pain
-			testar 4 cores
-			testar 3 cores
-			testar 2 cores
-		ManaRamp
-				Só testar depois de refazer
-		Utility Lands
-				Só testar depois de refazer
-
 	test and put the code in the master branch
 
+
+
 	Proxima Versão 	
+
+		Colocar o index.html do app sendo exportado para o dist
+
+		Colocar os exports direito
+			sem require(...).function
 
 		Ver se o nome do arquivo esta correto com airbnb
 			Não está tem que ser igual o nome da função
@@ -122,15 +67,41 @@ Terminar o projeto quando as features abaixo estiverem prontos
 		Decidir se vai ser Lands or Land nos títulos
 
 		Refatorar o test
-			Definir a ordem de color Crescente ou Descrescente
+			Teste - Title
+				Color em Ordem Crescente
+				1 Color
+				2 Color
+				3 Color
+				Resto
+				Capitalize title
+						Is removing correct
+
 			Colocar a parte de lands em uma pasta
-			Test many input combinations using Property-based testing
 			Usar before
 				https://mochajs.org/#hooks
 			Colocar landsRepository e ColorManager no commons.js
+			Um assert por teste
 
+		Testar as lands que tem um algoritmo estranho
 
-
+			Testar
+				any-color-land
+					Testar City of Brass
+				filter land
+					testar unknown shores
+					testar 4 cores
+					testar 3 cores
+					testar 2 cores
+				tri-lands
+					Testar
+				Pain
+					testar 4 cores
+					testar 3 cores
+					testar 2 cores
+				ManaRamp
+						Só testar depois de refazer
+				Utility Lands
+						Só testar depois de refazer
 
 		MVC
 
@@ -140,10 +111,12 @@ Terminar o projeto quando as features abaixo estiverem prontos
 
 		Ajeitar a ordem de basic no 4 color
 
-		Tirar do text area e colocar em divs
-
 		Mudar o design	- Careful to not make a mess
-			This is a very simple page
+			THIS IS A VERY SIMPLE PAGE
+			Colocar as cores bem no canto fixas
+      Colocar o botão de detalhe embaixo sem border radios
+      Colocar o titulo com fundo preto na esquerda e parecido com um banner
+      Colocar a lista em uma parte grande no outro canto
 
 		Testar as lands para ver se estão vindo corretas
 			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands

@@ -1,4 +1,4 @@
-const getShock = require('../app/js/lands-code/shock-lands').getShockLands_NEW;
+const getShock = require('../app/js/lands-code/shock-lands').getShockLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 

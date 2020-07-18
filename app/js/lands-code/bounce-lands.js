@@ -1,8 +1,5 @@
 const LandsRepository = require('../LandsRepository');
 
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
-
 const COLORS_TO_BOUNCE_LAND = {
   whiteblue: 'Azorius Chancery',
   blueblack: 'Dimir Aqueduct',
@@ -16,15 +13,7 @@ const COLORS_TO_BOUNCE_LAND = {
   greenblue: 'Simic Growth Chamber',
 };
 
-function getBounceLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor === 2) {
-    const color = validPair(colorArr[0],colorArr[1]);
-    return `//Bounce Land: 1\n1 ${COLORS_TO_BOUNCE_LAND[color]}\n`;
-  }
-  return '';
-}
-
-function getBounceLands_NEW(colorManager) {
+function getBounceLands(colorManager) {
   let landsRepository = new LandsRepository('Bounce Land');
   if (colorManager.qtdColor() === 2) {
     let colorPair = colorManager.getAllColorPairs()[0]
@@ -34,4 +23,3 @@ function getBounceLands_NEW(colorManager) {
 }
 
 module.exports.getBounceLands = getBounceLands;
-module.exports.getBounceLands_NEW = getBounceLands_NEW;

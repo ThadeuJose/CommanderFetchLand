@@ -44,7 +44,7 @@ describe('Color Manager', function() {
     assert.deepEqual(test,expectedAnswer);
   });
 
-  it('is removing correct', function() {
+  it('Is removing correct', function() {
     let colorManager = new ColorManager();
     colorManager.removeColor('white');
     colorManager.addColor('white');
@@ -57,7 +57,7 @@ describe('Color Manager', function() {
     assert.deepEqual(test,expectedAnswer);
   });
 
-  it('has color', function() {
+  it('Test if method hasColor is correct', function() {
     let colorManager = new ColorManager();
     colorManager.addColor('white');
     colorManager.addColor('red');

@@ -1,8 +1,8 @@
-const getBattle = require('../app/js/lands-code/battle-and-fast-lands').getBattleLands_NEW;
+const getBattle = require('../app/js/lands-code/battle-and-fast-lands').getBattleLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 
-describe('Dual Lands', function() {
+describe('Battle Lands', function() {
   it('2 Color', function() {
     let colorManagerTest = new ColorManager();
     colorManagerTest.addColor('red');

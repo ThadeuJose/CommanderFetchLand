@@ -13,15 +13,8 @@ const COLORS_TO_MAN_LAND = {
   greenblue: 'Lumbering Falls',
 };
 
-function getManLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor == 2) {
-    let color = `${colorArr[0]}${colorArr[1]}`;
-    return `//Man Land: 1\n1 ${COLORS_TO_MAN_LAND[color]}\n`;
-  }
-  return '';
-}
 
-function getManLands_NEW(colorManager) {
+function getManLands(colorManager) {
   let landsRepository = new LandsRepository('Man Land');
   if (colorManager.qtdColor() === 2) {
     let colorPair = colorManager.getAllColorPairs()[0]
@@ -31,4 +24,3 @@ function getManLands_NEW(colorManager) {
 }
 
 module.exports.getManLands = getManLands;
-module.exports.getManLands_NEW = getManLands_NEW;

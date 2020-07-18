@@ -1,4 +1,4 @@
-const getPain = require('../app/js/lands-code/pain-lands').getPainLands_NEW;
+const getPain = require('../app/js/lands-code/pain-lands').getPainLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 
@@ -15,8 +15,5 @@ describe('Pain Lands', function() {
 
     assert.equal(getPain(colorManagerTest).qtdLands(),expected);
   });
-
-
-
 
 });

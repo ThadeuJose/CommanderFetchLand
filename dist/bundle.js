@@ -137,8 +137,6 @@ module.exports =  class LandsRepository {
 },{}],3:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
-const validPair = require('../utility-functions').validPair;
-
 const COLORS_TO_CANOPY_LAND = {
   greenwhite: 'Horizon Canopy',
   whiteblack: 'Silent Clearing',
@@ -148,68 +146,7 @@ const COLORS_TO_CANOPY_LAND = {
   greenblue: 'Waterlogged Grove',
 };
 
-function getAnyColorLand(colorArr) {
-  let qtdColor = colorArr.length;
-
-  if (qtdColor === 1) {
-    return '';
-  }
-
-  if (qtdColor === 4) {
-    return '//Any Color Lands: 3\n1 Command Tower\n1 Mana Confluence\n'+getCanopyLand(colorArr);
-  }
-
-  return '//Any Color Lands: 4\n1 Command Tower\n1 Mana Confluence\n1 Reflecting Pool\n'+getCanopyLand(colorArr);
-
-}
-
-function getCanopyLand(colorArr) {
-  let qtdColor = colorArr.length;
-  let cityOfBrass = '1 City of Brass\n';
-
-  if(qtdColor === 2) {
-      let colorPair = validPair(colorArr[0], colorArr[1]);
-      if(colorPair in COLORS_TO_CANOPY_LAND) {
-        return `1 ${COLORS_TO_CANOPY_LAND[colorPair]}\n`;
-      }
-  }
-
-  if(qtdColor === 3) {
-      let validPairs = [validPair(colorArr[0], colorArr[1]), validPair(colorArr[0], colorArr[2]),
-                        validPair(colorArr[1], colorArr[2]),
-                      ];
-      for (var pair of validPairs) {
-        if(pair in COLORS_TO_CANOPY_LAND) {
-          return `1 ${COLORS_TO_CANOPY_LAND[pair]}\n`;
-        }
-      }
-  }
-
-  if(qtdColor === 4) {
-      let validPairs = [validPair(colorArr[0], colorArr[1]), validPair(colorArr[0], colorArr[2]),validPair(colorArr[0], colorArr[3]),
-                        validPair(colorArr[1], colorArr[2]),validPair(colorArr[1], colorArr[3]),
-                        validPair(colorArr[2], colorArr[3]),
-                      ];
-      for (var pair of validPairs) {
-        if(pair in COLORS_TO_CANOPY_LAND) {
-          return `1 ${COLORS_TO_CANOPY_LAND[pair]}\n`;
-        }
-      }
-
-
-  }
-
-  if(qtdColor === 5){
-    return '1 Waterlogged Grove\n'; // The Simic one (Green Blue);
-  }
-
-  return cityOfBrass;
-
-}
-
-
-
-function getAnyColorLand_NEW(colorManager) {
+function getAnyColorLand(colorManager) {
   let landsRepository = new LandsRepository('Any Color Lands');
   if (colorManager.qtdColor() === 1) {
     return landsRepository;
@@ -218,18 +155,18 @@ function getAnyColorLand_NEW(colorManager) {
   if (colorManager.qtdColor() === 4) {
     landsRepository.addLand(1, 'Command Tower');
     landsRepository.addLand(1, 'Mana Confluence');
-    landsRepository.addLand(1, getCanopyLand_NEW(colorManager));
+    landsRepository.addLand(1, getCanopyLand(colorManager));
     return landsRepository;
   } else {
     landsRepository.addLand(1, 'Command Tower');
     landsRepository.addLand(1, 'Mana Confluence');
     landsRepository.addLand(1, 'Reflecting Pool');
-    landsRepository.addLand(1, getCanopyLand_NEW(colorManager));
+    landsRepository.addLand(1, getCanopyLand(colorManager));
     return landsRepository;
   }
 }
 
-function getCanopyLand_NEW(colorManager) {
+function getCanopyLand(colorManager) {
   const cityOfBrass = 'City of Brass';
 
   if(colorManager.qtdColor() === 5) {
@@ -248,9 +185,8 @@ function getCanopyLand_NEW(colorManager) {
 }
 
 module.exports.getAnyColorLand = getAnyColorLand;
-module.exports.getAnyColorLand_NEW = getAnyColorLand_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],4:[function(require,module,exports){
+},{"../LandsRepository":2}],4:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
 const COLOR_TO_BASIC_LAND = {
@@ -261,86 +197,7 @@ const COLOR_TO_BASIC_LAND = {
   green: 'Forest',
 };
 
-function getBasicLands(colorArr) {
-  const qtdColor = colorArr.length;
-  if (qtdColor === 5) {
-    let resp = '//Basic Lands: 14\n';
-    const qtdArr = [3, 3, 3, 2, 3];
-    for (const [index, color]  of colorArr.entries()) {
-      let land = COLOR_TO_BASIC_LAND[color];
-      resp += `${qtdArr[index]} ${land}\n`;
-    }
-    return resp;
-  }
-
-  if (qtdColor === 4) {
-    return '//Basic Lands: 9\n' + fourColorBase(colorArr);
-  }
-
-  if (qtdColor === 3) {
-    let resp = '//Basic Lands: 9\n';
-    for (color of colorArr) {
-      const land = COLOR_TO_BASIC_LAND[color];
-      resp += `3 ${land}\n`;
-    }
-    return resp;
-  }
-
-  if (qtdColor === 2) {
-    let resp = '//Basic Lands: 14\n';
-    for (color of colorArr) {
-      const land = COLOR_TO_BASIC_LAND[color];
-      resp += `7 ${land}\n`;
-    }
-    return resp;
-  }
-
-  if (qtdColor === 1) {
-    return monoBase(colorArr);
-  }
-
-}
-
-function fourColorBase(colorArr){
-  let resp = ''
-  const qtdArr = [3, 3, 2, 1];
-  let priorityQueue = ['green', 'black', 'blue', 'white', 'red']
-  let intersection = priorityQueue.filter(function(n) {
-                                    return colorArr.indexOf(n) !== -1;
-                                  });
-  for (const [index, color]  of intersection.entries()) {
-      const land = COLOR_TO_BASIC_LAND[color];
-      resp += `${qtdArr[index]} ${land}\n`;
-  }
-
-  return resp;
-}
-
-function monoBase(colorArr) {
-  let resp = '//Lands: 38\n';
-  resp += "1 Arch of Orazca\n1 Dust Bowl\n1 Strip Mine\n1 Scavenger Grounds\n1 Myriad Landscape\n1 Rogue's Passage\n1 Nykthos, Shrine to Nyx\n";
-  if(colorArr == 'white'){
-    resp +='1 Sea Gate Wreckage\n1 Mikokoro, Center of the Sea\n1 Endless Sands\n1 Terrain Generator\n1 Emeria, the Sky Ruin\n1 Secluded Steppe\n1 Desert of the True \n1 Drifting Meadow\n1 Mistveil Plains\n1 Castle Ardenvale\n20 Plains';
-  }
-  if(colorArr == 'blue'){
-    resp +='1 Reliquary Tower\n1 Blast Zone\n1 Winding Canyons\n1 Mirrorpool\n1 Lonely Sandbar\n1 Desert of The Mindful\n1 Remote Isle\n1 Castle Vantress\n1 Mystic Sanctuary\n23 Island';
-  }
-  if(colorArr == 'black'){
-    resp +="1 Vesuva\n1 Thespian's Stage\n1 Blast Zone\n1 Westvale Abbey\n1 Phyrexian Tower\n1 Bojuka Bog\n1 Cabal Stronghold\n1 Cabal Coffers\n1 Castle Lochtwain\n23 Swamp";
-  }
-  if(colorArr == 'red'){
-    resp +="1 Sea Gate Wreckage\n1 Mikokoro, Center of the Sea\n1 Blast Zone\n1 Kheer Keep\n1 Thespian's Stage\n1 Vesuva\n1 Desert of The Fervent\n1 Forgotten Cave\n1 Smoldering Crater\n1 Castle Embereth\n1 Valakut, the Molten Pinnacle\n1 Flamekin Village\n1 Shinka, the Bloodsoaked Keep\n21 Mountain";
-  }
-  if(colorArr == 'green'){
-    resp +='1 Blighted Woodland\n1 Endless Sands\n1 Miren, the Moaning Well\n1 Winding Canyons\n1 Treetop Village\n1 Desert of the Indomitable\n1 Slippery Karst\n1 Tranquil Thicket\n1 Castle Garenbrig\n1 Oran-rief, the Vastwood\n21 Forest	';
-  }
-  return resp;
-}
-
-
-
-
-function getBasicLands_NEW(colorManager) {
+function getBasicLands(colorManager) {
   if (colorManager.qtdColor() === 5) {
     let landsRepository = new LandsRepository('Basic Lands');
     const qtdArr = [3, 3, 3, 2, 3];
@@ -381,7 +238,7 @@ function getBasicLands_NEW(colorManager) {
   if (colorManager.qtdColor() === 2) {
     let landsRepository = new LandsRepository('Basic Lands');
     for (color of colorManager.colorArr) {
-      const qtd = 7
+      const qtd = 6
       const land = COLOR_TO_BASIC_LAND[color];
       landsRepository.addLand(qtd,land);
     }
@@ -389,12 +246,12 @@ function getBasicLands_NEW(colorManager) {
   }
 
   if (colorManager.qtdColor() === 1) {
-    return monoBase_NEW(colorManager.colorArr[0]);
+    return monoBase(colorManager.colorArr[0]);
   }
 
 }
 
-function monoBase_NEW(color) {
+function monoBase(color) {
   let landsRepository = new LandsRepository('Lands');
   landsRepository.addLand(1,'Arch of Orazca');
   landsRepository.addLand(1,'Dust Bowl');
@@ -480,13 +337,9 @@ function monoBase_NEW(color) {
 
 
 module.exports.getBasicLands = getBasicLands;
-module.exports.getBasicLands_NEW = getBasicLands_NEW;
 
 },{"../LandsRepository":2}],5:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_BATTLE_LAND = {
   whiteblue: 'Prairie Stream',
@@ -509,30 +362,7 @@ const COLORS_TO_BATTLE_AND_FAST_LAND = {
   greenblue: 'Botanical Sanctum',
 };
 
-function getBattleLands(colorArr, qtdColor = colorArr.length) {
-  let resp = '';
-  if (qtdColor === 4) {
-    resp += '//Fast Land: 2\n';
-    const colorPairs = getColorPair(colorArr);
-    let quantLand = 0;
-    for (var c of colorPairs) {
-      if(COLORS_TO_BATTLE_LAND[c]){
-        resp += `1 ${COLORS_TO_BATTLE_LAND[c]}\n`;
-        quantLand++;
-      }
-      if(quantLand == 2){
-        break;
-      }
-    }
-  } else if (qtdColor === 2) {
-    resp += '//Battle or Fast Land: 1\n';
-    const color = validPair(colorArr[0],colorArr[1]);
-    resp += `1 ${COLORS_TO_BATTLE_AND_FAST_LAND[color]}\n`;
-  }
-  return resp;
-}
-
-function getBattleLands_NEW(colorManager) {
+function getBattleLands(colorManager) {
   let landsRepository = new LandsRepository('Battle or Fast Land');
   if (colorManager.qtdColor() === 4) {
     landsRepository = new LandsRepository('Fast Land');
@@ -557,13 +387,9 @@ function getBattleLands_NEW(colorManager) {
 }
 
 module.exports.getBattleLands = getBattleLands;
-module.exports.getBattleLands_NEW = getBattleLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],6:[function(require,module,exports){
+},{"../LandsRepository":2}],6:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_BOUNCE_LAND = {
   whiteblue: 'Azorius Chancery',
@@ -578,15 +404,7 @@ const COLORS_TO_BOUNCE_LAND = {
   greenblue: 'Simic Growth Chamber',
 };
 
-function getBounceLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor === 2) {
-    const color = validPair(colorArr[0],colorArr[1]);
-    return `//Bounce Land: 1\n1 ${COLORS_TO_BOUNCE_LAND[color]}\n`;
-  }
-  return '';
-}
-
-function getBounceLands_NEW(colorManager) {
+function getBounceLands(colorManager) {
   let landsRepository = new LandsRepository('Bounce Land');
   if (colorManager.qtdColor() === 2) {
     let colorPair = colorManager.getAllColorPairs()[0]
@@ -596,13 +414,9 @@ function getBounceLands_NEW(colorManager) {
 }
 
 module.exports.getBounceLands = getBounceLands;
-module.exports.getBounceLands_NEW = getBounceLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],7:[function(require,module,exports){
+},{"../LandsRepository":2}],7:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_CHECK_LAND = {
   whiteblue: 'Glacial Fortress',
@@ -617,15 +431,7 @@ const COLORS_TO_CHECK_LAND = {
   greenblue: 'Hinterland Harbor',
 };
 
-function getCheckLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor === 2) {
-    const color = validPair(colorArr[0],colorArr[1]);
-    return `//Check Land: 1\n1 ${COLORS_TO_CHECK_LAND[color]}\n`;
-  }
-  return '';
-}
-
-function getCheckLands_NEW(colorManager) {
+function getCheckLands(colorManager) {
   let landsRepository = new LandsRepository('Check Land');
   if (colorManager.qtdColor() === 2) {
     let colorPair = colorManager.getAllColorPairs()[0]
@@ -635,12 +441,8 @@ function getCheckLands_NEW(colorManager) {
 }
 
 module.exports.getCheckLands = getCheckLands;
-module.exports.getCheckLands_NEW = getCheckLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],8:[function(require,module,exports){
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
-
+},{"../LandsRepository":2}],8:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
 const COLORS_TO_DUAL_LAND = {
@@ -656,44 +458,7 @@ const COLORS_TO_DUAL_LAND = {
   greenblue: 'Tropical Island',
 };
 
-function getDuals(colorArr) {
-  let qtdColor = colorArr.length;
-  if (qtdColor == 5) {
-    let resp ='//Dual Land: 10\n';
-    for(land of Object.values(COLORS_TO_DUAL_LAND)){
-      resp+= `1 ${land}\n`
-    }
-    return resp;
-  }
-  if (qtdColor == 4) {
-    let resp ='//Dual Land: 4\n';
-    let landSet = new Set()
-    let colorPairs = getColorPair(colorArr);
-    for (cp of colorPairs) {
-      landSet.add(COLORS_TO_DUAL_LAND[cp])
-    }
-    for(e of landSet){
-      resp+= `1 ${e}\n`;
-    }
-    return resp;
-  }
-  if (qtdColor == 3) {
-    let resp = '//Dual Land: 3\n'
-    let colorPairs = getColorPair(colorArr);
-    for (cp of colorPairs) {
-      resp+= `1 ${COLORS_TO_DUAL_LAND[cp]}\n`;
-    }
-    return resp;
-  }
-  if (qtdColor == 2) {
-    let color = validPair(colorArr[0],colorArr[1]);
-    return `//Dual Land: 1\n1 ${COLORS_TO_DUAL_LAND[color]}\n`;
-  }
-}
-
-
-
-function getDualLands_NEW(colorManager) {
+function getDualLands(colorManager) {
   if (colorManager.qtdColor() > 1) {
     let landsRepository = new LandsRepository('Dual Land');
     if (colorManager.qtdColor() === 4) {
@@ -713,39 +478,10 @@ function getDualLands_NEW(colorManager) {
 
 }
 
-module.exports.getDualLands = getDuals;
-module.exports.getDualLands_NEW = getDualLands_NEW;
+module.exports.getDualLands = getDualLands;
 
-},{"../LandsRepository":2,"../utility-functions":20}],9:[function(require,module,exports){
+},{"../LandsRepository":2}],9:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-function validPair(color1, color2) {
-  const allColorPairValid = ['whiteblue', 'blueblack', 'blackred', 'redgreen',
-                            'greenwhite', 'whiteblack', 'bluered',
-                            'blackgreen', 'redwhite', 'greenblue'];
-  if (allColorPairValid.includes(`${color1}${color2}`)) {
-    return `${color1}${color2}`;
-  } else {
-    return `${color2}${color1}`;
-  }
-}
-
-function getColorPair(colorArr) {
-  const qtdColor = colorArr.length;
-  if (qtdColor === 3) {
-    return [`${validPair(colorArr[0], colorArr[1])}`,
-            `${validPair(colorArr[1], colorArr[2])}`,
-            `${validPair(colorArr[2], colorArr[0])}`];
-  }
-  if (qtdColor === 4) {
-    return [`${validPair(colorArr[0], colorArr[1])}`,
-            `${validPair(colorArr[1], colorArr[2])}`,
-            `${validPair(colorArr[2], colorArr[3])}`,
-            `${validPair(colorArr[3], colorArr[0])}`];
-  }
-}
-
-const ORDER_COLOR = ['white', 'blue', 'black', 'red', 'green'];
 
 const COLORS_TO_FETCH_LAND = {
   whiteblue: 'Flooded Strand',
@@ -760,58 +496,7 @@ const COLORS_TO_FETCH_LAND = {
   greenblue: 'Misty Rainforest',
 };
 
-function getFetchLands(colorArr) {
-  const qtdColor = colorArr.length;
-
-  let resp = '//Fetch Land: ';
-  if (qtdColor === 5) {
-    resp += '10\n';
-    for (c of Object.keys(COLORS_TO_FETCH_LAND)) {
-      resp += `1 ${COLORS_TO_FETCH_LAND[c]}\n`;
-    }
-    return resp
-  }
-  if (qtdColor === 4) {
-    resp += '6\n';
-    let excludedColorPair = ORDER_COLOR.filter(value => !colorArr.includes(value));
-    for (colorPair of Object.keys(COLORS_TO_FETCH_LAND)) {
-      if(!colorPair.includes(excludedColorPair)) {
-        resp += `1 ${COLORS_TO_FETCH_LAND[colorPair]}\n`;
-      }
-    }
-    return resp;
-  } else if (qtdColor === 3) {
-    resp += '3\n';
-    let landSet = new Set();
-    let colorPairs = getColorPair(colorArr);
-    for (cp of colorPairs) {
-      landSet.add(COLORS_TO_FETCH_LAND[cp]);
-    }
-    for (land of landSet){
-      resp += `1 ${land}\n`;
-    }
-  }else if (qtdColor === 2) {
-    resp += '7\n';
-    let landSet = new Set();
-    for (color of colorArr) {
-      for (colorPair of Object.keys(COLORS_TO_FETCH_LAND)){
-        if (colorPair.includes(color)) {
-            landSet.add(COLORS_TO_FETCH_LAND[colorPair]);
-        }
-      }
-    }
-    for(land of landSet){
-      resp += `1 ${land}\n`;
-    }
-  } else if (qtdColor === 1) {
-    return '';
-  }
-  return resp;
-}
-
-
-
-function getFetchLands_NEW(colorManager) {
+function getFetchLands(colorManager) {
   if (colorManager.qtdColor() === 5) {
     let landsRepository = new LandsRepository('Fetch Land');
     for (land of Object.values(COLORS_TO_FETCH_LAND)) {
@@ -851,13 +536,9 @@ function getFetchLands_NEW(colorManager) {
 }
 
 module.exports.getFetchLands = getFetchLands;
-module.exports.getFetchLands_NEW = getFetchLands_NEW;
 
 },{"../LandsRepository":2}],10:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_FILTER_LAND_1 = {
   whiteblue: 'Mystic Gate',
@@ -880,28 +561,7 @@ const COLORS_TO_FILTER_LAND_2 = {
   greenwhite: 'Sungrass Prairie',
 };
 
-function getFilterLands(colorArr, qtdColor = colorArr.length) {
-  let resp = '';
-  if (qtdColor == 4 || qtdColor == 3) {
-    resp +='//Filter Land: 3\n';
-    let colorPairs = getColorPair(colorArr).slice(0,3);
-    for (var c of colorPairs) {
-      resp += `1 ${COLORS_TO_FILTER_LAND_1[c]}\n`;
-    }
-  }else if (qtdColor == 2) {
-    resp+='//Filter Land: 2\n';
-    let colors = validPair(colorArr[0],colorArr[1]);
-    resp+=  `1 ${COLORS_TO_FILTER_LAND_1[colors]}\n`;
-    if (colors in COLORS_TO_FILTER_LAND_2){
-      resp+= `1 ${COLORS_TO_FILTER_LAND_2[colors]}\n`;
-    }else {
-      resp+= '1 Unknown Shores\n'
-    }
-  }
-  return resp;
-}
-
-function getFilterLands_NEW(colorManager) {
+function getFilterLands(colorManager) {
   let landsRepository = new LandsRepository('Filter Land');
   if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
     const maxQtdLands = 3;
@@ -928,9 +588,8 @@ function getFilterLands_NEW(colorManager) {
 }
 
 module.exports.getFilterLands = getFilterLands;
-module.exports.getFilterLands_NEW = getFilterLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],11:[function(require,module,exports){
+},{"../LandsRepository":2}],11:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
 const COLORS_TO_MAN_LAND = {
@@ -946,15 +605,8 @@ const COLORS_TO_MAN_LAND = {
   greenblue: 'Lumbering Falls',
 };
 
-function getManLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor == 2) {
-    let color = `${colorArr[0]}${colorArr[1]}`;
-    return `//Man Land: 1\n1 ${COLORS_TO_MAN_LAND[color]}\n`;
-  }
-  return '';
-}
 
-function getManLands_NEW(colorManager) {
+function getManLands(colorManager) {
   let landsRepository = new LandsRepository('Man Land');
   if (colorManager.qtdColor() === 2) {
     let colorPair = colorManager.getAllColorPairs()[0]
@@ -964,13 +616,9 @@ function getManLands_NEW(colorManager) {
 }
 
 module.exports.getManLands = getManLands;
-module.exports.getManLands_NEW = getManLands_NEW;
 
 },{"../LandsRepository":2}],12:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_GUILD = {
   whiteblue: 'Azorius',
@@ -998,51 +646,8 @@ const COLORS_TO_PAIN_TALISMAN = {
   greenblue: 'Curiosity',
 };
 
-function getManaRamp(colorArr, qtdColor = colorArr.length){
-  if (qtdColor == 5) {
-    return `//Mana Ramp: 10
-1 Sol Ring
-1 Chromatic Lantern
-1 Spectral Searchlight
-1 Vessel of Endless Rest
-1 Coalition Relic
-1 Fellwar Stone
-1 Mana Geode
-1 Manalith
-1 Commander's Sphere
-1 Darksteel Ingot\n`;
-  }else if (qtdColor == 4 || qtdColor == 3) {
-    let colorPairs = getColorPair(colorArr);
-    return `//Mana Ramp: 10
-1 Sol Ring
-1 Chromatic Lantern
-1 ${COLORS_TO_GUILD[colorPairs[0]]} Locket
-1 ${COLORS_TO_GUILD[colorPairs[1]]} Locket
-1 ${COLORS_TO_GUILD[colorPairs[2]]} Locket
-1 Fellwar Stone
-1 Mana Geode
-1 Manalith
-1 Commander's Sphere
-1 Darksteel Ingot\n`;
-  }else if (qtdColor == 2) {
-    let colorPair = validPair(colorArr[0],colorArr[1]);
-    return `//Mana Ramp: 10
-1 ${COLORS_TO_GUILD[colorPair]} Signet
-1 ${COLORS_TO_GUILD[colorPair]} Keyrune
-1 ${COLORS_TO_GUILD[colorPair]} Cluestone
-1 ${COLORS_TO_GUILD[colorPair]} Locket
-1 Talisman of ${COLORS_TO_PAIN_TALISMAN[colorPair]}
-1 Commander's Sphere
-1 Darksteel Ingot
-1 Chromatic Lantern
-1 Gilded Lotus
-1 Sol Ring\n`;
-  }
-  return '';
-}
 
-
-function getManaRamp_NEW(colorManager){
+function getManaRamp(colorManager){
   let landsRepository = new LandsRepository('Mana Ramp');
   landsRepository.addLand(1, 'Sol Ring');
   landsRepository.addLand(1, 'Chromatic Lantern');
@@ -1080,13 +685,9 @@ function getManaRamp_NEW(colorManager){
 }
 
 module.exports.getManaRamp = getManaRamp;
-module.exports.getManaRamp_NEW = getManaRamp_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],13:[function(require,module,exports){
+},{"../LandsRepository":2}],13:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_SCRY_LAND = {
   whiteblue: 'Temple of Enlightenment',
@@ -1101,19 +702,7 @@ const COLORS_TO_SCRY_LAND = {
   greenblue: 'Temple of Mystery',
 };
 
-function getOtherLands(colorArr, qtdColor = colorArr.length) {
-  let resp = '';
-  if (qtdColor == 3) {
-    resp += '//Other Lands: 3 (Scry lands)\n';
-    let colorPairs = getColorPair(colorArr).slice(0,3);
-    for (var color of colorPairs) {
-      resp += `1 ${COLORS_TO_SCRY_LAND[color]}\n`;
-    }
-  }
-  return resp;
-}
-
-function getOtherLands_NEW(colorManager) {
+function getOtherLands(colorManager) {
   let landsRepository = new LandsRepository('Other Lands(Scry lands)');
   if (colorManager.qtdColor() == 3) {
     let colorPairs = colorManager.getAllColorPairs();
@@ -1125,13 +714,9 @@ function getOtherLands_NEW(colorManager) {
 }
 
 module.exports.getOtherLands = getOtherLands;
-module.exports.getOtherLands_NEW = getOtherLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],14:[function(require,module,exports){
+},{"../LandsRepository":2}],14:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
 
 const COLORS_TO_PAIN_LAND = {
   whiteblue: 'Adarkar Wastes',
@@ -1146,23 +731,7 @@ const COLORS_TO_PAIN_LAND = {
   greenblue: 'Yavimaya Coast',
 };
 
-function getPainLands(colorArr, qtdColor = colorArr.length) {
-  let resp = '';
-  if (qtdColor == 4 || qtdColor == 3) {
-    resp = '//Pain Land: 3\n';
-    let colorPairs = getColorPair(colorArr).slice(0,3);
-    for (var c of colorPairs) {
-      resp+= `1 ${COLORS_TO_PAIN_LAND[c]}\n`;
-    }
-  }else if (qtdColor == 2) {
-    let color = validPair(colorArr[0],colorArr[1]);
-    resp = `//Pain Land: 1\n1 ${COLORS_TO_PAIN_LAND[color]}\n`
-  }
-  return resp;
-}
-
-
-function getPainLands_NEW(colorManager) {
+function getPainLands(colorManager) {
   let landsRepository = new LandsRepository('Pain Land');
   if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
     const maxQtdLands = 3;
@@ -1184,14 +753,9 @@ function getPainLands_NEW(colorManager) {
 }
 
 module.exports.getPainLands = getPainLands;
-module.exports.getPainLands_NEW = getPainLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],15:[function(require,module,exports){
+},{"../LandsRepository":2}],15:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
-
 
 const COLORS_TO_SCRY_LAND = {
   whiteblue: 'Temple of Enlightenment',
@@ -1206,15 +770,7 @@ const COLORS_TO_SCRY_LAND = {
   greenblue: 'Temple of Mystery',
 };
 
-function getScryLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor == 2) {
-    let color = validPair(colorArr[0],colorArr[1]);
-    return `//Scry Land: 1\n1 ${COLORS_TO_SCRY_LAND[color]}\n`;
-  }
-  return '';
-}
-
-function getScryLands_NEW(colorManager) {
+function getScryLands(colorManager) {
   let landsRepository = new LandsRepository('Scry Land');
   if (colorManager.qtdColor() == 2) {
     let colorPair = colorManager.getAllColorPairs()[0]
@@ -1224,15 +780,9 @@ function getScryLands_NEW(colorManager) {
 }
 
 module.exports.getScryLands = getScryLands;
-module.exports.getScryLands_NEW = getScryLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],16:[function(require,module,exports){
+},{"../LandsRepository":2}],16:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
-
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
-
-const ORDER_COLOR = ['white', 'blue', 'black', 'red', 'green'];
 
 const COLORS_TO_SHOCK_LAND = {
   whiteblue: 'Hallowed Fountain',
@@ -1247,37 +797,7 @@ const COLORS_TO_SHOCK_LAND = {
   greenblue: 'Breeding Pool',
 };
 
-function getShockLands(colorArr) {
-  let qtdColor = colorArr.length;
-  let resp = '';
-  if (qtdColor == 4) {
-    resp+='//Shock Land: 6\n'
-    let result = ORDER_COLOR.filter(value => !colorArr.includes(value))
-    for(c of Object.keys(COLORS_TO_SHOCK_LAND)){
-      if(!c.includes(result)){
-        resp+= `1 ${COLORS_TO_SHOCK_LAND[c]}\n`
-      }
-    }
-  }else if (qtdColor == 3) {
-    resp+='//Shock Land: 3\n'
-    let landSet = new Set()
-    let colorPairs = getColorPair(colorArr);
-    for (cp of colorPairs) {
-      landSet.add(COLORS_TO_SHOCK_LAND[cp])
-    }
-    for(e of landSet){
-      resp+= `1 ${e}\n`;
-    }
-  }else if (qtdColor == 2) {
-    resp+='//Shock Land: 1\n'
-    let colorPair = validPair(colorArr[0],colorArr[1]);
-    resp += `1 ${COLORS_TO_SHOCK_LAND[colorPair]}\n`
-  }
-  return resp;
-}
-
-
-function getShockLands_NEW(colorManager) {
+function getShockLands(colorManager) {
   let landsRepository = new LandsRepository('Shock Land');
   if (colorManager.qtdColor() > 1 && colorManager.qtdColor() < 5) {
     for (pair of colorManager.getAllColorPairs()) {
@@ -1289,9 +809,8 @@ function getShockLands_NEW(colorManager) {
 }
 
 module.exports.getShockLands = getShockLands;
-module.exports.getShockLands_NEW = getShockLands_NEW;
 
-},{"../LandsRepository":2,"../utility-functions":20}],17:[function(require,module,exports){
+},{"../LandsRepository":2}],17:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
 const COLORS_TO_TRI_LAND = {
@@ -1307,19 +826,7 @@ const COLORS_TO_TRI_LAND = {
   blueredgreen: 'Ketria Triome',
 };
 
-function getTriLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor == 3) {
-    color = colorArr.slice(0,3).join('');
-    return `//Tri Land: 1\n1 ${COLORS_TO_TRI_LAND[color]}\n`
-  }else if (qtdColor == 4) {
-    color_1 = colorArr.slice(0,3).join('');
-    color_2 = colorArr.slice(1,4).join('');
-    return `//Tri Land: 2\n1 ${COLORS_TO_TRI_LAND[color_1]}\n1 ${COLORS_TO_TRI_LAND[color_2]}\n`
-  }
-  return '';
-}
-
-function getTriLands_NEW(colorManager) {
+function getTriLands(colorManager) {
   let landsRepository = new LandsRepository('Tri Land');
   let colorArr = colorManager.colorArr;
   if (colorManager.qtdColor() === 3) {
@@ -1336,69 +843,43 @@ function getTriLands_NEW(colorManager) {
 }
 
 module.exports.getTriLands = getTriLands;
-module.exports.getTriLands_NEW = getTriLands_NEW;
 
 },{"../LandsRepository":2}],18:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
-function getUtilityLand(colorArr, qtdColor = colorArr.length){
-  let resp = '';
-  if(qtdColor == 4){
-    resp = '//Utility Land or Mono Color: 4\n4 [UTILITY LAND]\n'
-  } else if (qtdColor == 3 || qtdColor == 2 ) {
-    resp = '//Utility Land or Mono Color: 6\n6 [UTILITY LAND]\n'
-  }
-  return resp;
-}
-
-function getUtilityLand_NEW(colorManager){
+function getUtilityLand(colorManager){
   let landsRepository = new LandsRepository('Utility Land');
   if(colorManager.qtdColor() === 4){
     landsRepository.addLand(4, 'UTILITY LAND');
   }
-  if (colorManager.qtdColor() === 3 || colorManager.qtdColor() === 2 ) {
+  if (colorManager.qtdColor() === 3) {
     landsRepository.addLand(6, 'UTILITY LAND');
+  }
+  if (colorManager.qtdColor() === 2) {
+    landsRepository.addLand(5, 'UTILITY LAND');
   }
   return landsRepository;
 }
 
 module.exports.getUtilityLand = getUtilityLand;
-module.exports.getUtilityLand_NEW = getUtilityLand_NEW;
 
 },{"../LandsRepository":2}],19:[function(require,module,exports){
-const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
-const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
-const getDuals = require('./lands-code/dual-lands').getDualLands;;
-const getShockLands = require('./lands-code/shock-lands').getShockLands;
-const getPainLands = require('./lands-code/pain-lands').getPainLands;
-const getManLands = require('./lands-code/man-lands').getManLands;
-const getFilterLands = require('./lands-code/filter-lands').getFilterLands;
-const getOtherLands = require('./lands-code/other-lands').getOtherLands;
-const getTriLands = require('./lands-code/tri-lands').getTriLands;
-const getScryLands = require('./lands-code/scry-lands').getScryLands;
-const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
-const getCheckLands = require('./lands-code/check-lands').getCheckLands;
-const getBounceLands = require('./lands-code/bounce-lands').getBounceLands;
 const getAnyColorLand = require('./lands-code/any-color-lands').getAnyColorLand;
-const getUtilityLand = require('./lands-code/utility-lands').getUtilityLand;
+const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
+const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
+const getBounceLands = require('./lands-code/bounce-lands').getBounceLands;
+const getCheckLands = require('./lands-code/check-lands').getCheckLands;
+const getDualLands = require('./lands-code/dual-lands').getDualLands;
+const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
+const getFilterLands = require('./lands-code/filter-lands').getFilterLands;
+const getManLands = require('./lands-code/man-lands').getManLands;
 const getManaRamp = require('./lands-code/mana-ramp').getManaRamp;
-
-const getAnyColorLand_NEW = require('./lands-code/any-color-lands').getAnyColorLand_NEW;
-const getBasicLands_NEW = require('./lands-code/basic-lands').getBasicLands_NEW;
-const getBattleLands_NEW = require('./lands-code/battle-and-fast-lands').getBattleLands_NEW;
-const getBounceLands_NEW = require('./lands-code/bounce-lands').getBounceLands_NEW;
-const getCheckLands_NEW = require('./lands-code/check-lands').getCheckLands_NEW;
-const getDualLands_NEW = require('./lands-code/dual-lands').getDualLands_NEW;
-const getFetchLands_NEW = require('./lands-code/fetch-lands').getFetchLands_NEW;
-const getFilterLands_NEW = require('./lands-code/filter-lands').getFilterLands_NEW;
-const getManLands_NEW = require('./lands-code/man-lands').getManLands_NEW;
-const getManaRamp_NEW = require('./lands-code/mana-ramp').getManaRamp_NEW;
-const getOtherLands_NEW = require('./lands-code/other-lands').getOtherLands_NEW;
-const getPainLands_NEW = require('./lands-code/pain-lands').getPainLands_NEW;
-const getScryLands_NEW = require('./lands-code/scry-lands').getScryLands_NEW;
-const getShockLands_NEW = require('./lands-code/shock-lands').getShockLands_NEW;
-const getTriLands_NEW = require('./lands-code/tri-lands').getTriLands_NEW;
-const getUtilityLand_NEW = require('./lands-code/utility-lands').getUtilityLand_NEW;
+const getOtherLands = require('./lands-code/other-lands').getOtherLands;
+const getPainLands = require('./lands-code/pain-lands').getPainLands;
+const getScryLands = require('./lands-code/scry-lands').getScryLands;
+const getShockLands = require('./lands-code/shock-lands').getShockLands;
+const getTriLands = require('./lands-code/tri-lands').getTriLands;
+const getUtilityLand = require('./lands-code/utility-lands').getUtilityLand;
 
 
 const LandsRepository = require('./LandsRepository');
@@ -1410,7 +891,6 @@ document.addEventListener('DOMContentLoaded', function resetView() {
     inputList[i].checked = false;
   }
   document.getElementById('output').value = 'Click to copy the lands';
-  document.getElementById('output_NEW').value = 'Click to copy the lands';
 });
 
 window.copyToClipboard = function (obj) {
@@ -1437,10 +917,10 @@ window.check_icon = function () {
   detail_checked = !detail_checked;
   if(detail_checked){
     document.getElementById('detail').style.backgroundColor = "green";
-    document.getElementById('output_NEW').value = printLandsWithTitle_NEW(colorManager);
+    document.getElementById('output').value = printLandsWithTitle(colorManager);
   }else{
     document.getElementById('detail').style.backgroundColor = "red";
-    document.getElementById('output_NEW').value = printLandsNoTitle_NEW(colorManager);
+    document.getElementById('output').value = printLandsNoTitle(colorManager);
   }
 }
 
@@ -1457,112 +937,76 @@ window.onChecked = function (obj) {
   colorArr = colorManager.colorArr;
 
   if (colorArr.length >= 1) {
-    printLands(colorArr);
-
-    //NEW
     if (detail_checked) {
-      document.getElementById('output_NEW').value = printLandsWithTitle_NEW(colorManager);
+      document.getElementById('output').value = printLandsWithTitle(colorManager);
     } else {
-      document.getElementById('output_NEW').value = printLandsNoTitle_NEW(colorManager);
+      document.getElementById('output').value = printLandsNoTitle(colorManager);
     }
 
   } else {
     document.getElementById('output').value = 'Click to copy the lands';
-    document.getElementById('output_NEW').value = 'Click to copy the lands';
   }
 }
 
-function printLands(colorArr, qtdColor = colorArr.length) {
-  let resp = '';
-
-  resp = [
-    getDuals(colorArr),
-    getFetchLands(colorArr),
-    getShockLands(colorArr),
-    getPainLands(colorArr),
-    getManLands(colorArr),
-    getFilterLands(colorArr),
-    getOtherLands(colorArr),
-    getTriLands(colorArr),
-    getScryLands(colorArr),
-    getBattleLands(colorArr),
-    getCheckLands(colorArr),
-    getBounceLands(colorArr),
-    getAnyColorLand(colorArr),
-    getBasicLands(colorArr),
-    getUtilityLand(colorArr),
-    getManaRamp(colorArr),
-  ].map((elem) => {
-    if (elem) {
-      return `${elem}\n`;
-    } else {
-      return '';
-    }
-  }).join('');
-
-  document.getElementById('output').value = resp;
-
-}
-
-function printLandsNoTitle_NEW(colorManager) {
+function printLandsNoTitle(colorManager) {
   let resp = '';
   let landsRepository = new LandsRepository('Lands');
 
   if(colorManager.qtdColor() > 0){
     if(colorManager.qtdColor() > 1){
-      landsRepository.addDictLands(getDualLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getFetchLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getShockLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getPainLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getManLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getFilterLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getOtherLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getTriLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getScryLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getBattleLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getCheckLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getBounceLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getAnyColorLand_NEW(colorManager).getDictLands());
+      landsRepository.addDictLands(getDualLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getFetchLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getShockLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getPainLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getManLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getFilterLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getOtherLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getTriLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getScryLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getBattleLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getCheckLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getBounceLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getAnyColorLand(colorManager).getDictLands());
     }
-    resp += landsRepositoryToString_NEW(landsRepository);
-    resp += landsRepositoryToString_NEW(getBasicLands_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getUtilityLand_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getManaRamp_NEW(colorManager));
+    resp += landsRepositoryToString(landsRepository);
+    resp += landsRepositoryToString(getBasicLands(colorManager));
+    resp += landsRepositoryToString(getUtilityLand(colorManager));
+    resp += landsRepositoryToString(getManaRamp(colorManager));
   }
 
   return resp;
 }
 
-function printLandsWithTitle_NEW(colorManager) {
+function printLandsWithTitle(colorManager) {
   let resp = '';
   if(colorManager.qtdColor() > 0){
     if(colorManager.qtdColor() > 1){
-      resp += landsRepositoryToString_NEW(getDualLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getFetchLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getShockLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getPainLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getManLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getFilterLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getOtherLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getTriLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getScryLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getBattleLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getCheckLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getBounceLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getAnyColorLand_NEW(colorManager));
+      resp += landsRepositoryToString(getDualLands(colorManager));
+      resp += landsRepositoryToString(getFetchLands(colorManager));
+      resp += landsRepositoryToString(getShockLands(colorManager));
+      resp += landsRepositoryToString(getPainLands(colorManager));
+      resp += landsRepositoryToString(getManLands(colorManager));
+      resp += landsRepositoryToString(getFilterLands(colorManager));
+      resp += landsRepositoryToString(getOtherLands(colorManager));
+      resp += landsRepositoryToString(getTriLands(colorManager));
+      resp += landsRepositoryToString(getScryLands(colorManager));
+      resp += landsRepositoryToString(getBattleLands(colorManager));
+      resp += landsRepositoryToString(getCheckLands(colorManager));
+      resp += landsRepositoryToString(getBounceLands(colorManager));
+      resp += landsRepositoryToString(getAnyColorLand(colorManager));
     }
-    resp += landsRepositoryToString_NEW(getBasicLands_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getUtilityLand_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getManaRamp_NEW(colorManager));
+    resp += landsRepositoryToString(getBasicLands(colorManager));
+    resp += landsRepositoryToString(getUtilityLand(colorManager));
+    resp += landsRepositoryToString(getManaRamp(colorManager));
   }
   return resp;
 }
 
-function landsRepositoryToString_NEW(landsRepository) {
+function landsRepositoryToString(landsRepository) {
   let resp = '';
 
   if (!landsRepository.isEmpty()) {
-    resp = '//' + landsRepository.title + ' :' + landsRepository.qtdLands() +'\n';
+    resp = '//' + landsRepository.title + ': ' + landsRepository.qtdLands() +'\n';
     for (var elem of landsRepository.getAllLands()) {
       resp+=elem.join(' ')+'\n';
     }
@@ -1585,58 +1029,4 @@ function showSnackbar() {
   }, 3000);
 }
 
-},{"./ColorManager":1,"./LandsRepository":2,"./lands-code/any-color-lands":3,"./lands-code/basic-lands":4,"./lands-code/battle-and-fast-lands":5,"./lands-code/bounce-lands":6,"./lands-code/check-lands":7,"./lands-code/dual-lands":8,"./lands-code/fetch-lands":9,"./lands-code/filter-lands":10,"./lands-code/man-lands":11,"./lands-code/mana-ramp":12,"./lands-code/other-lands":13,"./lands-code/pain-lands":14,"./lands-code/scry-lands":15,"./lands-code/shock-lands":16,"./lands-code/tri-lands":17,"./lands-code/utility-lands":18}],20:[function(require,module,exports){
-//Return pair of valid color
-function validPair(color1, color2) {
-  const allColorPairValid = ['whiteblue', 'blueblack', 'blackred', 'redgreen',
-                            'greenwhite', 'whiteblack', 'bluered',
-                            'blackgreen', 'redwhite', 'greenblue'];
-  if (allColorPairValid.includes(`${color1}${color2}`)) {
-    return `${color1}${color2}`;
-  } else {
-    return `${color2}${color1}`;
-  }
-}
-//Return all valid pair of 3 or 4 color
-function getColorPair(colorArr) {
-  const qtdColor = colorArr.length;
-  if (qtdColor === 3) {
-    return [`${validPair(colorArr[0], colorArr[1])}`,
-            `${validPair(colorArr[1], colorArr[2])}`,
-            `${validPair(colorArr[2], colorArr[0])}`];
-  }
-  if (qtdColor === 4) {
-    return [`${validPair(colorArr[0], colorArr[1])}`,
-            `${validPair(colorArr[1], colorArr[2])}`,
-            `${validPair(colorArr[2], colorArr[3])}`,
-            `${validPair(colorArr[3], colorArr[0])}`];
-  }
-}
-
-module.exports.validPair = function (color1, color2) {
-  const allColorPairValid = ['whiteblue', 'blueblack', 'blackred', 'redgreen',
-                            'greenwhite', 'whiteblack', 'bluered',
-                            'blackgreen', 'redwhite', 'greenblue'];
-  if (allColorPairValid.includes(`${color1}${color2}`)) {
-    return `${color1}${color2}`;
-  } else {
-    return `${color2}${color1}`;
-  }
-};
-
-module.exports.getColorPair = function (colorArr) {
-  const qtdColor = colorArr.length;
-  if (qtdColor === 3) {
-    return [`${validPair(colorArr[0], colorArr[1])}`,
-            `${validPair(colorArr[1], colorArr[2])}`,
-            `${validPair(colorArr[2], colorArr[0])}`];
-  }
-  if (qtdColor === 4) {
-    return [`${validPair(colorArr[0], colorArr[1])}`,
-            `${validPair(colorArr[1], colorArr[2])}`,
-            `${validPair(colorArr[2], colorArr[3])}`,
-            `${validPair(colorArr[3], colorArr[0])}`];
-  }
-};
-
-},{}]},{},[19]);
+},{"./ColorManager":1,"./LandsRepository":2,"./lands-code/any-color-lands":3,"./lands-code/basic-lands":4,"./lands-code/battle-and-fast-lands":5,"./lands-code/bounce-lands":6,"./lands-code/check-lands":7,"./lands-code/dual-lands":8,"./lands-code/fetch-lands":9,"./lands-code/filter-lands":10,"./lands-code/man-lands":11,"./lands-code/mana-ramp":12,"./lands-code/other-lands":13,"./lands-code/pain-lands":14,"./lands-code/scry-lands":15,"./lands-code/shock-lands":16,"./lands-code/tri-lands":17,"./lands-code/utility-lands":18}]},{},[19]);

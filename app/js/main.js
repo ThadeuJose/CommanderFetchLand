@@ -1,36 +1,19 @@
-const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
-const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
-const getDuals = require('./lands-code/dual-lands').getDualLands;;
-const getShockLands = require('./lands-code/shock-lands').getShockLands;
-const getPainLands = require('./lands-code/pain-lands').getPainLands;
-const getManLands = require('./lands-code/man-lands').getManLands;
-const getFilterLands = require('./lands-code/filter-lands').getFilterLands;
-const getOtherLands = require('./lands-code/other-lands').getOtherLands;
-const getTriLands = require('./lands-code/tri-lands').getTriLands;
-const getScryLands = require('./lands-code/scry-lands').getScryLands;
-const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
-const getCheckLands = require('./lands-code/check-lands').getCheckLands;
-const getBounceLands = require('./lands-code/bounce-lands').getBounceLands;
 const getAnyColorLand = require('./lands-code/any-color-lands').getAnyColorLand;
-const getUtilityLand = require('./lands-code/utility-lands').getUtilityLand;
+const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
+const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
+const getBounceLands = require('./lands-code/bounce-lands').getBounceLands;
+const getCheckLands = require('./lands-code/check-lands').getCheckLands;
+const getDualLands = require('./lands-code/dual-lands').getDualLands;
+const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
+const getFilterLands = require('./lands-code/filter-lands').getFilterLands;
+const getManLands = require('./lands-code/man-lands').getManLands;
 const getManaRamp = require('./lands-code/mana-ramp').getManaRamp;
-
-const getAnyColorLand_NEW = require('./lands-code/any-color-lands').getAnyColorLand_NEW;
-const getBasicLands_NEW = require('./lands-code/basic-lands').getBasicLands_NEW;
-const getBattleLands_NEW = require('./lands-code/battle-and-fast-lands').getBattleLands_NEW;
-const getBounceLands_NEW = require('./lands-code/bounce-lands').getBounceLands_NEW;
-const getCheckLands_NEW = require('./lands-code/check-lands').getCheckLands_NEW;
-const getDualLands_NEW = require('./lands-code/dual-lands').getDualLands_NEW;
-const getFetchLands_NEW = require('./lands-code/fetch-lands').getFetchLands_NEW;
-const getFilterLands_NEW = require('./lands-code/filter-lands').getFilterLands_NEW;
-const getManLands_NEW = require('./lands-code/man-lands').getManLands_NEW;
-const getManaRamp_NEW = require('./lands-code/mana-ramp').getManaRamp_NEW;
-const getOtherLands_NEW = require('./lands-code/other-lands').getOtherLands_NEW;
-const getPainLands_NEW = require('./lands-code/pain-lands').getPainLands_NEW;
-const getScryLands_NEW = require('./lands-code/scry-lands').getScryLands_NEW;
-const getShockLands_NEW = require('./lands-code/shock-lands').getShockLands_NEW;
-const getTriLands_NEW = require('./lands-code/tri-lands').getTriLands_NEW;
-const getUtilityLand_NEW = require('./lands-code/utility-lands').getUtilityLand_NEW;
+const getOtherLands = require('./lands-code/other-lands').getOtherLands;
+const getPainLands = require('./lands-code/pain-lands').getPainLands;
+const getScryLands = require('./lands-code/scry-lands').getScryLands;
+const getShockLands = require('./lands-code/shock-lands').getShockLands;
+const getTriLands = require('./lands-code/tri-lands').getTriLands;
+const getUtilityLand = require('./lands-code/utility-lands').getUtilityLand;
 
 
 const LandsRepository = require('./LandsRepository');
@@ -42,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function resetView() {
     inputList[i].checked = false;
   }
   document.getElementById('output').value = 'Click to copy the lands';
-  document.getElementById('output_NEW').value = 'Click to copy the lands';
 });
 
 window.copyToClipboard = function (obj) {
@@ -69,10 +51,10 @@ window.check_icon = function () {
   detail_checked = !detail_checked;
   if(detail_checked){
     document.getElementById('detail').style.backgroundColor = "green";
-    document.getElementById('output_NEW').value = printLandsWithTitle_NEW(colorManager);
+    document.getElementById('output').value = printLandsWithTitle(colorManager);
   }else{
     document.getElementById('detail').style.backgroundColor = "red";
-    document.getElementById('output_NEW').value = printLandsNoTitle_NEW(colorManager);
+    document.getElementById('output').value = printLandsNoTitle(colorManager);
   }
 }
 
@@ -89,112 +71,76 @@ window.onChecked = function (obj) {
   colorArr = colorManager.colorArr;
 
   if (colorArr.length >= 1) {
-    printLands(colorArr);
-
-    //NEW
     if (detail_checked) {
-      document.getElementById('output_NEW').value = printLandsWithTitle_NEW(colorManager);
+      document.getElementById('output').value = printLandsWithTitle(colorManager);
     } else {
-      document.getElementById('output_NEW').value = printLandsNoTitle_NEW(colorManager);
+      document.getElementById('output').value = printLandsNoTitle(colorManager);
     }
 
   } else {
     document.getElementById('output').value = 'Click to copy the lands';
-    document.getElementById('output_NEW').value = 'Click to copy the lands';
   }
 }
 
-function printLands(colorArr, qtdColor = colorArr.length) {
-  let resp = '';
-
-  resp = [
-    getDuals(colorArr),
-    getFetchLands(colorArr),
-    getShockLands(colorArr),
-    getPainLands(colorArr),
-    getManLands(colorArr),
-    getFilterLands(colorArr),
-    getOtherLands(colorArr),
-    getTriLands(colorArr),
-    getScryLands(colorArr),
-    getBattleLands(colorArr),
-    getCheckLands(colorArr),
-    getBounceLands(colorArr),
-    getAnyColorLand(colorArr),
-    getBasicLands(colorArr),
-    getUtilityLand(colorArr),
-    getManaRamp(colorArr),
-  ].map((elem) => {
-    if (elem) {
-      return `${elem}\n`;
-    } else {
-      return '';
-    }
-  }).join('');
-
-  document.getElementById('output').value = resp;
-
-}
-
-function printLandsNoTitle_NEW(colorManager) {
+function printLandsNoTitle(colorManager) {
   let resp = '';
   let landsRepository = new LandsRepository('Lands');
 
   if(colorManager.qtdColor() > 0){
     if(colorManager.qtdColor() > 1){
-      landsRepository.addDictLands(getDualLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getFetchLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getShockLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getPainLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getManLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getFilterLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getOtherLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getTriLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getScryLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getBattleLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getCheckLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getBounceLands_NEW(colorManager).getDictLands());
-      landsRepository.addDictLands(getAnyColorLand_NEW(colorManager).getDictLands());
+      landsRepository.addDictLands(getDualLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getFetchLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getShockLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getPainLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getManLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getFilterLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getOtherLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getTriLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getScryLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getBattleLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getCheckLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getBounceLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getAnyColorLand(colorManager).getDictLands());
     }
-    resp += landsRepositoryToString_NEW(landsRepository);
-    resp += landsRepositoryToString_NEW(getBasicLands_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getUtilityLand_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getManaRamp_NEW(colorManager));
+    resp += landsRepositoryToString(landsRepository);
+    resp += landsRepositoryToString(getBasicLands(colorManager));
+    resp += landsRepositoryToString(getUtilityLand(colorManager));
+    resp += landsRepositoryToString(getManaRamp(colorManager));
   }
 
   return resp;
 }
 
-function printLandsWithTitle_NEW(colorManager) {
+function printLandsWithTitle(colorManager) {
   let resp = '';
   if(colorManager.qtdColor() > 0){
     if(colorManager.qtdColor() > 1){
-      resp += landsRepositoryToString_NEW(getDualLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getFetchLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getShockLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getPainLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getManLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getFilterLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getOtherLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getTriLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getScryLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getBattleLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getCheckLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getBounceLands_NEW(colorManager));
-      resp += landsRepositoryToString_NEW(getAnyColorLand_NEW(colorManager));
+      resp += landsRepositoryToString(getDualLands(colorManager));
+      resp += landsRepositoryToString(getFetchLands(colorManager));
+      resp += landsRepositoryToString(getShockLands(colorManager));
+      resp += landsRepositoryToString(getPainLands(colorManager));
+      resp += landsRepositoryToString(getManLands(colorManager));
+      resp += landsRepositoryToString(getFilterLands(colorManager));
+      resp += landsRepositoryToString(getOtherLands(colorManager));
+      resp += landsRepositoryToString(getTriLands(colorManager));
+      resp += landsRepositoryToString(getScryLands(colorManager));
+      resp += landsRepositoryToString(getBattleLands(colorManager));
+      resp += landsRepositoryToString(getCheckLands(colorManager));
+      resp += landsRepositoryToString(getBounceLands(colorManager));
+      resp += landsRepositoryToString(getAnyColorLand(colorManager));
     }
-    resp += landsRepositoryToString_NEW(getBasicLands_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getUtilityLand_NEW(colorManager));
-    resp += landsRepositoryToString_NEW(getManaRamp_NEW(colorManager));
+    resp += landsRepositoryToString(getBasicLands(colorManager));
+    resp += landsRepositoryToString(getUtilityLand(colorManager));
+    resp += landsRepositoryToString(getManaRamp(colorManager));
   }
   return resp;
 }
 
-function landsRepositoryToString_NEW(landsRepository) {
+function landsRepositoryToString(landsRepository) {
   let resp = '';
 
   if (!landsRepository.isEmpty()) {
-    resp = '//' + landsRepository.title + ' :' + landsRepository.qtdLands() +'\n';
+    resp = '//' + landsRepository.title + ': ' + landsRepository.qtdLands() +'\n';
     for (var elem of landsRepository.getAllLands()) {
       resp+=elem.join(' ')+'\n';
     }

@@ -1,4 +1,4 @@
-const getBounce = require('../app/js/lands-code/bounce-lands').getBounceLands_NEW;
+const getBounce = require('../app/js/lands-code/bounce-lands').getBounceLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 

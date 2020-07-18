@@ -1,4 +1,4 @@
-const getDual = require('../app/js/lands-code/dual-lands').getDualLands_NEW;
+const getDual = require('../app/js/lands-code/dual-lands').getDualLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 

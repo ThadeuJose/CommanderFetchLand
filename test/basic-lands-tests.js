@@ -1,9 +1,9 @@
-const getBasic = require('../app/js/lands-code/basic-lands').getBasicLands_NEW;
+const getBasic = require('../app/js/lands-code/basic-lands').getBasicLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 
 describe('Basic Lands', function() {
-  it('5 Color - Return correct quantity', function() {
+  it('5 Color', function() {
     let colorManagerTest = new ColorManager();
     colorManagerTest.addColor('white');
     colorManagerTest.addColor('blue');
@@ -21,9 +21,7 @@ describe('Basic Lands', function() {
     assert.deepEqual(getBasic(colorManagerTest),expected);
   });
 
-
-
-  it('4 Color - Return correct quantity', function() {
+  it('4 Color - White Blue Black Green', function() {
     let colorManagerTest = new ColorManager();
     colorManagerTest.addColor('white');
     colorManagerTest.addColor('blue');
@@ -37,14 +35,16 @@ describe('Basic Lands', function() {
     expected.addLand(1, 'Plains');
 
     assert.deepEqual(getBasic(colorManagerTest),expected);
+  });
 
-    colorManagerTest = new ColorManager();
+  it('4 Color - Blue Black Red Green', function() {
+    let colorManagerTest = new ColorManager();
     colorManagerTest.addColor('blue');
     colorManagerTest.addColor('black');
     colorManagerTest.addColor('red');
     colorManagerTest.addColor('green');
 
-    expected = new LandsRepository('Basic Lands');
+    let expected = new LandsRepository('Basic Lands');
     expected.addLand(3, 'Forest');
     expected.addLand(3, 'Swamp');
     expected.addLand(2, 'Island');

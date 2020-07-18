@@ -1,4 +1,4 @@
-const getFetchs = require('../app/js/lands-code/fetch-lands').getFetchLands_NEW;
+const getFetchs = require('../app/js/lands-code/fetch-lands').getFetchLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 

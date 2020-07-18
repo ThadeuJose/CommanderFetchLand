@@ -1,4 +1,4 @@
-const getMan = require('../app/js/lands-code/man-lands').getManLands_NEW;
+const getMan = require('../app/js/lands-code/man-lands').getManLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 

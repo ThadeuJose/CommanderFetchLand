@@ -1,8 +1,5 @@
 const LandsRepository = require('../LandsRepository');
 
-const getColorPair = require('../utility-functions').getColorPair;
-const validPair = require('../utility-functions').validPair;
-
 const COLORS_TO_SCRY_LAND = {
   whiteblue: 'Temple of Enlightenment',
   blueblack: 'Temple of Deceit',
@@ -16,19 +13,7 @@ const COLORS_TO_SCRY_LAND = {
   greenblue: 'Temple of Mystery',
 };
 
-function getOtherLands(colorArr, qtdColor = colorArr.length) {
-  let resp = '';
-  if (qtdColor == 3) {
-    resp += '//Other Lands: 3 (Scry lands)\n';
-    let colorPairs = getColorPair(colorArr).slice(0,3);
-    for (var color of colorPairs) {
-      resp += `1 ${COLORS_TO_SCRY_LAND[color]}\n`;
-    }
-  }
-  return resp;
-}
-
-function getOtherLands_NEW(colorManager) {
+function getOtherLands(colorManager) {
   let landsRepository = new LandsRepository('Other Lands(Scry lands)');
   if (colorManager.qtdColor() == 3) {
     let colorPairs = colorManager.getAllColorPairs();
@@ -40,4 +25,3 @@ function getOtherLands_NEW(colorManager) {
 }
 
 module.exports.getOtherLands = getOtherLands;
-module.exports.getOtherLands_NEW = getOtherLands_NEW;

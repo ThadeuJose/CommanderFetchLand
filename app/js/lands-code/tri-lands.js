@@ -13,19 +13,7 @@ const COLORS_TO_TRI_LAND = {
   blueredgreen: 'Ketria Triome',
 };
 
-function getTriLands(colorArr, qtdColor = colorArr.length) {
-  if (qtdColor == 3) {
-    color = colorArr.slice(0,3).join('');
-    return `//Tri Land: 1\n1 ${COLORS_TO_TRI_LAND[color]}\n`
-  }else if (qtdColor == 4) {
-    color_1 = colorArr.slice(0,3).join('');
-    color_2 = colorArr.slice(1,4).join('');
-    return `//Tri Land: 2\n1 ${COLORS_TO_TRI_LAND[color_1]}\n1 ${COLORS_TO_TRI_LAND[color_2]}\n`
-  }
-  return '';
-}
-
-function getTriLands_NEW(colorManager) {
+function getTriLands(colorManager) {
   let landsRepository = new LandsRepository('Tri Land');
   let colorArr = colorManager.colorArr;
   if (colorManager.qtdColor() === 3) {
@@ -42,4 +30,3 @@ function getTriLands_NEW(colorManager) {
 }
 
 module.exports.getTriLands = getTriLands;
-module.exports.getTriLands_NEW = getTriLands_NEW;
