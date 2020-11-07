@@ -22,12 +22,6 @@ browserify scope is local. Go nuts
 
 Terminar o projeto quando as features abaixo estiverem prontas:
 
-		Colocar o index.html e a pasta do css do app sendo exportado para o dist
-
-		Decidir se vai ser Lands or Land nos títulos
-
-		Colocar as basic primeiro na parte do monocolor deck e separado em categorias
-
 		Colocar as novas battlelands
 
 		Trocar as scrylands por checklands ?
@@ -70,6 +64,8 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
 		Colocar os exports direito
 			sem require(...).function
+
+    São Lands nos títulos
 
 		Refatorar o test
 			Teste - Title
