@@ -15,7 +15,6 @@ The fast way to concat a string is with string template: `${res}${data[i]}`
 FAZER AUTOMATIZED TEST
        Fez uma modificação no código faz um test
        Branch Refactor
-       Tirar aquela coisa de checklist?
 
 browserify scope is local. Go nuts
 
@@ -23,37 +22,54 @@ browserify scope is local. Go nuts
 
 Terminar o projeto quando as features abaixo estiverem prontas:
 
-		Colocar o index.html do app sendo exportado para o dist
+		Colocar o index.html e a pasta do css do app sendo exportado para o dist
 
-		Instalar o eslint do atom e go nuts
-			How to make a lint for segmented js files
-			eslint specifying global
+		Decidir se vai ser Lands or Land nos títulos
 
-		Atualizar a parte de mana ramp e utility lands
-			Signets and Talisman
-			Sol Ring
-			Cultivate
-			Grow from the Ashes
-			Kodama's Reach
-			Commander's Sphere
+		Colocar as basic primeiro na parte do monocolor deck e separado em categorias
+
+		Colocar as novas battlelands
+
+		Trocar as scrylands por checklands ?
+
+		Aualizar a parte de mana ramp e utility lands			
+			Dar uma olhada
+			https://tappedout.net/mtg-decks/new-edh-ramp-full-list/?cb=1579173035
+
+			Sol Ring					
+			Wayfarer's Bauble					
+			Arcane Signet 					
+			Fellwar Stone					
+
+			Green 			
+			Nature's Lore					
+			Three Visits			                        	
+			Sakura-Tribe Elder				                	
+			Cultivate					
+			Rampant Growth					
+			Kodama's Reach					
+
+			Farseek	- Special Case
+
+			Mind Stone 	- Everything less green
+
+			Red
+			Dockside Extortionist				
+
+			White
+			Keeper of the Accord
+			Verge Ranger
 			Smothering Tithe
-			Wayfarer's Bauble
-			Sakura-Tribe Elder
 			Land Tax
-			Farseek
-			Rampant Growth
-			Nature's Lore
-			Three Visits
-			Untamed Wilds
+			Kor Cartographer
+
+
+			Talisman					
+			Signets
+			Commander's Sphere			
 
 		Colocar os exports direito
 			sem require(...).function
-
-		Ver se o nome do arquivo esta correto com airbnb
-			Não está tem que ser igual o nome da função
-			https://github.com/airbnb/javascript#naming--filename-matches-export
-
-		Decidir se vai ser Lands or Land nos títulos
 
 		Refatorar o test
 			Teste - Title
@@ -92,25 +108,39 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 				Utility Lands
 						Só testar depois de refazer
 
+		Testar as lands para ver se estão vindo corretas
+			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
+
 		MVC
 
 		Refatorar o print printLandsNoTitle e printLandsWithTitle na main
-
-		Colocar checklands em vez de scrylands no other lands
 
 		Ajeitar a ordem de basic no 4 color
 
 		Mudar o design	- Careful to not make a mess
 			THIS IS A VERY SIMPLE PAGE
-			Colocar as cores bem no canto fixas
-      Colocar o botão de detalhe embaixo sem border radios
-      Colocar o titulo com fundo preto na esquerda e parecido com um banner
-      Colocar a lista em uma parte grande no outro canto
 
-		Testar as lands para ver se estão vindo corretas
-			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands
+		Voltar ao que era antes
+			Pasta layout			
+			https://www.figma.com/file/erS9eI6NftjUJNNDkKg8go/Commander-Fetchlands-2.0?node-id=0%3A1
+			https://github.com/ThadeuJose/CommanderFetchLand/commit/2b65d477bfc6c1c5629d75d15f49459effad2b8e
 
+			https://css-tricks.com/snippets/css/complete-guide-grid/
 
+			Details tooltip do lado
+			https://pt.stackoverflow.com/questions/101968/%C3%89-poss%C3%ADvel-fazer-um-tooltip-com-css-puro
+
+			https://stackoverflow.com/questions/8566090/how-can-i-delay-a-hover-effect-in-css
+
+			https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a
+
+		Usar o eslint do atom e go nuts
+			How to make a lint for segmented js files
+			eslint specifying global
+
+		Ver se o nome do arquivo esta correto com airbnb
+			Não está tem que ser igual o nome da função
+			https://github.com/airbnb/javascript#naming--filename-matches-export
 
 		Test and put the code in the master branch
 
