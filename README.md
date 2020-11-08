@@ -23,7 +23,6 @@ browserify scope is local. Go nuts
 Terminar o projeto quando as features abaixo estiverem prontas:
 
 		Aualizar a parte de mana ramp e utility lands			
-      Mana Ramp precisa ver se tem verde na cor
         hasGreen
         isMonoXXX - example isMonoRed
 			Dar uma olhada
@@ -59,7 +58,7 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
 			Talisman					
 			Signets
-			Commander's Sphere			
+
 
 		Colocar os exports direito
 			sem require(...).function
@@ -108,6 +107,15 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
 		MVC
 
+    Refatorar o landsRepository
+      Tirar aquele getAllLands2
+      Refatorar essa interação no main
+        addDictLands(dict)    
+        getDictLands()
+
+    Refatorar
+        colorManager.getAllColorPairs()[0];
+
 		Refatorar o print printLandsNoTitle e printLandsWithTitle na main
 
 		Ajeitar a ordem de basic no 4 color
@@ -141,7 +149,6 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
 # Technical Debt
 	Update the technical debt
-	Fix two index.html
 	Upgrade the logic of Basic Land, Fetch
 
 
