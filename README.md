@@ -22,11 +22,6 @@ browserify scope is local. Go nuts
 
 Terminar o projeto quando as features abaixo estiverem prontas:
 
-    Colocar a filter lands para pegar de COLORS_TO_FILTER_LAND_2 primeiro e depois de COLORS_TO_FILTER_LAND_1
-      Fazer os testes
-
-		Trocar as scrylands por checklands e battlelands no other lands
-
 		Aualizar a parte de mana ramp e utility lands			
       Mana Ramp precisa ver se tem verde na cor
         hasGreen
