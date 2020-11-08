@@ -1,7 +1,7 @@
 const getAnyColorLand = require('./lands-code/any-color-lands').getAnyColorLand;
 const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
 const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
-const getBounceLands = require('./lands-code/bounce-lands').getBounceLands;
+const getCrowdLands = require('./lands-code/crowd-lands').getCrowdLands;
 const getCheckLands = require('./lands-code/check-lands').getCheckLands;
 const getDualLands = require('./lands-code/dual-lands').getDualLands;
 const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
@@ -99,7 +99,7 @@ function printLandsNoTitle(colorManager) {
       landsRepository.addDictLands(getScryLands(colorManager).getDictLands());
       landsRepository.addDictLands(getBattleLands(colorManager).getDictLands());
       landsRepository.addDictLands(getCheckLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getBounceLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getCrowdLands(colorManager).getDictLands());
       landsRepository.addDictLands(getAnyColorLand(colorManager).getDictLands());
     }
     resp += landsRepositoryToString(landsRepository);
@@ -126,7 +126,7 @@ function printLandsWithTitle(colorManager) {
       resp += landsRepositoryToString(getScryLands(colorManager));
       resp += landsRepositoryToString(getBattleLands(colorManager));
       resp += landsRepositoryToString(getCheckLands(colorManager));
-      resp += landsRepositoryToString(getBounceLands(colorManager));
+      resp += landsRepositoryToString(getCrowdLands(colorManager));
       resp += landsRepositoryToString(getAnyColorLand(colorManager));
     }
     resp += landsRepositoryToString(getBasicLands(colorManager));

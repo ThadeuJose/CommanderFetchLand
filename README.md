@@ -22,11 +22,15 @@ browserify scope is local. Go nuts
 
 Terminar o projeto quando as features abaixo estiverem prontas:
 
-		Colocar as novas battlelands
+    Colocar a filter lands para pegar de COLORS_TO_FILTER_LAND_2 primeiro e depois de COLORS_TO_FILTER_LAND_1
+      Fazer os testes
 
-		Trocar as scrylands por checklands ?
+		Trocar as scrylands por checklands e battlelands no other lands
 
 		Aualizar a parte de mana ramp e utility lands			
+      Mana Ramp precisa ver se tem verde na cor
+        hasGreen
+        isMonoXXX - example isMonoRed
 			Dar uma olhada
 			https://tappedout.net/mtg-decks/new-edh-ramp-full-list/?cb=1579173035
 
@@ -64,8 +68,6 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
 		Colocar os exports direito
 			sem require(...).function
-
-    São Lands nos títulos
 
 		Refatorar o test
 			Teste - Title
@@ -106,6 +108,8 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
 		Testar as lands para ver se estão vindo corretas
 			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
+
+    São Lands nos títulos
 
 		MVC
 
