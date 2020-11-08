@@ -4,8 +4,8 @@ const ColorManager = require('../app/js/ColorManager');
 const getAnyColorLand = require('../app/js/lands-code/any-color-lands').getAnyColorLand;
 const getBasicLands = require('../app/js/lands-code/basic-lands').getBasicLands;
 const getBattleLands = require('../app/js/lands-code/battle-and-fast-lands').getBattleLands;
-const getBounceLands = require('../app/js/lands-code/bounce-lands').getBounceLands;
 const getCheckLands = require('../app/js/lands-code/check-lands').getCheckLands;
+const getCrowdLands = require('../app/js/lands-code/crowd-lands').getCrowdLands;
 const getDualLands = require('../app/js/lands-code/dual-lands').getDualLands;
 const getFetchLands = require('../app/js/lands-code/fetch-lands').getFetchLands;
 const getFilterLands = require('../app/js/lands-code/filter-lands').getFilterLands;
@@ -38,7 +38,7 @@ function testLands(colorManager) {
     getScryLands(colorManager),
     getBattleLands(colorManager),
     getCheckLands(colorManager),
-    getBounceLands(colorManager),
+    getCrowdLands(colorManager),
     getAnyColorLand(colorManager),
     getBasicLands(colorManager),
     getUtilityLand(colorManager)

@@ -1,26 +1,35 @@
 const LandsRepository = require('../LandsRepository');
 
-const COLORS_TO_SCRY_LAND = {
-  whiteblue: 'Temple of Enlightenment',
-  blueblack: 'Temple of Deceit',
-  blackred: 'Temple of Malice',
-  redgreen: 'Temple of Abandon',
-  greenwhite: 'Temple of Plenty',
-  whiteblack: 'Temple of Silence',
-  bluered: 'Temple of Epiphany',
-  blackgreen: 'Temple of Malady',
-  redwhite: 'Temple of Triumph',
-  greenblue: 'Temple of Mystery',
+const COLORS_TO_BATTLE_LAND = {
+  whiteblue: 'Prairie Stream',
+  blueblack: 'Sunken Hollow',
+  blackred: 'Smoldering Marsh',
+  redgreen: 'Cinder Glade',
+  greenwhite: 'Canopy Vista ',
+};
+
+const COLORS_TO_CHECK_LAND = {
+  whiteblack: 'Isolated Chapel',
+  bluered: 'Sulfur Falls',
+  blackgreen: 'Woodland Cemetery',
+  redwhite: 'Clifftop Retreat',
+  greenblue: 'Hinterland Harbor',
 };
 
 function getOtherLands(colorManager) {
-  let landsRepository = new LandsRepository('Other Lands(Scry lands)');
-  if (colorManager.qtdColor() == 3) {
-    let colorPairs = colorManager.getAllColorPairs();
-    for (var colorPair of colorPairs) {
-      landsRepository.addLand(1,COLORS_TO_SCRY_LAND[colorPair]);
-    }
+  const landsRepository = new LandsRepository('Other Lands (Battle and Check Lands)');
+  if (colorManager.qtdColor() === 3) {
+    const colorPairs = colorManager.getAllColorPairs();
+    colorPairs.forEach((colorPair) => {
+      if (COLORS_TO_BATTLE_LAND[colorPair]) {
+        landsRepository.addLand(1, COLORS_TO_BATTLE_LAND[colorPair]);
+      }
+      if (COLORS_TO_CHECK_LAND[colorPair]) {
+        landsRepository.addLand(1, COLORS_TO_CHECK_LAND[colorPair]);
+      }
+    });
   }
+
   return landsRepository;
 }
 

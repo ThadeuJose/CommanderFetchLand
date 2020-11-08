@@ -2,6 +2,18 @@ const getBasic = require('../app/js/lands-code/basic-lands').getBasicLands;
 const LandsRepository = require('../app/js/LandsRepository');
 const ColorManager = require('../app/js/ColorManager');
 
+
+function colorToQtd(color) {
+  const qtdDict = {
+    white: 21,
+    blue: 22,
+    black: 22,
+    red:21,
+    green:21
+  }
+  return qtdDict[color];
+}
+
 describe('Basic Lands', function() {
   it('5 Color', function() {
     let colorManagerTest = new ColorManager();
@@ -61,7 +73,7 @@ describe('Basic Lands', function() {
       let colorManagerTest = new ColorManager();
       colorManagerTest.addColor(color);
 
-      let expected = 38;
+      let expected = colorToQtd(color);
 
       assert.equal(getBasic(colorManagerTest).qtdLands(),expected);
 

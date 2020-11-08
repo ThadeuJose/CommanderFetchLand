@@ -43,4 +43,12 @@ module.exports =  class LandsRepository {
     return resp;
   }
 
+  getAllLands2() {
+    let resp = [];
+    for (let key of Object.keys(this.lands)) {
+      resp.push(key);
+    }
+    return resp;
+  }
+
 }

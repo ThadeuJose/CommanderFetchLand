@@ -1,6 +1,6 @@
 const LandsRepository = require('../LandsRepository');
 
-const COLORS_TO_FILTER_LAND_1 = {
+const COLORS_TO_LOW_PRIORITY_FILTER_LANDS = {
   whiteblue: 'Mystic Gate',
   blueblack: 'Sunken Ruins',
   blackred: 'Graven Cairns',
@@ -13,7 +13,7 @@ const COLORS_TO_FILTER_LAND_1 = {
   greenblue: 'Flooded Grove',
 };
 
-const COLORS_TO_FILTER_LAND_2 = {
+const COLORS_TO_HIGH_PRIORITY_FILTER_LANDS = {
   whiteblue: 'Skycloud Expanse',
   blueblack: 'Darkwater Catacombs',
   blackred: 'Shadowblood Ridge',
@@ -22,28 +22,41 @@ const COLORS_TO_FILTER_LAND_2 = {
 };
 
 function getFilterLands(colorManager) {
-  let landsRepository = new LandsRepository('Filter Land');
-  if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
-    const maxQtdLands = 3;
-    const colorPairs = colorManager.getAllColorPairs();
-    for (var colorPair of colorPairs) {
-      if(COLORS_TO_FILTER_LAND_1[colorPair]){
-        landsRepository.addLand(1, COLORS_TO_FILTER_LAND_1[colorPair]);
-      }
-      if(landsRepository.qtdLands() == maxQtdLands){
-        break;
-      }
-    }
+  const landsRepository = new LandsRepository('Filter Lands');
+  let colorPairs = '';
+
+  if (colorManager.qtdColor() === 4) {
+    colorPairs = colorManager.getAllColorPairs();
+
+    colorPairs
+      .filter(item => COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[item])
+      .map(item => COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[item])
+      .forEach(item => landsRepository.addLand(1, item));
   }
+
+  if (colorManager.qtdColor() === 3) {
+    colorPairs = colorManager.getAllColorPairs();
+    colorPairs
+      .map((colorPair) => {
+        if (COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair]) {
+          return COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair];
+        }
+        return COLORS_TO_LOW_PRIORITY_FILTER_LANDS[colorPair];
+      })
+      .forEach(item => landsRepository.addLand(1, item));
+  }
+
   if (colorManager.qtdColor() === 2) {
     const colorPair = colorManager.getAllColorPairs()[0];
-    landsRepository.addLand(1, COLORS_TO_FILTER_LAND_1[colorPair]);
-    if (colorPair in COLORS_TO_FILTER_LAND_2){
-      landsRepository.addLand(1, COLORS_TO_FILTER_LAND_2[colorPair]);
+    const defaultLand = 'Unknown Shores';
+    landsRepository.addLand(1, COLORS_TO_LOW_PRIORITY_FILTER_LANDS[colorPair]);
+    if (colorPair in COLORS_TO_HIGH_PRIORITY_FILTER_LANDS) {
+      landsRepository.addLand(1, COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair]);
     } else {
-      landsRepository.addLand(1, 'Unknown Shores');
+      landsRepository.addLand(1, defaultLand);
     }
   }
+
   return landsRepository;
 }
 

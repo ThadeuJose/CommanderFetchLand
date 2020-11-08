@@ -15,7 +15,6 @@ The fast way to concat a string is with string template: `${res}${data[i]}`
 FAZER AUTOMATIZED TEST
        Fez uma modificação no código faz um test
        Branch Refactor
-       Tirar aquela coisa de checklist?
 
 browserify scope is local. Go nuts
 
@@ -23,105 +22,134 @@ browserify scope is local. Go nuts
 
 Terminar o projeto quando as features abaixo estiverem prontas:
 
-		Colocar o index.html do app sendo exportado para o dist
+		Atualizar a parte de mana ramp e utility lands			
+        hasGreen
+        isMonoXXX - example isMonoRed
+			Dar uma olhada
+			https://tappedout.net/mtg-decks/new-edh-ramp-full-list/?cb=1579173035
 
-		Instalar o eslint do atom e go nuts
-			How to make a lint for segmented js files
-			eslint specifying global
+			Sol Ring					
+			Wayfarer's Bauble					
+			Arcane Signet 					
+			Fellwar Stone					
 
-		Atualizar a parte de mana ramp e utility lands
-			Signets and Talisman
-			Sol Ring
-			Cultivate
-			Grow from the Ashes
-			Kodama's Reach
-			Commander's Sphere
+			Green 			
+			Nature's Lore					
+			Three Visits			                        	
+			Sakura-Tribe Elder				                	
+			Cultivate					
+			Rampant Growth					
+			Kodama's Reach					
+
+			Farseek	- Special Case
+
+			Mind Stone 	- Everything less green
+
+			Red
+			Dockside Extortionist				
+
+			White
+			Keeper of the Accord
+			Verge Ranger
 			Smothering Tithe
-			Wayfarer's Bauble
-			Sakura-Tribe Elder
 			Land Tax
-			Farseek
-			Rampant Growth
-			Nature's Lore
-			Three Visits
-			Untamed Wilds
-
-		Colocar os exports direito
-			sem require(...).function
-
-		Ver se o nome do arquivo esta correto com airbnb
-			Não está tem que ser igual o nome da função
-			https://github.com/airbnb/javascript#naming--filename-matches-export
-
-		Decidir se vai ser Lands or Land nos títulos
-
-		Refatorar o test
-			Teste - Title
-				Color em Ordem Crescente
-				1 Color
-				2 Color
-				3 Color
-				Resto
-				Capitalize title
-						Is removing correct
-
-			Colocar a parte de lands em uma pasta
-			Usar before
-				https://mochajs.org/#hooks
-			Colocar landsRepository e ColorManager no commons.js
-			Um assert por teste
-
-		Testar as lands que tem um algoritmo estranho
-
-			Testar
-				any-color-land
-					Testar City of Brass
-				filter land
-					testar unknown shores
-					testar 4 cores
-					testar 3 cores
-					testar 2 cores
-				tri-lands
-					Testar
-				Pain
-					testar 4 cores
-					testar 3 cores
-					testar 2 cores
-				ManaRamp
-						Só testar depois de refazer
-				Utility Lands
-						Só testar depois de refazer
-
-		MVC
-
-		Refatorar o print printLandsNoTitle e printLandsWithTitle na main
-
-		Colocar checklands em vez de scrylands no other lands
-
-		Ajeitar a ordem de basic no 4 color
-
-		Mudar o design	- Careful to not make a mess
-			THIS IS A VERY SIMPLE PAGE
-			Colocar as cores bem no canto fixas
-      Colocar o botão de detalhe embaixo sem border radios
-      Colocar o titulo com fundo preto na esquerda e parecido com um banner
-      Colocar a lista em uma parte grande no outro canto
-
-		Testar as lands para ver se estão vindo corretas
-			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands
+			Kor Cartographer
 
 
-
-		Test and put the code in the master branch
+			Talisman					
+			Signets
 
 # Technical Debt
-	Update the technical debt
-	Fix two index.html
-	Upgrade the logic of Basic Land, Fetch
+
+  Bug
+
+  Clicar em details sem nada tira a mensagem padrão
+
+<br>
+Colocar os exports direito
+
+  sem require(...).function
+
+  São Lands nos títulos
+
+  MVC
+
+  Refatorar a main
+
+  Refatorar o landsRepository
+  - Tirar aquele getAllLands2
+  - Refatorar essa interação no main
+  - addDictLands(dict)    
+  - getDictLands()
+
+Refatorar o print printLandsNoTitle e printLandsWithTitle na main
+
+Ajeitar a ordem de basic no 4 color
+
+Refatorar o *colorManager.getAllColorPairs()[0];*
+
+
+  Refatorar o test
+
+		Teste - Title
+			Color em Ordem Crescente
+			1 Color
+			2 Color
+			3 Color
+			Resto
+			Capitalize title
+					Is removing correct
+
+		Colocar a parte de lands em uma pasta
+		Usar before
+			https://mochajs.org/#hooks
+		Colocar landsRepository e ColorManager no commons.js
+		Um assert por teste
+
+  Testar as lands que tem um algoritmo estranho
+
+		Testar
+			any-color-land
+				Testar City of Brass
+			filter land
+				testar unknown shores
+				testar 4 cores
+				testar 3 cores
+				testar 2 cores
+			tri-lands
+				Testar
+			Pain
+				testar 4 cores
+				testar 3 cores
+				testar 2 cores
+			ManaRamp
+					Só testar depois de refazer
+			Utility Lands
+					Só testar depois de refazer
+
+  Testar as lands para ver se estão vindo corretas
+
+    Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
+
+  Colocar sass
+
+  Usar o eslint do atom e go nuts
+		eslint specifying global
+
+ Ver se o nome do arquivo esta correto com airbnb
+- Não está, tem que ser igual o nome da função
+- https://github.com/airbnb/javascript#naming--filename-matches-export
+
+Test and put the code in the master branch
+
+Upgrade the logic of Basic Land, Fetch
 
 
 # Source
-	Source for the new copy command
-		https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
-		https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
-		https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
+  Source for the new copy command
+- https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
+- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
+- https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
+
+  Icons filters
+- https://css-tricks.com/change-color-of-svg-on-hover/
