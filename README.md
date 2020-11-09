@@ -22,7 +22,7 @@ browserify scope is local. Go nuts
 
 Terminar o projeto quando as features abaixo estiverem prontas:
 
-		Aualizar a parte de mana ramp e utility lands			
+		Atualizar a parte de mana ramp e utility lands			
         hasGreen
         isMonoXXX - example isMonoRed
 			Dar uma olhada
@@ -59,101 +59,97 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 			Talisman					
 			Signets
 
-
-		Colocar os exports direito
-			sem require(...).function
-
-		Refatorar o test
-			Teste - Title
-				Color em Ordem Crescente
-				1 Color
-				2 Color
-				3 Color
-				Resto
-				Capitalize title
-						Is removing correct
-
-			Colocar a parte de lands em uma pasta
-			Usar before
-				https://mochajs.org/#hooks
-			Colocar landsRepository e ColorManager no commons.js
-			Um assert por teste
-
-		Testar as lands que tem um algoritmo estranho
-
-			Testar
-				any-color-land
-					Testar City of Brass
-				filter land
-					testar unknown shores
-					testar 4 cores
-					testar 3 cores
-					testar 2 cores
-				tri-lands
-					Testar
-				Pain
-					testar 4 cores
-					testar 3 cores
-					testar 2 cores
-				ManaRamp
-						Só testar depois de refazer
-				Utility Lands
-						Só testar depois de refazer
-
-		Testar as lands para ver se estão vindo corretas
-			Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
-
-    São Lands nos títulos
-
-		MVC
-
-    Refatorar o landsRepository
-      Tirar aquele getAllLands2
-      Refatorar essa interação no main
-        addDictLands(dict)    
-        getDictLands()
-
-    Refatorar
-        colorManager.getAllColorPairs()[0];
-
-		Refatorar o print printLandsNoTitle e printLandsWithTitle na main
-
-		Ajeitar a ordem de basic no 4 color
-
-		Mudar o design	- Careful to not make a mess
-			THIS IS A VERY SIMPLE PAGE
-
-		Voltar ao que era antes
-			Pasta layout			
-			https://www.figma.com/file/erS9eI6NftjUJNNDkKg8go/Commander-Fetchlands-2.0?node-id=0%3A1
-			https://github.com/ThadeuJose/CommanderFetchLand/commit/2b65d477bfc6c1c5629d75d15f49459effad2b8e
-
-			https://css-tricks.com/snippets/css/complete-guide-grid/
-
-			Details tooltip do lado
-			https://pt.stackoverflow.com/questions/101968/%C3%89-poss%C3%ADvel-fazer-um-tooltip-com-css-puro
-
-			https://stackoverflow.com/questions/8566090/how-can-i-delay-a-hover-effect-in-css
-
-			https://stackoverflow.com/questions/5210033/using-only-css-show-div-on-hover-over-a
-
-		Usar o eslint do atom e go nuts
-			How to make a lint for segmented js files
-			eslint specifying global
-
-		Ver se o nome do arquivo esta correto com airbnb
-			Não está tem que ser igual o nome da função
-			https://github.com/airbnb/javascript#naming--filename-matches-export
-
-		Test and put the code in the master branch
-
 # Technical Debt
-	Update the technical debt
-	Upgrade the logic of Basic Land, Fetch
+
+  Bug
+
+  Clicar em details sem nada tira a mensagem padrão
+
+<br>
+Colocar os exports direito
+
+  sem require(...).function
+
+  São Lands nos títulos
+
+  MVC
+
+  Refatorar a main
+
+  Refatorar o landsRepository
+  - Tirar aquele getAllLands2
+  - Refatorar essa interação no main
+  - addDictLands(dict)    
+  - getDictLands()
+
+Refatorar o print printLandsNoTitle e printLandsWithTitle na main
+
+Ajeitar a ordem de basic no 4 color
+
+Refatorar o *colorManager.getAllColorPairs()[0];*
+
+
+  Refatorar o test
+
+		Teste - Title
+			Color em Ordem Crescente
+			1 Color
+			2 Color
+			3 Color
+			Resto
+			Capitalize title
+					Is removing correct
+
+		Colocar a parte de lands em uma pasta
+		Usar before
+			https://mochajs.org/#hooks
+		Colocar landsRepository e ColorManager no commons.js
+		Um assert por teste
+
+  Testar as lands que tem um algoritmo estranho
+
+		Testar
+			any-color-land
+				Testar City of Brass
+			filter land
+				testar unknown shores
+				testar 4 cores
+				testar 3 cores
+				testar 2 cores
+			tri-lands
+				Testar
+			Pain
+				testar 4 cores
+				testar 3 cores
+				testar 2 cores
+			ManaRamp
+					Só testar depois de refazer
+			Utility Lands
+					Só testar depois de refazer
+
+  Testar as lands para ver se estão vindo corretas
+
+    Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
+
+  Colocar sass
+
+  Usar o eslint do atom e go nuts
+		eslint specifying global
+
+ Ver se o nome do arquivo esta correto com airbnb
+- Não está, tem que ser igual o nome da função
+- https://github.com/airbnb/javascript#naming--filename-matches-export
+
+Test and put the code in the master branch
+
+Upgrade the logic of Basic Land, Fetch
 
 
 # Source
-	Source for the new copy command
-		https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
-		https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
-		https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
+  Source for the new copy command
+- https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
+- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
+- https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
+
+  Icons filters
+- https://css-tricks.com/change-color-of-svg-on-hover/

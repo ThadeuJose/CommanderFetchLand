@@ -132,6 +132,14 @@ module.exports =  class LandsRepository {
     return resp;
   }
 
+  getAllLands2() {
+    let resp = [];
+    for (let key of Object.keys(this.lands)) {
+      resp.push(key);
+    }
+    return resp;
+  }
+
 }
 
 },{}],3:[function(require,module,exports){
@@ -197,6 +205,25 @@ const COLOR_TO_BASIC_LAND = {
   green: 'Forest',
 };
 
+function monoBase(landsRepository, color) {
+  if (color === 'white') {
+    landsRepository.addLand(21, 'Plains');
+  }
+  if (color === 'blue') {
+    landsRepository.addLand(22, 'Island');
+  }
+  if (color === 'black') {
+    landsRepository.addLand(22, 'Swamp');
+  }
+  if (color === 'red') {
+    landsRepository.addLand(21, 'Mountain');
+  }
+  if (color === 'green') {
+    landsRepository.addLand(21, 'Forest');
+  }
+  return landsRepository;
+}
+
 function getBasicLands(colorManager) {
   if (colorManager.qtdColor() === 5) {
     let landsRepository = new LandsRepository('Basic Lands');
@@ -246,95 +273,10 @@ function getBasicLands(colorManager) {
   }
 
   if (colorManager.qtdColor() === 1) {
-    return monoBase(colorManager.colorArr[0]);
+    let landsRepository = new LandsRepository('Basic Lands');
+    return monoBase(landsRepository, colorManager.colorArr[0]);
   }
-
 }
-
-function monoBase(color) {
-  let landsRepository = new LandsRepository('Lands');
-  landsRepository.addLand(1,'Arch of Orazca');
-  landsRepository.addLand(1,'Dust Bowl');
-  if(color !== 'red'){
-      landsRepository.addLand(1,'Strip Mine');
-    }
-  landsRepository.addLand(1,'Scavenger Grounds');
-  landsRepository.addLand(1,'Myriad Landscape');
-  landsRepository.addLand(1,"Rogue's Passage");
-  if(color !== 'red'){
-    landsRepository.addLand(1,'Nykthos, Shrine to Nyx');
-  }
-
-  if(color == 'white'){
-    landsRepository.addLand(1,'Sea Gate Wreckage');
-    landsRepository.addLand(1,'Mikokoro, Center of the Sea');
-    landsRepository.addLand(1,'Endless Sands');
-    landsRepository.addLand(1,'Terrain Generator');
-    landsRepository.addLand(1,'Emeria, the Sky Ruin');
-    landsRepository.addLand(1,'Secluded Steppe');
-    landsRepository.addLand(1,'Mistveil Plains');
-    landsRepository.addLand(1,'Drifting Meadow');
-    landsRepository.addLand(1,'Desert of the True');
-    landsRepository.addLand(1,'Castle Ardenvale');
-    landsRepository.addLand(21,'Plains');
-  }
-
-  if(color == 'blue'){
-    landsRepository.addLand(1,'Reliquary Tower');
-    landsRepository.addLand(1,'Blast Zone');
-    landsRepository.addLand(1,'Winding Canyons');
-    landsRepository.addLand(1,'Mirrorpool');
-    landsRepository.addLand(1,'Mystic Sanctuary');
-    landsRepository.addLand(1,'Lonely Sandbar');
-    landsRepository.addLand(1,'Remote Isle');
-    landsRepository.addLand(1,'Desert of The Mindful');
-    landsRepository.addLand(1,'Castle Vantress');
-    landsRepository.addLand(22,'Island');
-
-  }
-  if(color == 'black'){
-    landsRepository.addLand(1,'Vesuva');
-    landsRepository.addLand(1,"Thespian's Stage");
-    landsRepository.addLand(1,'Blast Zone');
-    landsRepository.addLand(1,'Westvale Abbey');
-    landsRepository.addLand(1,'Phyrexian Tower');
-    landsRepository.addLand(1,'Bojuka Bog');
-    landsRepository.addLand(1,'Cabal Stronghold');
-    landsRepository.addLand(1,'Cabal Coffers');
-    landsRepository.addLand(1,'Castle Lochtwain');
-    landsRepository.addLand(22,'Swamp');
-  }
-  if(color == 'red'){
-    landsRepository.addLand(1,'Sea Gate Wreckage');
-    landsRepository.addLand(1,'Mikokoro, Center of the Sea');
-    landsRepository.addLand(1,'Blast Zone');
-    landsRepository.addLand(1,'Kheer Keep');
-    landsRepository.addLand(1,"Thespian's Stage");
-    landsRepository.addLand(1,'Valakut, the Molten Pinnacle');
-    landsRepository.addLand(1,'Flamekin Village');
-    landsRepository.addLand(1,'Shinka, the Bloodsoaked Keep');
-    landsRepository.addLand(1,'Forgotten Cave');
-    landsRepository.addLand(1,'Smoldering Crater');
-    landsRepository.addLand(1,'Desert of The Fervent');
-    landsRepository.addLand(1,'Castle Embereth');
-    landsRepository.addLand(21,'Mountain');
-  }
-  if(color == 'green'){
-    landsRepository.addLand(1,'Endless Sands');
-    landsRepository.addLand(1,'Blighted Woodland');
-    landsRepository.addLand(1,'Miren, the Moaning Well');
-    landsRepository.addLand(1,'Winding Canyons');
-    landsRepository.addLand(1,'Treetop Village');
-    landsRepository.addLand(1,'Oran-rief, the Vastwood');
-    landsRepository.addLand(1,'Tranquil Thicket');
-    landsRepository.addLand(1,'Slippery Karst');
-    landsRepository.addLand(1,"Desert of the Indomitable");
-    landsRepository.addLand(1,'Castle Garenbrig');
-    landsRepository.addLand(21,'Forest');
-  }
-  return landsRepository;
-}
-
 
 module.exports.getBasicLands = getBasicLands;
 
@@ -391,33 +333,6 @@ module.exports.getBattleLands = getBattleLands;
 },{"../LandsRepository":2}],6:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
-const COLORS_TO_BOUNCE_LAND = {
-  whiteblue: 'Azorius Chancery',
-  blueblack: 'Dimir Aqueduct',
-  blackred: 'Rakdos Carnarium',
-  redgreen: 'Gruul Turf',
-  greenwhite: 'Selesnya Sanctuary',
-  whiteblack: 'Orzhov Basilica',
-  bluered: 'Izzet Boilerworks',
-  blackgreen: 'Golgari Rot Farm',
-  redwhite: 'Boros Garrison',
-  greenblue: 'Simic Growth Chamber',
-};
-
-function getBounceLands(colorManager) {
-  let landsRepository = new LandsRepository('Bounce Land');
-  if (colorManager.qtdColor() === 2) {
-    let colorPair = colorManager.getAllColorPairs()[0]
-    landsRepository.addLand(1,COLORS_TO_BOUNCE_LAND[colorPair]);
-  }
-  return landsRepository;
-}
-
-module.exports.getBounceLands = getBounceLands;
-
-},{"../LandsRepository":2}],7:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
 const COLORS_TO_CHECK_LAND = {
   whiteblue: 'Glacial Fortress',
   blueblack: 'Drowned Catacomb',
@@ -441,6 +356,33 @@ function getCheckLands(colorManager) {
 }
 
 module.exports.getCheckLands = getCheckLands;
+
+},{"../LandsRepository":2}],7:[function(require,module,exports){
+const LandsRepository = require('../LandsRepository');
+
+const COLORS_TO_CROWD_LAND = {
+  whiteblue: 'Sea of Clouds',
+  blueblack: 'Morphic Pool',
+  blackred: 'Luxury Suite',
+  redgreen: 'Spire Garden',
+  greenwhite: 'Bountiful Promenade',
+  whiteblack: 'Vault of Champions',
+  bluered: 'Training Center',
+  blackgreen: 'Undergrowth Stadium',
+  redwhite: 'Spectator Seating',
+  greenblue: 'Rejuvenating Springs',
+};
+
+function getCrowdLands(colorManager) {
+  const landsRepository = new LandsRepository('Crowd Lands');
+  if (colorManager.qtdColor() === 2) {
+    const colorPair = colorManager.getAllColorPairs()[0];
+    landsRepository.addLand(1, COLORS_TO_CROWD_LAND[colorPair]);
+  }
+  return landsRepository;
+}
+
+module.exports.getCrowdLands = getCrowdLands;
 
 },{"../LandsRepository":2}],8:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
@@ -541,7 +483,7 @@ module.exports.getFetchLands = getFetchLands;
 },{"../LandsRepository":2}],10:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
-const COLORS_TO_FILTER_LAND_1 = {
+const COLORS_TO_LOW_PRIORITY_FILTER_LANDS = {
   whiteblue: 'Mystic Gate',
   blueblack: 'Sunken Ruins',
   blackred: 'Graven Cairns',
@@ -554,7 +496,7 @@ const COLORS_TO_FILTER_LAND_1 = {
   greenblue: 'Flooded Grove',
 };
 
-const COLORS_TO_FILTER_LAND_2 = {
+const COLORS_TO_HIGH_PRIORITY_FILTER_LANDS = {
   whiteblue: 'Skycloud Expanse',
   blueblack: 'Darkwater Catacombs',
   blackred: 'Shadowblood Ridge',
@@ -563,28 +505,41 @@ const COLORS_TO_FILTER_LAND_2 = {
 };
 
 function getFilterLands(colorManager) {
-  let landsRepository = new LandsRepository('Filter Land');
-  if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
-    const maxQtdLands = 3;
-    const colorPairs = colorManager.getAllColorPairs();
-    for (var colorPair of colorPairs) {
-      if(COLORS_TO_FILTER_LAND_1[colorPair]){
-        landsRepository.addLand(1, COLORS_TO_FILTER_LAND_1[colorPair]);
-      }
-      if(landsRepository.qtdLands() == maxQtdLands){
-        break;
-      }
-    }
+  const landsRepository = new LandsRepository('Filter Lands');
+  let colorPairs = '';
+
+  if (colorManager.qtdColor() === 4) {
+    colorPairs = colorManager.getAllColorPairs();
+
+    colorPairs
+      .filter(item => COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[item])
+      .map(item => COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[item])
+      .forEach(item => landsRepository.addLand(1, item));
   }
+
+  if (colorManager.qtdColor() === 3) {
+    colorPairs = colorManager.getAllColorPairs();
+    colorPairs
+      .map((colorPair) => {
+        if (COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair]) {
+          return COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair];
+        }
+        return COLORS_TO_LOW_PRIORITY_FILTER_LANDS[colorPair];
+      })
+      .forEach(item => landsRepository.addLand(1, item));
+  }
+
   if (colorManager.qtdColor() === 2) {
     const colorPair = colorManager.getAllColorPairs()[0];
-    landsRepository.addLand(1, COLORS_TO_FILTER_LAND_1[colorPair]);
-    if (colorPair in COLORS_TO_FILTER_LAND_2){
-      landsRepository.addLand(1, COLORS_TO_FILTER_LAND_2[colorPair]);
+    const defaultLand = 'Unknown Shores';
+    landsRepository.addLand(1, COLORS_TO_LOW_PRIORITY_FILTER_LANDS[colorPair]);
+    if (colorPair in COLORS_TO_HIGH_PRIORITY_FILTER_LANDS) {
+      landsRepository.addLand(1, COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair]);
     } else {
-      landsRepository.addLand(1, 'Unknown Shores');
+      landsRepository.addLand(1, defaultLand);
     }
   }
+
   return landsRepository;
 }
 
@@ -647,63 +602,79 @@ const COLORS_TO_PAIN_TALISMAN = {
   greenblue: 'Curiosity',
 };
 
-
-function getManaRamp(colorManager){
-  let landsRepository = new LandsRepository('Mana Ramp');
+function greenRampPackage() {
+  const landsRepository = new LandsRepository('Mana Ramp');
   landsRepository.addLand(1, 'Sol Ring');
-  landsRepository.addLand(1, "Commander's Sphere");
-  landsRepository.addLand(1, 'Darksteel Ingot');
+  landsRepository.addLand(1, "Wayfarer's Bauble");
+  landsRepository.addLand(1, 'Arcane Signet');
+  landsRepository.addLand(1, 'Fellwar Stone');
+  landsRepository.addLand(1, 'Sakura-tribe Elder');
+  landsRepository.addLand(1, 'Rampant Growth');
+  landsRepository.addLand(1, "Kodama's Reach");
+  landsRepository.addLand(1, 'Cultivate');
+  landsRepository.addLand(1, 'Nature\'s Lore');
+  landsRepository.addLand(1, 'Three Visits');
+  return landsRepository;
+}
 
-  if (colorManager.qtdColor() === 5) {
-    landsRepository.addLand(1, 'Chromatic Lantern');
-    landsRepository.addLand(1, 'Sakura-tribe Elder');
-    landsRepository.addLand(1, 'Rampant Growth');
-    landsRepository.addLand(1, 'Wild Growth');
-    landsRepository.addLand(1, 'Dryad of the Ilysian Grove');
-    landsRepository.addLand(1, "Kodama's Reach");
-    landsRepository.addLand(1, 'Cultivate');
+function monoGreenRampPackage() {
+  const landsRepository = new LandsRepository('Mana Ramp');
+  landsRepository.addLand(1, 'Sol Ring');
+  landsRepository.addLand(1, "Wayfarer's Bauble");
+  landsRepository.addLand(1, 'Arcane Signet');
+  landsRepository.addLand(1, 'Fellwar Stone');
+  landsRepository.addLand(1, 'Wild Growth');
+  landsRepository.addLand(1, 'Utopia Sprawl');
+  landsRepository.addLand(1, 'Sakura-tribe Elder');
+  landsRepository.addLand(1, 'Rampant Growth');
+  landsRepository.addLand(1, "Kodama's Reach");
+  landsRepository.addLand(1, 'Cultivate');
+  return landsRepository;
+}
+
+function getManaRamp(colorManager) {
+  const colorPairs = colorManager.getAllColorPairs();
+
+  if (colorManager.hasColor('green')) {
+    if (colorManager.qtdColor() === 1) {
+      return monoGreenRampPackage();
+    }
+    return greenRampPackage();
   }
+
+  const landsRepository = new LandsRepository('Mana Ramp');
+  landsRepository.addLand(1, 'Sol Ring');
+  landsRepository.addLand(1, "Wayfarer's Bauble");
+  landsRepository.addLand(1, 'Arcane Signet');
+  landsRepository.addLand(1, 'Fellwar Stone');
+
   if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
-    let colorPairs = colorManager.getAllColorPairs();
     landsRepository.addLand(1, 'Mind Stone');
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[0]]} Locket`);
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[1]]} Locket`);
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[2]]} Locket`);
-    landsRepository.addLand(1, 'Fellwar Stone');
+    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[0]]} Signet`);
+    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[1]]} Signet`);
+    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[2]]} Signet`);
     landsRepository.addLand(1, 'Mana Geode');
-    landsRepository.addLand(1, 'Manalith');
+    landsRepository.addLand(1, 'Chromatic Lantern');
   }
   if (colorManager.qtdColor() === 2) {
-    let colorPair = colorManager.getAllColorPairs()[0];
+    const colorPair = colorManager.getAllColorPairs()[0];
     landsRepository.addLand(1, 'Mind Stone');
     landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Signet`);
     landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Keyrune`);
     landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Cluestone`);
     landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Locket`);
     landsRepository.addLand(1, `Talisman of ${COLORS_TO_PAIN_TALISMAN[colorPair]}`);
-    landsRepository.addLand(1, 'Chromatic Lantern');
   }
 
   if (colorManager.qtdColor() === 1) {
-    let color = colorManager.getAllColorPairs()[0];
     landsRepository.addLand(1, 'Mind Stone');
-    if (color === 'green') {
-      landsRepository.addLand(1, 'Sakura-tribe Elder');
-      landsRepository.addLand(1, 'Rampant Growth');
-      landsRepository.addLand(1, 'Wild Growth');
-      landsRepository.addLand(1, 'Utopia Sprawl');
-      landsRepository.addLand(1, "Kodama's Reach");
-      landsRepository.addLand(1, 'Cultivate');
-    } else {
-      landsRepository.addLand(1, 'Arcane Signet');
-      landsRepository.addLand(1, 'Treasure Map');
-      landsRepository.addLand(1, 'Sword of the Animist');
-      landsRepository.addLand(1, "Commander's Sphere");
-      landsRepository.addLand(1, 'Worn Powerstone');
-      landsRepository.addLand(1, 'Solemn Simulacrum');
-      landsRepository.addLand(1, 'Hedron Archive');
-    }
+    landsRepository.addLand(1, 'Treasure Map');
+    landsRepository.addLand(1, 'Sword of the Animist');
+    landsRepository.addLand(1, "Commander's Sphere");
+    landsRepository.addLand(1, 'Worn Powerstone');
+    landsRepository.addLand(1, 'Solemn Simulacrum');
   }
+
   return landsRepository;
 }
 
@@ -712,27 +683,36 @@ module.exports.getManaRamp = getManaRamp;
 },{"../LandsRepository":2}],13:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
-const COLORS_TO_SCRY_LAND = {
-  whiteblue: 'Temple of Enlightenment',
-  blueblack: 'Temple of Deceit',
-  blackred: 'Temple of Malice',
-  redgreen: 'Temple of Abandon',
-  greenwhite: 'Temple of Plenty',
-  whiteblack: 'Temple of Silence',
-  bluered: 'Temple of Epiphany',
-  blackgreen: 'Temple of Malady',
-  redwhite: 'Temple of Triumph',
-  greenblue: 'Temple of Mystery',
+const COLORS_TO_BATTLE_LAND = {
+  whiteblue: 'Prairie Stream',
+  blueblack: 'Sunken Hollow',
+  blackred: 'Smoldering Marsh',
+  redgreen: 'Cinder Glade',
+  greenwhite: 'Canopy Vista ',
+};
+
+const COLORS_TO_CHECK_LAND = {
+  whiteblack: 'Isolated Chapel',
+  bluered: 'Sulfur Falls',
+  blackgreen: 'Woodland Cemetery',
+  redwhite: 'Clifftop Retreat',
+  greenblue: 'Hinterland Harbor',
 };
 
 function getOtherLands(colorManager) {
-  let landsRepository = new LandsRepository('Other Lands(Scry lands)');
-  if (colorManager.qtdColor() == 3) {
-    let colorPairs = colorManager.getAllColorPairs();
-    for (var colorPair of colorPairs) {
-      landsRepository.addLand(1,COLORS_TO_SCRY_LAND[colorPair]);
-    }
+  const landsRepository = new LandsRepository('Other Lands (Battle and Check Lands)');
+  if (colorManager.qtdColor() === 3) {
+    const colorPairs = colorManager.getAllColorPairs();
+    colorPairs.forEach((colorPair) => {
+      if (COLORS_TO_BATTLE_LAND[colorPair]) {
+        landsRepository.addLand(1, COLORS_TO_BATTLE_LAND[colorPair]);
+      }
+      if (COLORS_TO_CHECK_LAND[colorPair]) {
+        landsRepository.addLand(1, COLORS_TO_CHECK_LAND[colorPair]);
+      }
+    });
   }
+
   return landsRepository;
 }
 
@@ -870,9 +850,84 @@ module.exports.getTriLands = getTriLands;
 },{"../LandsRepository":2}],18:[function(require,module,exports){
 const LandsRepository = require('../LandsRepository');
 
-function getUtilityLand(colorManager){
-  let landsRepository = new LandsRepository('Utility Land');
-  if(colorManager.qtdColor() === 4){
+function monoBase(landsRepository, color) {
+  landsRepository.addLand(1, 'Arch of Orazca');
+  landsRepository.addLand(1, 'Dust Bowl');
+  if (color !== 'red') {
+    landsRepository.addLand(1, 'Strip Mine');
+  }
+  landsRepository.addLand(1, 'Scavenger Grounds');
+  landsRepository.addLand(1, 'Myriad Landscape');
+  landsRepository.addLand(1, "Rogue's Passage");
+  if (color !== 'red') {
+    landsRepository.addLand(1, 'Nykthos, Shrine to Nyx');
+  }
+  if (color === 'white') {
+    landsRepository.addLand(1, 'Sea Gate Wreckage');
+    landsRepository.addLand(1, 'Mikokoro, Center of the Sea');
+    landsRepository.addLand(1, 'Endless Sands');
+    landsRepository.addLand(1, 'Terrain Generator');
+    landsRepository.addLand(1, 'Emeria, the Sky Ruin');
+    landsRepository.addLand(1, 'Secluded Steppe');
+    landsRepository.addLand(1, 'Mistveil Plains');
+    landsRepository.addLand(1, 'Drifting Meadow');
+    landsRepository.addLand(1, 'Desert of the True');
+    landsRepository.addLand(1, 'Castle Ardenvale');
+  }
+  if (color === 'blue') {
+    landsRepository.addLand(1, 'Reliquary Tower');
+    landsRepository.addLand(1, 'Blast Zone');
+    landsRepository.addLand(1, 'Winding Canyons');
+    landsRepository.addLand(1, 'Mirrorpool');
+    landsRepository.addLand(1, 'Mystic Sanctuary');
+    landsRepository.addLand(1, 'Lonely Sandbar');
+    landsRepository.addLand(1, 'Remote Isle');
+    landsRepository.addLand(1, 'Desert of The Mindful');
+    landsRepository.addLand(1, 'Castle Vantress');
+  }
+  if (color === 'black') {
+    landsRepository.addLand(1, 'Vesuva');
+    landsRepository.addLand(1, "Thespian's Stage");
+    landsRepository.addLand(1, 'Blast Zone');
+    landsRepository.addLand(1, 'Westvale Abbey');
+    landsRepository.addLand(1, 'Phyrexian Tower');
+    landsRepository.addLand(1, 'Bojuka Bog');
+    landsRepository.addLand(1, 'Cabal Stronghold');
+    landsRepository.addLand(1, 'Cabal Coffers');
+    landsRepository.addLand(1, 'Castle Lochtwain');
+  }
+  if (color === 'red') {
+    landsRepository.addLand(1, 'Sea Gate Wreckage');
+    landsRepository.addLand(1, 'Mikokoro, Center of the Sea');
+    landsRepository.addLand(1, 'Blast Zone');
+    landsRepository.addLand(1, 'Kheer Keep');
+    landsRepository.addLand(1, "Thespian's Stage");
+    landsRepository.addLand(1, 'Valakut, the Molten Pinnacle');
+    landsRepository.addLand(1, 'Flamekin Village');
+    landsRepository.addLand(1, 'Shinka, the Bloodsoaked Keep');
+    landsRepository.addLand(1, 'Forgotten Cave');
+    landsRepository.addLand(1, 'Smoldering Crater');
+    landsRepository.addLand(1, 'Desert of The Fervent');
+    landsRepository.addLand(1, 'Castle Embereth');
+  }
+  if (color === 'green') {
+    landsRepository.addLand(1, 'Endless Sands');
+    landsRepository.addLand(1, 'Blighted Woodland');
+    landsRepository.addLand(1, 'Miren, the Moaning Well');
+    landsRepository.addLand(1, 'Winding Canyons');
+    landsRepository.addLand(1, 'Treetop Village');
+    landsRepository.addLand(1, 'Oran-rief, the Vastwood');
+    landsRepository.addLand(1, 'Tranquil Thicket');
+    landsRepository.addLand(1, 'Slippery Karst');
+    landsRepository.addLand(1, 'Desert of the Indomitable');
+    landsRepository.addLand(1, 'Castle Garenbrig');
+  }
+  return landsRepository;
+}
+
+function getUtilityLand(colorManager) {
+  let landsRepository = new LandsRepository('Utility Lands');
+  if (colorManager.qtdColor() === 4) {
     landsRepository.addLand(4, 'UTILITY LAND');
   }
   if (colorManager.qtdColor() === 3) {
@@ -880,6 +935,9 @@ function getUtilityLand(colorManager){
   }
   if (colorManager.qtdColor() === 2) {
     landsRepository.addLand(5, 'UTILITY LAND');
+  }
+  if (colorManager.qtdColor() === 1) {
+    landsRepository = monoBase(landsRepository, colorManager.colorArr[0]);
   }
   return landsRepository;
 }
@@ -890,7 +948,7 @@ module.exports.getUtilityLand = getUtilityLand;
 const getAnyColorLand = require('./lands-code/any-color-lands').getAnyColorLand;
 const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
 const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
-const getBounceLands = require('./lands-code/bounce-lands').getBounceLands;
+const getCrowdLands = require('./lands-code/crowd-lands').getCrowdLands;
 const getCheckLands = require('./lands-code/check-lands').getCheckLands;
 const getDualLands = require('./lands-code/dual-lands').getDualLands;
 const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
@@ -938,11 +996,16 @@ let colorArr = [];
 
 window.check_icon = function () {
   detail_checked = !detail_checked;
+  const detailElem = document.getElementById('detail');
+  const classNameRed = 'detail_icon--red';
+  const classNameGreen = 'detail_icon--green';
   if(detail_checked){
-    document.getElementById('detail').style.backgroundColor = "green";
+    detailElem.classList.add(classNameGreen);
+    detailElem.classList.remove(classNameRed);
     document.getElementById('output').value = printLandsWithTitle(colorManager);
   }else{
-    document.getElementById('detail').style.backgroundColor = "red";
+    detailElem.classList.add(classNameRed);
+    detailElem.classList.remove(classNameGreen);
     document.getElementById('output').value = printLandsNoTitle(colorManager);
   }
 }
@@ -988,7 +1051,7 @@ function printLandsNoTitle(colorManager) {
       landsRepository.addDictLands(getScryLands(colorManager).getDictLands());
       landsRepository.addDictLands(getBattleLands(colorManager).getDictLands());
       landsRepository.addDictLands(getCheckLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getBounceLands(colorManager).getDictLands());
+      landsRepository.addDictLands(getCrowdLands(colorManager).getDictLands());
       landsRepository.addDictLands(getAnyColorLand(colorManager).getDictLands());
     }
     resp += landsRepositoryToString(landsRepository);
@@ -1015,7 +1078,7 @@ function printLandsWithTitle(colorManager) {
       resp += landsRepositoryToString(getScryLands(colorManager));
       resp += landsRepositoryToString(getBattleLands(colorManager));
       resp += landsRepositoryToString(getCheckLands(colorManager));
-      resp += landsRepositoryToString(getBounceLands(colorManager));
+      resp += landsRepositoryToString(getCrowdLands(colorManager));
       resp += landsRepositoryToString(getAnyColorLand(colorManager));
     }
     resp += landsRepositoryToString(getBasicLands(colorManager));
@@ -1052,4 +1115,4 @@ function showSnackbar() {
   }, 3000);
 }
 
-},{"./ColorManager":1,"./LandsRepository":2,"./lands-code/any-color-lands":3,"./lands-code/basic-lands":4,"./lands-code/battle-and-fast-lands":5,"./lands-code/bounce-lands":6,"./lands-code/check-lands":7,"./lands-code/dual-lands":8,"./lands-code/fetch-lands":9,"./lands-code/filter-lands":10,"./lands-code/man-lands":11,"./lands-code/mana-ramp":12,"./lands-code/other-lands":13,"./lands-code/pain-lands":14,"./lands-code/scry-lands":15,"./lands-code/shock-lands":16,"./lands-code/tri-lands":17,"./lands-code/utility-lands":18}]},{},[19]);
+},{"./ColorManager":1,"./LandsRepository":2,"./lands-code/any-color-lands":3,"./lands-code/basic-lands":4,"./lands-code/battle-and-fast-lands":5,"./lands-code/check-lands":6,"./lands-code/crowd-lands":7,"./lands-code/dual-lands":8,"./lands-code/fetch-lands":9,"./lands-code/filter-lands":10,"./lands-code/man-lands":11,"./lands-code/mana-ramp":12,"./lands-code/other-lands":13,"./lands-code/pain-lands":14,"./lands-code/scry-lands":15,"./lands-code/shock-lands":16,"./lands-code/tri-lands":17,"./lands-code/utility-lands":18}]},{},[19]);

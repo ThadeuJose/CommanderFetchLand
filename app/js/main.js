@@ -49,11 +49,16 @@ let colorArr = [];
 
 window.check_icon = function () {
   detail_checked = !detail_checked;
+  const detailElem = document.getElementById('detail');
+  const classNameRed = 'detail_icon--red';
+  const classNameGreen = 'detail_icon--green';
   if(detail_checked){
-    document.getElementById('detail').style.backgroundColor = "green";
+    detailElem.classList.add(classNameGreen);
+    detailElem.classList.remove(classNameRed);
     document.getElementById('output').value = printLandsWithTitle(colorManager);
   }else{
-    document.getElementById('detail').style.backgroundColor = "red";
+    detailElem.classList.add(classNameRed);
+    detailElem.classList.remove(classNameGreen);
     document.getElementById('output').value = printLandsNoTitle(colorManager);
   }
 }
