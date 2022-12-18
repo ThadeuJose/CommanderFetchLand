@@ -900,7 +900,7 @@ function monoBase(landsRepository, color) {
     landsRepository.addLand(1, 'Sea Gate Wreckage');
     landsRepository.addLand(1, 'Mikokoro, Center of the Sea');
     landsRepository.addLand(1, 'Blast Zone');
-    landsRepository.addLand(1, 'Kheer Keep');
+    landsRepository.addLand(1, 'Kher Keep');
     landsRepository.addLand(1, "Thespian's Stage");
     landsRepository.addLand(1, 'Valakut, the Molten Pinnacle');
     landsRepository.addLand(1, 'Flamekin Village');
