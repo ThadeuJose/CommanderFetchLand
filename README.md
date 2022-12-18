@@ -12,52 +12,50 @@ https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-2
 
 The fast way to concat a string is with string template: `${res}${data[i]}`
 
-FAZER AUTOMATIZED TEST
-       Fez uma modificação no código faz um test
-       Branch Refactor
+Make Automatized test
 
-browserify scope is local. Go nuts
+Still use Browserify ?
 
 ---
 
 Terminar o projeto quando as features abaixo estiverem prontas:
 
-		Atualizar a parte de mana ramp e utility lands			
-        hasGreen
-        isMonoXXX - example isMonoRed
-			Dar uma olhada
-			https://tappedout.net/mtg-decks/new-edh-ramp-full-list/?cb=1579173035
+	Atualizar a parte de mana ramp e utility lands			
+	hasGreen
+	isMonoXXX - example isMonoRed
+		Dar uma olhada
+		https://tappedout.net/mtg-decks/new-edh-ramp-full-list/?cb=1579173035
 
-			Sol Ring					
-			Wayfarer's Bauble					
-			Arcane Signet 					
-			Fellwar Stone					
+		Sol Ring					
+		Wayfarer's Bauble					
+		Arcane Signet 					
+		Fellwar Stone					
 
-			Green 			
-			Nature's Lore					
-			Three Visits			                        	
-			Sakura-Tribe Elder				                	
-			Cultivate					
-			Rampant Growth					
-			Kodama's Reach					
+		Green 			
+		Nature's Lore					
+		Three Visits			                        	
+		Sakura-Tribe Elder				                	
+		Cultivate					
+		Rampant Growth					
+		Kodama's Reach					
 
-			Farseek	- Special Case
+		Farseek	- Special Case
 
-			Mind Stone 	- Everything less green
+		Mind Stone 	- Everything less green
 
-			Red
-			Dockside Extortionist				
+		Red
+		Dockside Extortionist				
 
-			White
-			Keeper of the Accord
-			Verge Ranger
-			Smothering Tithe
-			Land Tax
-			Kor Cartographer
+		White
+		Keeper of the Accord
+		Verge Ranger
+		Smothering Tithe
+		Land Tax
+		Kor Cartographer
 
 
-			Talisman					
-			Signets
+		Talisman					
+		Signets
 
 # Technical Debt
 
@@ -65,7 +63,6 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
   Clicar em details sem nada tira a mensagem padrão
 
-<br>
 Colocar os exports direito
 
   sem require(...).function
@@ -89,24 +86,24 @@ Ajeitar a ordem de basic no 4 color
 Refatorar o *colorManager.getAllColorPairs()[0];*
 
 
-  Refatorar o test
+Refatorar o test
 
-		Teste - Title
-			Color em Ordem Crescente
-			1 Color
-			2 Color
-			3 Color
-			Resto
-			Capitalize title
-					Is removing correct
+	Teste - Title
+		Color em Ordem Crescente
+		1 Color
+		2 Color
+		3 Color
+		Resto
+		Capitalize title
+				Is removing correct
 
-		Colocar a parte de lands em uma pasta
-		Usar before
-			https://mochajs.org/#hooks
-		Colocar landsRepository e ColorManager no commons.js
-		Um assert por teste
+	Colocar a parte de lands em uma pasta
+	Usar before
+		https://mochajs.org/#hooks
+	Colocar landsRepository e ColorManager no commons.js
+	Um assert por teste
 
-  Testar as lands que tem um algoritmo estranho
+	Testar as lands que tem um algoritmo estranho
 
 		Testar
 			any-color-land
@@ -131,10 +128,9 @@ Refatorar o *colorManager.getAllColorPairs()[0];*
 
     Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
 
-  Colocar sass
+  Colocar sass ? 
 
-  Usar o eslint do atom e go nuts
-		eslint specifying global
+  Usar o eslint 
 
  Ver se o nome do arquivo esta correto com airbnb
 - Não está, tem que ser igual o nome da função
@@ -146,10 +142,11 @@ Upgrade the logic of Basic Land, Fetch
 
 
 # Source
-  Source for the new copy command
+
+## Source for the new copy command
 - https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
 - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
 - https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
 
-  Icons filters
+## Icons filters
 - https://css-tricks.com/change-color-of-svg-on-hover/
