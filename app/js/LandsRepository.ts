@@ -1,14 +1,17 @@
-module.exports =  class LandsRepository {
+module.exports = class LandsRepository {
+  private title: any;
+  private lands: {};
+
   constructor(title) {
     this.title = title;
     this.lands = {};
   }
 
-  addLand(name,qtd) {
+  addLand(name, qtd) {
     this.lands[qtd] = name;
   }
 
-  addDictLands(dict){
+  addDictLands(dict) {
     this.lands = Object.assign({}, this.lands, dict);
   }
 
@@ -17,7 +20,7 @@ module.exports =  class LandsRepository {
   }
 
   qtdLands() {
-    if(this.isEmpty()){
+    if (this.isEmpty()) {
       return 0;
     }
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -26,8 +29,8 @@ module.exports =  class LandsRepository {
 
   isEmpty() {
     let obj = this.lands;
-    for(var prop in obj) {
-      if(obj.hasOwnProperty(prop)) {
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
         return false;
       }
     }
@@ -38,7 +41,7 @@ module.exports =  class LandsRepository {
   getAllLands() {
     let resp = [];
     for (let [key, value] of Object.entries(this.lands)) {
-      resp.push([value,key]);
+      resp.push([value, key]);
     }
     return resp;
   }
@@ -50,5 +53,4 @@ module.exports =  class LandsRepository {
     }
     return resp;
   }
-
-}
+};

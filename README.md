@@ -128,8 +128,6 @@ Ver se o nome do arquivo esta correto com airbnb
 - Não está, tem que ser igual o nome da função
 - https://github.com/airbnb/javascript#naming--filename-matches-export
 
-Test and put the code in the master branch
-
 Upgrade the logic of Basic Land, Fetch
 
 
