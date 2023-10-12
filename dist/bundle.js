@@ -945,28 +945,28 @@ function getUtilityLand(colorManager) {
 module.exports.getUtilityLand = getUtilityLand;
 
 },{"../LandsRepository":2}],19:[function(require,module,exports){
-const getAnyColorLand = require('./lands-code/any-color-lands').getAnyColorLand;
-const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
-const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
-const getCrowdLands = require('./lands-code/crowd-lands').getCrowdLands;
-const getCheckLands = require('./lands-code/check-lands').getCheckLands;
-const getDualLands = require('./lands-code/dual-lands').getDualLands;
-const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
-const getFilterLands = require('./lands-code/filter-lands').getFilterLands;
-const getManLands = require('./lands-code/man-lands').getManLands;
-const getManaRamp = require('./lands-code/mana-ramp').getManaRamp;
-const getOtherLands = require('./lands-code/other-lands').getOtherLands;
-const getPainLands = require('./lands-code/pain-lands').getPainLands;
-const getScryLands = require('./lands-code/scry-lands').getScryLands;
-const getShockLands = require('./lands-code/shock-lands').getShockLands;
-const getTriLands = require('./lands-code/tri-lands').getTriLands;
-const getUtilityLand = require('./lands-code/utility-lands').getUtilityLand;
+const { getAnyColorLand } = require('./lands-code/any-color-lands');
+const { getBasicLands } = require('./lands-code/basic-lands');
+const { getBattleLands } = require('./lands-code/battle-and-fast-lands');
+const { getCrowdLands } = require('./lands-code/crowd-lands');
+const { getCheckLands } = require('./lands-code/check-lands');
+const { getDualLands } = require('./lands-code/dual-lands');
+const { getFetchLands } = require('./lands-code/fetch-lands');
+const { getFilterLands } = require('./lands-code/filter-lands');
+const { getManLands } = require('./lands-code/man-lands');
+const { getManaRamp } = require('./lands-code/mana-ramp');
+const { getOtherLands } = require('./lands-code/other-lands');
+const { getPainLands } = require('./lands-code/pain-lands');
+const { getScryLands } = require('./lands-code/scry-lands');
+const { getShockLands } = require('./lands-code/shock-lands');
+const { getTriLands } = require('./lands-code/tri-lands');
+const { getUtilityLand } = require('./lands-code/utility-lands');
 
 
 const LandsRepository = require('./LandsRepository');
 const ColorManager = require('./ColorManager');
 
-document.addEventListener('DOMContentLoaded', function resetView() {
+document.addEventListener('DOMContentLoaded', () => {
   const inputList = document.getElementsByTagName('input');
   for (let i = 0; i < inputList.length; i += 1) {
     inputList[i].checked = false;
@@ -975,50 +975,37 @@ document.addEventListener('DOMContentLoaded', function resetView() {
 });
 
 window.copyToClipboard = function (obj) {
-
   event.preventDefault();
 
   const copyText = document.getElementById('output');
 
   if (copyText.value !== 'Click to copy the lands') {
     navigator.clipboard.writeText(copyText.value);
-    console.log("Copied the text: " + copyText.value);
+    console.log(`Copied the text: ${copyText.value}`);
     showSnackbar();
   }
-}
+};
 
 
 let detail_checked = false;
 
 
-let colorManager = new ColorManager();
+const colorManager = new ColorManager();
 let colorArr = [];
 
-window.check_icon = function () {
-  detail_checked = !detail_checked;
-  const detailElem = document.getElementById('detail');
-  const classNameRed = 'detail_icon--red';
-  const classNameGreen = 'detail_icon--green';
-  if(detail_checked){
-    detailElem.classList.add(classNameGreen);
-    detailElem.classList.remove(classNameRed);
-    document.getElementById('output').value = printLandsWithTitle(colorManager);
-  }else{
-    detailElem.classList.add(classNameRed);
-    detailElem.classList.remove(classNameGreen);
-    document.getElementById('output').value = printLandsNoTitle(colorManager);
-  }
-}
-
-
 window.onChecked = function (obj) {
-  const color = obj.name;
+  const { name } = obj;
   const isChecked = obj.checked;
 
-  if (isChecked) {
-    colorManager.addColor(color);
-  } else {
-    colorManager.removeColor(color);
+  if (name === 'details') {
+    detail_checked = !detail_checked;
+  }
+  if (name !== 'details') {
+    if (isChecked) {
+      colorManager.addColor(name);
+    } else {
+      colorManager.removeColor(name);
+    }
   }
   colorArr = colorManager.colorArr;
 
@@ -1028,18 +1015,17 @@ window.onChecked = function (obj) {
     } else {
       document.getElementById('output').value = printLandsNoTitle(colorManager);
     }
-
   } else {
     document.getElementById('output').value = 'Click to copy the lands';
   }
-}
+};
 
 function printLandsNoTitle(colorManager) {
   let resp = '';
-  let landsRepository = new LandsRepository('Lands');
+  const landsRepository = new LandsRepository('Lands');
 
-  if(colorManager.qtdColor() > 0){
-    if(colorManager.qtdColor() > 1){
+  if (colorManager.qtdColor() > 0) {
+    if (colorManager.qtdColor() > 1) {
       landsRepository.addDictLands(getDualLands(colorManager).getDictLands());
       landsRepository.addDictLands(getFetchLands(colorManager).getDictLands());
       landsRepository.addDictLands(getShockLands(colorManager).getDictLands());
@@ -1065,8 +1051,8 @@ function printLandsNoTitle(colorManager) {
 
 function printLandsWithTitle(colorManager) {
   let resp = '';
-  if(colorManager.qtdColor() > 0){
-    if(colorManager.qtdColor() > 1){
+  if (colorManager.qtdColor() > 0) {
+    if (colorManager.qtdColor() > 1) {
       resp += landsRepositoryToString(getDualLands(colorManager));
       resp += landsRepositoryToString(getFetchLands(colorManager));
       resp += landsRepositoryToString(getShockLands(colorManager));
@@ -1092,11 +1078,11 @@ function landsRepositoryToString(landsRepository) {
   let resp = '';
 
   if (!landsRepository.isEmpty()) {
-    resp = '//' + landsRepository.title + ': ' + landsRepository.qtdLands() +'\n';
-    for (var elem of landsRepository.getAllLands()) {
-      resp+=elem.join(' ')+'\n';
+    resp = `//${landsRepository.title}: ${landsRepository.qtdLands()}\n`;
+    for (const elem of landsRepository.getAllLands()) {
+      resp += `${elem.join(' ')}\n`;
     }
-    resp+='\n';
+    resp += '\n';
   }
 
   return resp;
@@ -1104,14 +1090,14 @@ function landsRepositoryToString(landsRepository) {
 
 function showSnackbar() {
   // Get the snackbar DIV
-  var snackbar = document.getElementById("snackbar");
+  const snackbar = document.getElementById('snackbar');
 
   // Add the "show" class to DIV
-  snackbar.className = "show";
+  snackbar.className = 'show';
 
   // After 3 seconds, remove the show class from DIV
-  setTimeout(function(){
-    snackbar.className = snackbar.className.replace("show", "");
+  setTimeout(() => {
+    snackbar.className = snackbar.className.replace('show', '');
   }, 3000);
 }
 

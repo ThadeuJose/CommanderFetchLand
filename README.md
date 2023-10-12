@@ -59,10 +59,6 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 
 # Technical Debt
 
-  Bug
-
-  Clicar em details sem nada tira a mensagem padrão
-
 Colocar os exports direito
 
   sem require(...).function
