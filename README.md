@@ -53,7 +53,6 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 		Land Tax
 		Kor Cartographer
 
-
 		Talisman					
 		Signets
 
@@ -124,11 +123,8 @@ Refatorar o test
 
     Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
 
-  Colocar sass ? 
 
-  Usar o eslint 
-
- Ver se o nome do arquivo esta correto com airbnb
+Ver se o nome do arquivo esta correto com airbnb
 - Não está, tem que ser igual o nome da função
 - https://github.com/airbnb/javascript#naming--filename-matches-export
 
@@ -143,6 +139,3 @@ Upgrade the logic of Basic Land, Fetch
 - https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
 - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
 - https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
-
-## Icons filters
-- https://css-tricks.com/change-color-of-svg-on-hover/

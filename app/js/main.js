@@ -19,6 +19,11 @@ const { getUtilityLand } = require('./lands-code/utility-lands');
 const LandsRepository = require('./LandsRepository');
 const ColorManager = require('./ColorManager');
 
+let detail_checked = false;
+const colorManager = new ColorManager();
+let colorArr = [];
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const inputList = document.getElementsByTagName('input');
   for (let i = 0; i < inputList.length; i += 1) {
@@ -27,24 +32,54 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('output').value = 'Click to copy the lands';
 });
 
+function landsRepositoryToMoxfieldString(landsRepository) {
+  let resp = '';
+
+  if (!landsRepository.isEmpty()) {
+    for (const elem of landsRepository.getAllLands()) {
+      resp += `${elem.join(' ')}\n`;
+    }
+  }
+
+  return resp;
+}
+
+function printLandsMoxfield(colorManager) {
+  let resp = '';
+  if (colorManager.qtdColor() > 0) {
+    if (colorManager.qtdColor() > 1) {
+      resp += landsRepositoryToMoxfieldString(getDualLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getFetchLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getShockLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getPainLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getManLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getFilterLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getOtherLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getTriLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getScryLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getBattleLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getCheckLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getCrowdLands(colorManager));
+      resp += landsRepositoryToMoxfieldString(getAnyColorLand(colorManager));
+    }
+    resp += landsRepositoryToMoxfieldString(getBasicLands(colorManager));
+    resp += landsRepositoryToMoxfieldString(getUtilityLand(colorManager));
+    resp += landsRepositoryToMoxfieldString(getManaRamp(colorManager));
+  }
+  return resp;
+}
+
 window.copyToClipboard = function (obj) {
   event.preventDefault();
 
-  const copyText = document.getElementById('output');
-
-  if (copyText.value !== 'Click to copy the lands') {
-    navigator.clipboard.writeText(copyText.value);
-    console.log(`Copied the text: ${copyText.value}`);
+  if (document.getElementById('output').value !== 'Click to copy the lands') {
+    const value = printLandsMoxfield(colorManager);
+    console.log(value);
+    navigator.clipboard.writeText(value);
     showSnackbar();
   }
 };
 
-
-let detail_checked = false;
-
-
-const colorManager = new ColorManager();
-let colorArr = [];
 
 window.onChecked = function (obj) {
   const { name } = obj;
@@ -131,7 +166,7 @@ function landsRepositoryToString(landsRepository) {
   let resp = '';
 
   if (!landsRepository.isEmpty()) {
-    resp = `//${landsRepository.title}: ${landsRepository.qtdLands()}\n`;
+    resp = `${landsRepository.title}: ${landsRepository.qtdLands()}\n`;
     for (const elem of landsRepository.getAllLands()) {
       resp += `${elem.join(' ')}\n`;
     }
@@ -140,6 +175,7 @@ function landsRepositoryToString(landsRepository) {
 
   return resp;
 }
+
 
 function showSnackbar() {
   // Get the snackbar DIV
