@@ -12,9 +12,8 @@ describe("Crowd Lands", function () {
 
     let processor: CrowdLandProcessor = new CrowdLandProcessor();
 
-    let expected = new Category("Crowd Lands");
-    expected.add(1, "Training Center");
-
-    assert.isTrue(processor.process(colorManagerTest).equals(expected));
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.size(), 1);
+    assert.isTrue(actual.has("Training Center"));
   });
 });

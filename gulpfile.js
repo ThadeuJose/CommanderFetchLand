@@ -8,7 +8,7 @@ const tsify = require('tsify');
 
 
 function ts() {
-  return browserify('app/js/main.js')
+  return browserify('app/js/main.ts')
     .plugin(tsify)
     .bundle()
     .pipe(source('bundle.js'))

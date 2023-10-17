@@ -29,7 +29,7 @@ export default class UserColorSelection {
     return count;
   }
 
-  has(color: Color): boolean | undefined {
-    return this.colors.get(color);
+  has(color: Color): boolean {
+    return this.colors.get(color) === true;
   }
 }

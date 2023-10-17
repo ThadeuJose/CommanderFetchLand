@@ -6,15 +6,15 @@ Technical Debt
 
 # TODO
 
+Separate test by color 
+Test Prints 
+Make print 
+
 https://github.com/airbnb/javascript
 
 https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-264e19514d0a
 
 The fast way to concat a string is with string template: `${res}${data[i]}`
-
-Make Automatized test
-
-Still use Browserify ?
 
 ---
 
@@ -92,7 +92,6 @@ Refatorar o test
 		Capitalize title
 				Is removing correct
 
-	Colocar a parte de lands em uma pasta
 	Usar before
 		https://mochajs.org/#hooks
 	Colocar landsRepository e ColorManager no commons.js

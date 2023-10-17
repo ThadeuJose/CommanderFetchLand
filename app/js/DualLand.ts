@@ -13,7 +13,7 @@ export default class DualLand implements Land {
     this.landname = landname;
   }
 
-  isValid(userColorSelection: UserColorSelection) {
+  isValid(userColorSelection: UserColorSelection): boolean {
     return (
       userColorSelection.has(this.color1) && userColorSelection.has(this.color2)
     );
