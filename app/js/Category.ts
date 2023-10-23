@@ -19,6 +19,10 @@ export default class Category {
     return this._lines.has(key);
   }
 
+  getAmount(key: string): number | undefined {
+    return this._lines.get(key);
+  }
+
   size(): number {
     if (this.isEmpty()) {
       return 0;

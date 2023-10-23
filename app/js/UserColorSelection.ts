@@ -19,7 +19,7 @@ export default class UserColorSelection {
     this.colors.set(color, false);
   }
 
-  private size(): number {
+  size(): number {
     let count = 0;
     this.colors.forEach((value) => {
       if (value) {
