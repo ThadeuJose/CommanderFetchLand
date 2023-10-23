@@ -37,16 +37,6 @@ class Category {
         }
         return resp;
     }
-    getLines() {
-        let resp = "";
-        if (!this.isEmpty()) {
-            resp = `${this.title}: ${this.size()}\n`;
-            for (const [key, value] of this._lines) {
-                resp += `${value} ${key}\n`;
-            }
-        }
-        return resp;
-    }
 }
 exports.default = Category;
 
@@ -296,7 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     resp = printLandsWithTitle(categories);
                 }
                 else {
-                    resp = printLandsNoTitle(categories);
+                    resp = printLandsNoTitle(categories); //printLandsNoTitle(landsCategories, ManaRampCategories);
                 }
             }
             else {
@@ -319,6 +309,7 @@ function printLandsMoxfield(categories) {
 }
 function printLandsNoTitle(categories) {
     let resp = "";
+    //Print all lands together
     // const landsRepository = new LandsRepository("Lands");
     // if (colorManager.qtdColor() > 0) {
     //   if (colorManager.qtdColor() > 1) {

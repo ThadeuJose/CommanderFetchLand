@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (detail_checked) {
           resp = printLandsWithTitle(categories);
         } else {
-          resp = printLandsNoTitle(categories);
+          resp = printLandsNoTitle(categories); //printLandsNoTitle(landsCategories, ManaRampCategories);
         }
       } else {
         resp = "Click to copy the lands";
@@ -125,6 +125,7 @@ function printLandsMoxfield(categories: Category[]): string {
 
 function printLandsNoTitle(categories: Category[]) {
   let resp = "";
+  //Print all lands together
 
   // const landsRepository = new LandsRepository("Lands");
 

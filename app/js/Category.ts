@@ -46,19 +46,6 @@ export default class Category {
     return resp;
   }
 
-  getLines(): string {
-    let resp: string = "";
-
-    if (!this.isEmpty()) {
-      resp = `${this.title}: ${this.size()}\n`;
-      for (const [key, value] of this._lines) {
-        resp += `${value} ${key}\n`;
-      }
-    }
-
-    return resp;
-  }
-
   // getAllLands() {
   //   let resp = [];
   //   for (let [key, value] of Object.entries(this.lands)) {

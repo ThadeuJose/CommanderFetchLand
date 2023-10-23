@@ -17,24 +17,4 @@ describe("Category", function () {
 
     assert.equal(landsRepository.size(), 5);
   });
-
-  // it("empty dictionary not been add", function () {
-  //   let landsRepository1 = new LandsRepository("Title1");
-  //   let landsRepository2 = new LandsRepository("Title2");
-  //   landsRepository1.addDictLands(landsRepository2.getDictLands());
-
-  //   let expectedAnswer = 0;
-  //   let test = landsRepository1.qtdLands();
-
-  //   assert.equal(test, expectedAnswer);
-
-  //   landsRepository1.addLand(1, "Land 1");
-
-  //   landsRepository1.addDictLands(landsRepository2.getDictLands());
-
-  //   expectedAnswer = 1;
-  //   test = landsRepository1.qtdLands();
-
-  //   assert.equal(test, expectedAnswer);
-  // });
 });
