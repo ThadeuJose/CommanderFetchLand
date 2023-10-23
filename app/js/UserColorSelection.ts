@@ -19,7 +19,7 @@ export default class UserColorSelection {
     this.colors.set(color, false);
   }
 
-  size(): number {
+  private size(): number {
     let count = 0;
     this.colors.forEach((value) => {
       if (value) {
@@ -31,5 +31,9 @@ export default class UserColorSelection {
 
   has(color: Color): boolean {
     return this.colors.get(color) === true;
+  }
+
+  isDualColor(): boolean {
+    return this.size() === 2;
   }
 }

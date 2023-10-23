@@ -21,10 +21,10 @@ export default class CrowdLandProcessor implements Processor {
     ];
   }
   process(userColorSelection: UserColorSelection): Category {
-    if (userColorSelection.size() === 2) {
+    if (userColorSelection.isDualColor()) {
       const category = new Category("Crowd Lands");
       this.lands.forEach((element) => {
-        if (element.isValid(userColorSelection)) {
+        if (element.isSameColor(userColorSelection)) {
           category.add(1, element.getName());
         }
       });

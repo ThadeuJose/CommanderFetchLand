@@ -1,7 +1,7 @@
 import UserColorSelection from "./UserColorSelection";
 
 export interface Land {
-  isValid(userColorSelection: UserColorSelection): boolean;
+  isSameColor(userColorSelection: UserColorSelection): boolean;
 
   getName(): string;
 }
