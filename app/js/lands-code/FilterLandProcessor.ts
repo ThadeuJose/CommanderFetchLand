@@ -2,10 +2,13 @@ import Category from "../Category";
 import { Color } from "../Color";
 import DualLand from "../DualLand";
 import UserColorSelection from "../UserColorSelection";
+import { DualColorSpecialCase } from "./DualColorSpecialCase";
 import Processor from "./Processor";
 
 export default class FilterLandProcessor implements Processor {
   private lands: DualLand[];
+  private categoryName: string = "Filter Lands";
+
   constructor() {
     this.lands = [
       new DualLand(Color.White, Color.Blue, "Mystic Gate"),
@@ -20,16 +23,15 @@ export default class FilterLandProcessor implements Processor {
       new DualLand(Color.Green, Color.Blue, "Flooded Grove"),
     ];
   }
+
   process(userColorSelection: UserColorSelection): Category {
-    const category = new Category("Filter Lands");
     if (userColorSelection.isDualColor()) {
-      this.lands.forEach((element) => {
-        if (element.isSameColor(userColorSelection)) {
-          category.add(1, element.getName());
-        }
-      });
-      return category;
+      return DualColorSpecialCase(
+        this.categoryName,
+        userColorSelection,
+        this.lands
+      );
     }
-    return category;
+    return new Category(this.categoryName);
   }
 }

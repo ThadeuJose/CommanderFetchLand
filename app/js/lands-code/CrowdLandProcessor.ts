@@ -2,10 +2,13 @@ import Category from "../Category";
 import { Color } from "../Color";
 import DualLand from "../DualLand";
 import UserColorSelection from "../UserColorSelection";
+import { DualColorSpecialCase } from "./DualColorSpecialCase";
 import Processor from "./Processor";
 
 export default class CrowdLandProcessor implements Processor {
   private lands: DualLand[];
+  private categoryName: string = "Crowd Lands";
+
   constructor() {
     this.lands = [
       new DualLand(Color.White, Color.Blue, "Sea of Clouds"),
@@ -22,14 +25,12 @@ export default class CrowdLandProcessor implements Processor {
   }
   process(userColorSelection: UserColorSelection): Category {
     if (userColorSelection.isDualColor()) {
-      const category = new Category("Crowd Lands");
-      this.lands.forEach((element) => {
-        if (element.isSameColor(userColorSelection)) {
-          category.add(1, element.getName());
-        }
-      });
-      return category;
+      return DualColorSpecialCase(
+        this.categoryName,
+        userColorSelection,
+        this.lands
+      );
     }
-    return new Category("Crowd Lands");
+    return new Category(this.categoryName);
   }
 }
