@@ -7,6 +7,8 @@ import FetchLandProcessor from "../app/js/lands-code/FetchLandProcessor";
 import CheckLandProcessor from "../app/js/lands-code/CheckLandProcessor";
 import BasicLandProcessor from "../app/js/lands-code/BasicLandProcessor";
 import ShockLandProcessor from "../app/js/lands-code/ShockLandProcessor";
+import PainLandProcessor from "../app/js/lands-code/PainLandProcessor";
+import SlowLandProcessor from "../app/js/lands-code/SlowLandProcessor";
 
 describe("2 Color", function () {
   it("7 Fetch Lands", function () {
@@ -91,6 +93,26 @@ describe("2 Color", function () {
     const actual = processor.process(colorManagerTest);
     assert.strictEqual(actual.getAmount("Steam Vents"), 1);
   });
+  it("1 Pain Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: PainLandProcessor = new PainLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("Shivan Reef"), 1);
+  });
+  it("1 Slow Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: SlowLandProcessor = new SlowLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("Stormcarved Coast"), 1);
+  });
 });
 
 // Fetch lands 	8 X
@@ -102,10 +124,10 @@ describe("2 Color", function () {
 // Dual 	1
 // Shock 	1 X
 // crowd 	1 X
-// slow	1
-// pain	1
+// slow	1 X
+// pain	1 X
 // check	1 X
 // filter	1 X
-// horizon 	1
+// horizon 	1 or City of Brass or Mount Doom
 // bounce	1
 // 	35
