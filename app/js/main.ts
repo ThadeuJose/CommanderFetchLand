@@ -1,8 +1,11 @@
 import Category from "./Category";
 import { Color, stringToColor } from "./Color";
 import UserColorSelection from "./UserColorSelection";
+import BasicLandProcessor from "./lands-code/BasicLandProcessor";
 import CheckLandProcessor from "./lands-code/CheckLandProcessor";
 import CrowdLandProcessor from "./lands-code/CrowdLandProcessor";
+import FetchLandProcessor from "./lands-code/FetchLandProcessor";
+import FilterLandProcessor from "./lands-code/FilterLandProcessor";
 import Processor from "./lands-code/Processor";
 
 const userColorSelection: UserColorSelection = new UserColorSelection();
@@ -81,8 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const array: Processor[] = [
+        new BasicLandProcessor(),
         new CrowdLandProcessor(),
         new CheckLandProcessor(),
+        new FetchLandProcessor(),
+        new FilterLandProcessor(),
       ];
 
       const categories: Category[] = array.map((elem) => {

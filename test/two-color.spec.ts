@@ -6,6 +6,7 @@ import FilterLandProcessor from "../app/js/lands-code/FilterLandProcessor";
 import FetchLandProcessor from "../app/js/lands-code/FetchLandProcessor";
 import CheckLandProcessor from "../app/js/lands-code/CheckLandProcessor";
 import BasicLandProcessor from "../app/js/lands-code/BasicLandProcessor";
+import ShockLandProcessor from "../app/js/lands-code/ShockLandProcessor";
 
 describe("2 Color", function () {
   it("7 Fetch Lands", function () {
@@ -80,6 +81,16 @@ describe("2 Color", function () {
     const actual = processor.process(colorManagerTest);
     assert.strictEqual(actual.getAmount("Cascade Bluffs"), 1);
   });
+  it("1 Shock Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: ShockLandProcessor = new ShockLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("Steam Vents"), 1);
+  });
 });
 
 // Fetch lands 	8 X
@@ -89,7 +100,7 @@ describe("2 Color", function () {
 // Utility	5
 // Basics	10 X
 // Dual 	1
-// Shock 	1
+// Shock 	1 X
 // crowd 	1 X
 // slow	1
 // pain	1

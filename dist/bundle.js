@@ -15,6 +15,9 @@ class Category {
     has(key) {
         return this._lines.has(key);
     }
+    getAmount(key) {
+        return this._lines.get(key);
+    }
     size() {
         if (this.isEmpty()) {
             return 0;
@@ -79,8 +82,11 @@ class DualLand {
         this.color2 = color2;
         this.landname = landname;
     }
-    isValid(userColorSelection) {
+    isSameColor(userColorSelection) {
         return (userColorSelection.has(this.color1) && userColorSelection.has(this.color2));
+    }
+    hasSomeColor(userColorSelection) {
+        return (userColorSelection.has(this.color1) || userColorSelection.has(this.color2));
     }
     getName() {
         return this.landname;
@@ -89,6 +95,23 @@ class DualLand {
 exports.default = DualLand;
 
 },{}],4:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class SingleLand {
+    constructor(color1, landname) {
+        this.color1 = color1;
+        this.landname = landname;
+    }
+    hasSomeColor(userColorSelection) {
+        return userColorSelection.has(this.color1);
+    }
+    getName() {
+        return this.landname;
+    }
+}
+exports.default = SingleLand;
+
+},{}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Color_1 = require("./Color");
@@ -119,10 +142,47 @@ class UserColorSelection {
     has(color) {
         return this.colors.get(color) === true;
     }
+    isDualColor() {
+        return this.size() === 2;
+    }
 }
 exports.default = UserColorSelection;
 
-},{"./Color":2}],5:[function(require,module,exports){
+},{"./Color":2}],6:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const SingleLand_1 = __importDefault(require("../SingleLand"));
+class BasicLandProcessor {
+    constructor() {
+        this.lands = [
+            new SingleLand_1.default(Color_1.Color.White, "Plains"),
+            new SingleLand_1.default(Color_1.Color.Blue, "Island"),
+            new SingleLand_1.default(Color_1.Color.Black, "Swamp"),
+            new SingleLand_1.default(Color_1.Color.Red, "Mountain"),
+            new SingleLand_1.default(Color_1.Color.Green, "Forest"),
+        ];
+    }
+    process(userColorSelection) {
+        if (userColorSelection.isDualColor()) {
+            const category = new Category_1.default("Basic Lands");
+            this.lands.forEach((element) => {
+                if (element.hasSomeColor(userColorSelection)) {
+                    category.add(5, element.getName());
+                }
+            });
+            return category;
+        }
+        return new Category_1.default("Basic Lands");
+    }
+}
+exports.default = BasicLandProcessor;
+
+},{"../Category":1,"../Color":2,"../SingleLand":4}],7:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -147,10 +207,10 @@ class CheckLandProcessor {
         ];
     }
     process(userColorSelection) {
-        if (userColorSelection.size() === 2) {
+        if (userColorSelection.isDualColor()) {
             const category = new Category_1.default("Check Lands");
             this.lands.forEach((element) => {
-                if (element.isValid(userColorSelection)) {
+                if (element.isSameColor(userColorSelection)) {
                     category.add(1, element.getName());
                 }
             });
@@ -161,7 +221,7 @@ class CheckLandProcessor {
 }
 exports.default = CheckLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],6:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3}],8:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -186,10 +246,10 @@ class CrowdLandProcessor {
         ];
     }
     process(userColorSelection) {
-        if (userColorSelection.size() === 2) {
+        if (userColorSelection.isDualColor()) {
             const category = new Category_1.default("Crowd Lands");
             this.lands.forEach((element) => {
-                if (element.isValid(userColorSelection)) {
+                if (element.isSameColor(userColorSelection)) {
                     category.add(1, element.getName());
                 }
             });
@@ -200,7 +260,86 @@ class CrowdLandProcessor {
 }
 exports.default = CrowdLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],7:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3}],9:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const DualLand_1 = __importDefault(require("../DualLand"));
+class FetchLandProcessor {
+    constructor() {
+        this.lands = [
+            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Flooded Strand"),
+            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Scalding Tarn"),
+            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Polluted Delta"),
+            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Bloodstained Mire"),
+            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Wooded Foothills"),
+            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Windswept Heath"),
+            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Marsh Flats"),
+            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Verdant Catacombs"),
+            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Arid Mesa"),
+            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Misty Rainforest"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default("Fetch Lands");
+        if (userColorSelection.isDualColor()) {
+            category.add(1, "Prismatic Vista");
+            this.lands.forEach((element) => {
+                if (element.hasSomeColor(userColorSelection)) {
+                    category.add(1, element.getName());
+                }
+            });
+            return category;
+        }
+        return category;
+    }
+}
+exports.default = FetchLandProcessor;
+
+},{"../Category":1,"../Color":2,"../DualLand":3}],10:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const DualLand_1 = __importDefault(require("../DualLand"));
+class FilterLandProcessor {
+    constructor() {
+        this.lands = [
+            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Mystic Gate"),
+            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Cascade Bluffs"),
+            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Sunken Ruins"),
+            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Graven Cairns"),
+            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Fire-lit Thicket"),
+            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Wooded Bastion"),
+            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Fetid Heath"),
+            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Twilight Mire"),
+            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Rugged Prairie"),
+            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Flooded Grove"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default("Filter Lands");
+        if (userColorSelection.isDualColor()) {
+            this.lands.forEach((element) => {
+                if (element.isSameColor(userColorSelection)) {
+                    category.add(1, element.getName());
+                }
+            });
+            return category;
+        }
+        return category;
+    }
+}
+exports.default = FilterLandProcessor;
+
+},{"../Category":1,"../Color":2,"../DualLand":3}],11:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -208,8 +347,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Color_1 = require("./Color");
 const UserColorSelection_1 = __importDefault(require("./UserColorSelection"));
+const BasicLandProcessor_1 = __importDefault(require("./lands-code/BasicLandProcessor"));
 const CheckLandProcessor_1 = __importDefault(require("./lands-code/CheckLandProcessor"));
 const CrowdLandProcessor_1 = __importDefault(require("./lands-code/CrowdLandProcessor"));
+const FetchLandProcessor_1 = __importDefault(require("./lands-code/FetchLandProcessor"));
+const FilterLandProcessor_1 = __importDefault(require("./lands-code/FilterLandProcessor"));
 const userColorSelection = new UserColorSelection_1.default();
 let detail_checked = false;
 document.addEventListener("DOMContentLoaded", () => {
@@ -273,8 +415,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
             const array = [
+                new BasicLandProcessor_1.default(),
                 new CrowdLandProcessor_1.default(),
                 new CheckLandProcessor_1.default(),
+                new FetchLandProcessor_1.default(),
+                new FilterLandProcessor_1.default(),
             ];
             const categories = array.map((elem) => {
                 return elem.process(userColorSelection);
@@ -362,4 +507,4 @@ function showSnackbar() {
     }
 }
 
-},{"./Color":2,"./UserColorSelection":4,"./lands-code/CheckLandProcessor":5,"./lands-code/CrowdLandProcessor":6}]},{},[7]);
+},{"./Color":2,"./UserColorSelection":5,"./lands-code/BasicLandProcessor":6,"./lands-code/CheckLandProcessor":7,"./lands-code/CrowdLandProcessor":8,"./lands-code/FetchLandProcessor":9,"./lands-code/FilterLandProcessor":10}]},{},[11]);
