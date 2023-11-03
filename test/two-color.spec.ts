@@ -13,6 +13,7 @@ import RainbowLandProcessor from "../app/js/lands-code/RainbowLandProcessor";
 import HorizonLandProcessor from "../app/js/lands-code/HorizonLandProcessor";
 import DualLandProcessor from "../app/js/lands-code/DualLandProcessor";
 import BounceLandProcessor from "../app/js/lands-code/BounceLandProcessor";
+import UtilityLandProcessor from "../app/js/lands-code/UtilityLandProcessor";
 
 describe("2 Color", function () {
   it("7 Fetch Lands", function () {
@@ -166,6 +167,16 @@ describe("2 Color", function () {
 
     const actual = processor.process(colorManagerTest);
     assert.strictEqual(actual.getAmount("Izzet Boilerworks"), 1);
+  });
+  it("8 Utility Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: UtilityLandProcessor = new UtilityLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.size(), 8);
   });
 });
 
