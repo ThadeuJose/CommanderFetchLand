@@ -9,6 +9,10 @@ import BasicLandProcessor from "../app/js/lands-code/BasicLandProcessor";
 import ShockLandProcessor from "../app/js/lands-code/ShockLandProcessor";
 import PainLandProcessor from "../app/js/lands-code/PainLandProcessor";
 import SlowLandProcessor from "../app/js/lands-code/SlowLandProcessor";
+import RainbowLandProcessor from "../app/js/lands-code/RainbowLandProcessor";
+import HorizonLandProcessor from "../app/js/lands-code/HorizonLandProcessor";
+import DualLandProcessor from "../app/js/lands-code/DualLandProcessor";
+import BounceLandProcessor from "../app/js/lands-code/BounceLandProcessor";
 
 describe("2 Color", function () {
   it("7 Fetch Lands", function () {
@@ -118,20 +122,60 @@ describe("2 Color", function () {
     colorManagerTest.add(Color.Red);
     colorManagerTest.add(Color.Blue);
 
-    let processor: SlowLandProcessor = new SlowLandProcessor();
+    let processor: HorizonLandProcessor = new HorizonLandProcessor();
 
     const actual = processor.process(colorManagerTest);
-    assert.strictEqual(actual.getAmount("City of Brass"), 1);
+    assert.strictEqual(actual.getAmount("Fiery Islet"), 1);
+  });
+  it("1 Command Tower", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: RainbowLandProcessor = new RainbowLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("Command Tower"), 1);
+  });
+  it("1 Mana Confluence", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: RainbowLandProcessor = new RainbowLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("Mana Confluence"), 1);
+  });
+  it("1 Dual Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: DualLandProcessor = new DualLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("Volcanic Island"), 1);
+  });
+  it("1 Bounce Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: BounceLandProcessor = new BounceLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("Izzet Boilerworks"), 1);
   });
 });
 
 // Fetch lands 	8 X
 // Prismatic Vista	1 X
-// Command Tower	1
-// Mana Confluence 1
+// Command Tower	1 X
+// Mana Confluence 1 X
 // Utility	8
 // Basics	10 X
-// Dual 	1
+// Dual 	1 X
 // Shock 	1 X
 // crowd 	1 X
 // slow	1 X
@@ -139,5 +183,5 @@ describe("2 Color", function () {
 // check	1 X
 // filter	1 X
 // horizon 	1 or City of Brass or Mount Doom X
-// bounce	1
+// bounce	1 X
 // 	38 make a size test
