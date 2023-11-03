@@ -113,13 +113,23 @@ describe("2 Color", function () {
     const actual = processor.process(colorManagerTest);
     assert.strictEqual(actual.getAmount("Stormcarved Coast"), 1);
   });
+  it("1 Horizon Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: SlowLandProcessor = new SlowLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(actual.getAmount("City of Brass"), 1);
+  });
 });
 
 // Fetch lands 	8 X
 // Prismatic Vista	1 X
 // Command Tower	1
 // Mana Confluence 1
-// Utility	5
+// Utility	8
 // Basics	10 X
 // Dual 	1
 // Shock 	1 X
@@ -128,6 +138,6 @@ describe("2 Color", function () {
 // pain	1 X
 // check	1 X
 // filter	1 X
-// horizon 	1 or City of Brass or Mount Doom
+// horizon 	1 or City of Brass or Mount Doom X
 // bounce	1
-// 	35
+// 	38 make a size test

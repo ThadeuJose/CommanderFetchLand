@@ -6,12 +6,6 @@ Technical Debt
 
 # TODO
 
-Separate test by amount of color 
-Test Prints 
-Make print with no title
-Print rest of template together
-Refactor Main 
-
 https://github.com/airbnb/javascript
 
 https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-264e19514d0a
