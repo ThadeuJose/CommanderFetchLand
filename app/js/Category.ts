@@ -47,7 +47,7 @@ export default class Category {
       }
     }
 
-    return resp;
+    return `${resp}\n`;
   }
 
   // getAllLands() {

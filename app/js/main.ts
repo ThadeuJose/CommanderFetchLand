@@ -2,15 +2,49 @@ import Category from "./Category";
 import { Color, stringToColor } from "./Color";
 import UserColorSelection from "./UserColorSelection";
 import BasicLandProcessor from "./lands-code/BasicLandProcessor";
+import BounceLandProcessor from "./lands-code/BounceLandProcessor";
 import CheckLandProcessor from "./lands-code/CheckLandProcessor";
 import CrowdLandProcessor from "./lands-code/CrowdLandProcessor";
+import DualLandProcessor from "./lands-code/DualLandProcessor";
 import FetchLandProcessor from "./lands-code/FetchLandProcessor";
 import FilterLandProcessor from "./lands-code/FilterLandProcessor";
+import HorizonLandProcessor from "./lands-code/HorizonLandProcessor";
+import PainLandProcessor from "./lands-code/PainLandProcessor";
 import Processor from "./lands-code/Processor";
+import RainbowLandProcessor from "./lands-code/RainbowLandProcessor";
+import ShockLandProcessor from "./lands-code/ShockLandProcessor";
+import SlowLandProcessor from "./lands-code/SlowLandProcessor";
+import UtilityLandProcessor from "./lands-code/UtilityLandProcessor";
+import TemplateProcessor from "./lands-code/mana-ramp";
 
 const userColorSelection: UserColorSelection = new UserColorSelection();
 
 let detail_checked = false;
+
+const ProcessorArray: Processor[] = [
+  new BasicLandProcessor(),
+  new CrowdLandProcessor(),
+  new CheckLandProcessor(),
+  new FetchLandProcessor(),
+  new FilterLandProcessor(),
+  new ShockLandProcessor(),
+  new PainLandProcessor(),
+  new SlowLandProcessor(),
+  new RainbowLandProcessor(),
+  new HorizonLandProcessor(),
+  new DualLandProcessor(),
+  new BounceLandProcessor(),
+  new UtilityLandProcessor(),
+  new TemplateProcessor("Mana Ramp", 10),
+  new TemplateProcessor("Commander", 1),
+  new TemplateProcessor("Burst Card Draw", 5),
+  new TemplateProcessor("Repetitive Card Draw", 5),
+  new TemplateProcessor("Board Wipe", 4),
+  new TemplateProcessor("Single Target Removal", 6),
+  new TemplateProcessor("Theme 1", 10),
+  new TemplateProcessor("Theme 2", 10),
+  new TemplateProcessor("Theme 3", 10),
+];
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputList: HTMLCollectionOf<HTMLInputElement> =
@@ -27,12 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   outputElement.addEventListener("click", (event: MouseEvent) => {
-    const array: Processor[] = [
-      new CrowdLandProcessor(),
-      new CheckLandProcessor(),
-    ];
-
-    const categories: Category[] = array.map((elem) => {
+    const categories: Category[] = ProcessorArray.map((elem) => {
       return elem.process(userColorSelection);
     });
 
@@ -83,15 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      const array: Processor[] = [
-        new BasicLandProcessor(),
-        new CrowdLandProcessor(),
-        new CheckLandProcessor(),
-        new FetchLandProcessor(),
-        new FilterLandProcessor(),
-      ];
-
-      const categories: Category[] = array.map((elem) => {
+      const categories: Category[] = ProcessorArray.map((elem) => {
         return elem.process(userColorSelection);
       });
 
@@ -120,7 +141,7 @@ function printLandsMoxfield(categories: Category[]): string {
     .map((elem) => {
       let resp: string = "";
 
-      if (!elem.isEmpty()) {
+      if (elem.lines.trim()) {
         resp = `${elem.lines}`;
       }
 
@@ -171,7 +192,7 @@ function printLandsWithTitle(categories: Category[]): string {
       let resp: string = "";
 
       if (!elem.isEmpty()) {
-        resp = `${elem.title}: ${elem.size()}\n${elem.lines}\n`;
+        resp = `${elem.title}: ${elem.size()}\n${elem.lines}`;
       }
 
       return resp;

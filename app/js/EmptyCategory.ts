@@ -8,6 +8,10 @@ export default class EmptyCategory extends Category {
     this._size = size;
   }
 
+  isEmpty(): boolean {
+    return this._size === 0;
+  }
+
   size(): number {
     return this._size;
   }
