@@ -16,6 +16,15 @@ export default class BasicLandProcessor implements Processor {
     ];
   }
   process(userColorSelection: UserColorSelection): Category {
+    if (userColorSelection.isSingleColor()) {
+      const category = new Category("Basic Lands");
+      this.lands.forEach((element) => {
+        if (element.hasSomeColor(userColorSelection)) {
+          category.add(30, element.getName());
+        }
+      });
+      return category;
+    }
     if (userColorSelection.isDualColor()) {
       const category = new Category("Basic Lands");
       this.lands.forEach((element) => {
