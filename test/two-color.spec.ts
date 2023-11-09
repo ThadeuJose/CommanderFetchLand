@@ -14,6 +14,8 @@ import HorizonLandProcessor from "../app/js/lands-code/HorizonLandProcessor";
 import DualLandProcessor from "../app/js/lands-code/DualLandProcessor";
 import BounceLandProcessor from "../app/js/lands-code/BounceLandProcessor";
 import UtilityLandProcessor from "../app/js/lands-code/UtilityLandProcessor";
+import Processor from "../app/js/lands-code/Processor";
+import PathwayLandProcessor from "../app/js/lands-code/PathwayLandProcessor";
 
 describe("2 Color", function () {
   it("7 Fetch Lands", function () {
@@ -168,6 +170,20 @@ describe("2 Color", function () {
     const actual = processor.process(colorManagerTest);
     assert.strictEqual(actual.getAmount("Izzet Boilerworks"), 1);
   });
+  it("1 Pathway Land", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    let processor: PathwayLandProcessor = new PathwayLandProcessor();
+
+    const actual = processor.process(colorManagerTest);
+    assert.strictEqual(
+      actual.getAmount("Riverglide Pathway / Lavaglide Pathway"),
+      1
+    );
+  });
+
   it("8 Utility Land", function () {
     let colorManagerTest: UserColorSelection = new UserColorSelection();
     colorManagerTest.add(Color.Red);
@@ -177,6 +193,35 @@ describe("2 Color", function () {
 
     const actual = processor.process(colorManagerTest);
     assert.strictEqual(actual.size(), 8);
+  });
+
+  it("38 Lands Total", function () {
+    let colorManagerTest: UserColorSelection = new UserColorSelection();
+    colorManagerTest.add(Color.Red);
+    colorManagerTest.add(Color.Blue);
+
+    const ProcessorArray: Processor[] = [
+      new BasicLandProcessor(),
+      new CrowdLandProcessor(),
+      new CheckLandProcessor(),
+      new FetchLandProcessor(),
+      new FilterLandProcessor(),
+      new ShockLandProcessor(),
+      new PainLandProcessor(),
+      new SlowLandProcessor(),
+      new RainbowLandProcessor(),
+      new HorizonLandProcessor(),
+      new DualLandProcessor(),
+      new BounceLandProcessor(),
+      new PathwayLandProcessor(),
+      new UtilityLandProcessor(),
+    ];
+
+    const amount: number = ProcessorArray.reduce((sum, current) => {
+      return sum + current.process(colorManagerTest).size();
+    }, 0);
+
+    assert.strictEqual(amount, 38);
   });
 });
 
