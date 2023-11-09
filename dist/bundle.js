@@ -38,7 +38,7 @@ class Category {
                 resp += `${value} ${key}\n`;
             }
         }
-        return `${resp}\n`;
+        return resp;
     }
 }
 exports.default = Category;
@@ -683,9 +683,9 @@ const ProcessorArray = [
     new mana_ramp_1.default("Mana Ramp", 10),
     new mana_ramp_1.default("Commander", 1),
     new mana_ramp_1.default("Burst Card Draw", 5),
-    new mana_ramp_1.default("Repetitive Card Draw", 5),
+    new mana_ramp_1.default("Repeatable Card Draw", 5),
     new mana_ramp_1.default("Board Wipe", 4),
-    new mana_ramp_1.default("Single Target Removal", 6),
+    new mana_ramp_1.default("Target Removal", 6),
     new mana_ramp_1.default("Theme 1", 10),
     new mana_ramp_1.default("Theme 2", 10),
     new mana_ramp_1.default("Theme 3", 10),
@@ -813,7 +813,7 @@ function printLandsWithTitle(categories) {
         .map((elem) => {
         let resp = "";
         if (!elem.isEmpty()) {
-            resp = `${elem.title}: ${elem.size()}\n${elem.lines}`;
+            resp = `${elem.title}: ${elem.size()}\n${elem.lines}\n`;
         }
         return resp;
     })

@@ -38,9 +38,9 @@ const ProcessorArray: Processor[] = [
   new TemplateProcessor("Mana Ramp", 10),
   new TemplateProcessor("Commander", 1),
   new TemplateProcessor("Burst Card Draw", 5),
-  new TemplateProcessor("Repetitive Card Draw", 5),
+  new TemplateProcessor("Repeatable Card Draw", 5),
   new TemplateProcessor("Board Wipe", 4),
-  new TemplateProcessor("Single Target Removal", 6),
+  new TemplateProcessor("Target Removal", 6),
   new TemplateProcessor("Theme 1", 10),
   new TemplateProcessor("Theme 2", 10),
   new TemplateProcessor("Theme 3", 10),
@@ -192,7 +192,7 @@ function printLandsWithTitle(categories: Category[]): string {
       let resp: string = "";
 
       if (!elem.isEmpty()) {
-        resp = `${elem.title}: ${elem.size()}\n${elem.lines}`;
+        resp = `${elem.title}: ${elem.size()}\n${elem.lines}\n`;
       }
 
       return resp;
