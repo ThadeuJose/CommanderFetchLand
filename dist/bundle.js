@@ -166,8 +166,14 @@ class UserColorSelection {
     has(color) {
         return this.colors.get(color) === true;
     }
+    isSingleColor() {
+        return this.size() === 1;
+    }
     isDualColor() {
         return this.size() === 2;
+    }
+    isTriColor() {
+        return this.size() === 3;
     }
 }
 exports.default = UserColorSelection;
@@ -192,16 +198,26 @@ class BasicLandProcessor {
         ];
     }
     process(userColorSelection) {
+        const category = new Category_1.default("Basic Lands");
+        let amountOfLand = 0;
+        if (userColorSelection.isSingleColor()) {
+            amountOfLand = 30;
+        }
         if (userColorSelection.isDualColor()) {
-            const category = new Category_1.default("Basic Lands");
-            this.lands.forEach((element) => {
-                if (element.hasSomeColor(userColorSelection)) {
-                    category.add(5, element.getName());
-                }
-            });
+            amountOfLand = 5;
+        }
+        if (userColorSelection.isTriColor()) {
+            amountOfLand = 4;
+        }
+        if (amountOfLand === 0) {
             return category;
         }
-        return new Category_1.default("Basic Lands");
+        this.lands.forEach((element) => {
+            if (element.hasSomeColor(userColorSelection)) {
+                category.add(amountOfLand, element.getName());
+            }
+        });
+        return category;
     }
 }
 exports.default = BasicLandProcessor;
@@ -306,6 +322,15 @@ class CrowdLandProcessor {
         if (userColorSelection.isDualColor()) {
             return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
         }
+        if (userColorSelection.isTriColor()) {
+            const category = new Category_1.default(this.categoryName);
+            this.lands.forEach((element) => {
+                if (element.isSameColor(userColorSelection)) {
+                    category.add(1, element.getName());
+                }
+            });
+            return category;
+        }
         return new Category_1.default(this.categoryName);
     }
 }
@@ -360,6 +385,15 @@ class DualLandProcessor {
         if (userColorSelection.isDualColor()) {
             return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
         }
+        if (userColorSelection.isTriColor()) {
+            const category = new Category_1.default(this.categoryName);
+            this.lands.forEach((element) => {
+                if (element.isSameColor(userColorSelection)) {
+                    category.add(1, element.getName());
+                }
+            });
+            return category;
+        }
         return new Category_1.default(this.categoryName);
     }
 }
@@ -391,14 +425,13 @@ class FetchLandProcessor {
     }
     process(userColorSelection) {
         const category = new Category_1.default("Fetch Lands");
-        if (userColorSelection.isDualColor()) {
+        if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
             category.add(1, "Prismatic Vista");
             this.lands.forEach((element) => {
                 if (element.hasSomeColor(userColorSelection)) {
                     category.add(1, element.getName());
                 }
             });
-            return category;
         }
         return category;
     }
@@ -564,6 +597,15 @@ class ShockLandProcessor {
         if (userColorSelection.isDualColor()) {
             return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
         }
+        if (userColorSelection.isTriColor()) {
+            const category = new Category_1.default(this.categoryName);
+            this.lands.forEach((element) => {
+                if (element.isSameColor(userColorSelection)) {
+                    category.add(1, element.getName());
+                }
+            });
+            return category;
+        }
         return new Category_1.default(this.categoryName);
     }
 }
@@ -611,26 +653,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const EmptyCategory_1 = __importDefault(require("../EmptyCategory"));
-class UtilityLandProcessor {
-    constructor() {
-        this.categoryName = "Utility Lands";
-    }
-    process(userColorSelection) {
-        if (userColorSelection.isDualColor()) {
-            return new EmptyCategory_1.default(this.categoryName, 8);
-        }
-        return new EmptyCategory_1.default(this.categoryName, 8);
-    }
-}
-exports.default = UtilityLandProcessor;
-
-},{"../EmptyCategory":4}],21:[function(require,module,exports){
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const EmptyCategory_1 = __importDefault(require("../EmptyCategory"));
 class TemplateProcessor {
     constructor(categoryName, amount) {
         this.categoryName = categoryName;
@@ -641,6 +663,29 @@ class TemplateProcessor {
     }
 }
 exports.default = TemplateProcessor;
+
+},{"../EmptyCategory":4}],21:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const EmptyCategory_1 = __importDefault(require("../EmptyCategory"));
+class UtilityLandProcessor {
+    constructor() {
+        this.categoryName = "Utility Lands";
+    }
+    process(userColorSelection) {
+        if (userColorSelection.isDualColor()) {
+            return new EmptyCategory_1.default(this.categoryName, 8);
+        }
+        if (userColorSelection.isTriColor()) {
+            return new EmptyCategory_1.default(this.categoryName, 0);
+        }
+        return new EmptyCategory_1.default(this.categoryName, 8);
+    }
+}
+exports.default = UtilityLandProcessor;
 
 },{"../EmptyCategory":4}],22:[function(require,module,exports){
 "use strict";
@@ -663,7 +708,7 @@ const RainbowLandProcessor_1 = __importDefault(require("./lands-code/RainbowLand
 const ShockLandProcessor_1 = __importDefault(require("./lands-code/ShockLandProcessor"));
 const SlowLandProcessor_1 = __importDefault(require("./lands-code/SlowLandProcessor"));
 const UtilityLandProcessor_1 = __importDefault(require("./lands-code/UtilityLandProcessor"));
-const mana_ramp_1 = __importDefault(require("./lands-code/mana-ramp"));
+const TemplateProcessor_1 = __importDefault(require("./lands-code/TemplateProcessor"));
 const userColorSelection = new UserColorSelection_1.default();
 let detail_checked = false;
 const ProcessorArray = [
@@ -680,15 +725,15 @@ const ProcessorArray = [
     new DualLandProcessor_1.default(),
     new BounceLandProcessor_1.default(),
     new UtilityLandProcessor_1.default(),
-    new mana_ramp_1.default("Mana Ramp", 10),
-    new mana_ramp_1.default("Commander", 1),
-    new mana_ramp_1.default("Burst Card Draw", 5),
-    new mana_ramp_1.default("Repeatable Card Draw", 5),
-    new mana_ramp_1.default("Board Wipe", 4),
-    new mana_ramp_1.default("Target Removal", 6),
-    new mana_ramp_1.default("Theme 1", 10),
-    new mana_ramp_1.default("Theme 2", 10),
-    new mana_ramp_1.default("Theme 3", 10),
+    new TemplateProcessor_1.default("Mana Ramp", 10),
+    new TemplateProcessor_1.default("Commander", 1),
+    new TemplateProcessor_1.default("Burst Card Draw", 5),
+    new TemplateProcessor_1.default("Repeatable Card Draw", 5),
+    new TemplateProcessor_1.default("Board Wipe", 4),
+    new TemplateProcessor_1.default("Target Removal", 6),
+    new TemplateProcessor_1.default("Theme 1", 10),
+    new TemplateProcessor_1.default("Theme 2", 10),
+    new TemplateProcessor_1.default("Theme 3", 10),
 ];
 document.addEventListener("DOMContentLoaded", () => {
     const inputList = document.getElementsByTagName("input");
@@ -832,4 +877,4 @@ function showSnackbar() {
     }
 }
 
-},{"./Color":2,"./UserColorSelection":6,"./lands-code/BasicLandProcessor":7,"./lands-code/BounceLandProcessor":8,"./lands-code/CheckLandProcessor":9,"./lands-code/CrowdLandProcessor":10,"./lands-code/DualLandProcessor":12,"./lands-code/FetchLandProcessor":13,"./lands-code/FilterLandProcessor":14,"./lands-code/HorizonLandProcessor":15,"./lands-code/PainLandProcessor":16,"./lands-code/RainbowLandProcessor":17,"./lands-code/ShockLandProcessor":18,"./lands-code/SlowLandProcessor":19,"./lands-code/UtilityLandProcessor":20,"./lands-code/mana-ramp":21}]},{},[22]);
+},{"./Color":2,"./UserColorSelection":6,"./lands-code/BasicLandProcessor":7,"./lands-code/BounceLandProcessor":8,"./lands-code/CheckLandProcessor":9,"./lands-code/CrowdLandProcessor":10,"./lands-code/DualLandProcessor":12,"./lands-code/FetchLandProcessor":13,"./lands-code/FilterLandProcessor":14,"./lands-code/HorizonLandProcessor":15,"./lands-code/PainLandProcessor":16,"./lands-code/RainbowLandProcessor":17,"./lands-code/ShockLandProcessor":18,"./lands-code/SlowLandProcessor":19,"./lands-code/TemplateProcessor":20,"./lands-code/UtilityLandProcessor":21}]},{},[22]);
