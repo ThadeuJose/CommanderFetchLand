@@ -16,24 +16,31 @@ export default class BasicLandProcessor implements Processor {
     ];
   }
   process(userColorSelection: UserColorSelection): Category {
+    const category = new Category("Basic Lands");
+    let amountOfLand = 0;
+
     if (userColorSelection.isSingleColor()) {
-      const category = new Category("Basic Lands");
-      this.lands.forEach((element) => {
-        if (element.hasSomeColor(userColorSelection)) {
-          category.add(30, element.getName());
-        }
-      });
-      return category;
+      amountOfLand = 30;
     }
+
     if (userColorSelection.isDualColor()) {
-      const category = new Category("Basic Lands");
-      this.lands.forEach((element) => {
-        if (element.hasSomeColor(userColorSelection)) {
-          category.add(5, element.getName());
-        }
-      });
+      amountOfLand = 5;
+    }
+
+    if (userColorSelection.isTriColor()) {
+      amountOfLand = 4;
+    }
+
+    if (amountOfLand === 0) {
       return category;
     }
-    return new Category("Basic Lands");
+
+    this.lands.forEach((element) => {
+      if (element.hasSomeColor(userColorSelection)) {
+        category.add(amountOfLand, element.getName());
+      }
+    });
+
+    return category;
   }
 }
