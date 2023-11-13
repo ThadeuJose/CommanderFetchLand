@@ -31,6 +31,15 @@ export default class CrowdLandProcessor implements Processor {
         this.lands
       );
     }
+    if (userColorSelection.isTriColor()) {
+      const category = new Category(this.categoryName);
+      this.lands.forEach((element) => {
+        if (element.isSameColor(userColorSelection)) {
+          category.add(1, element.getName());
+        }
+      });
+      return category;
+    }
     return new Category(this.categoryName);
   }
 }

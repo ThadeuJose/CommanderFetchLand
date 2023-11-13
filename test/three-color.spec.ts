@@ -80,11 +80,16 @@ describe("3 Color", function () {
   it("3 Crowd Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: CrowdLandProcessor = new CrowdLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("Luxury Suite"), 1);
+    assert.strictEqual(actual.getAmount("Spire Garden"), 1);
+    assert.strictEqual(actual.getAmount("Undergrowth Stadium"), 1);
   });
 
   it("0 Filter Land", function () {
@@ -102,6 +107,8 @@ describe("3 Color", function () {
   it("3 Shock Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: ShockLandProcessor = new ShockLandProcessor();
 
