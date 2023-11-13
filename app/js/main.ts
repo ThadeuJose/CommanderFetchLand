@@ -15,7 +15,7 @@ import RainbowLandProcessor from "./lands-code/RainbowLandProcessor";
 import ShockLandProcessor from "./lands-code/ShockLandProcessor";
 import SlowLandProcessor from "./lands-code/SlowLandProcessor";
 import UtilityLandProcessor from "./lands-code/UtilityLandProcessor";
-import TemplateProcessor from "./lands-code/mana-ramp";
+import TemplateProcessor from "./lands-code/TemplateProcessor";
 
 const userColorSelection: UserColorSelection = new UserColorSelection();
 
