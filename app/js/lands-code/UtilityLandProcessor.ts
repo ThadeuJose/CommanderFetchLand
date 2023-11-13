@@ -12,6 +12,9 @@ export default class UtilityLandProcessor implements Processor {
     if (userColorSelection.isDualColor()) {
       return new EmptyCategory(this.categoryName, 8);
     }
+    if (userColorSelection.isTriColor()) {
+      return new EmptyCategory(this.categoryName, 0);
+    }
     return new EmptyCategory(this.categoryName, 8);
   }
 }
