@@ -113,7 +113,10 @@ describe("3 Color", function () {
     let processor: ShockLandProcessor = new ShockLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("Blood Crypt"), 1);
+    assert.strictEqual(actual.getAmount("Stomping Ground"), 1);
+    assert.strictEqual(actual.getAmount("Overgrown Tomb"), 1);
   });
 
   it("0 Pain Land", function () {
@@ -193,11 +196,16 @@ describe("3 Color", function () {
   it("3 Dual Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: DualLandProcessor = new DualLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("Badlands"), 1);
+    assert.strictEqual(actual.getAmount("Taiga"), 1);
+    assert.strictEqual(actual.getAmount("Bayou"), 1);
   });
 
   it("0 Bounce Land", function () {
@@ -292,3 +300,5 @@ describe("3 Color", function () {
 //  City of brass
 // Triome 1
 // 	37
+//Put Triome test in other tests
+//Ask chatgpt to tefactor to put a variable for color in beforeEach
