@@ -68,11 +68,13 @@ describe("3 Color", function () {
   it("0 Check Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: CheckLandProcessor = new CheckLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.size(), 0);
   });
 
   it("3 Crowd Land", function () {
@@ -88,11 +90,13 @@ describe("3 Color", function () {
   it("0 Filter Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: FilterLandProcessor = new FilterLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.size(), 0);
   });
 
   it("3 Shock Land", function () {
@@ -108,21 +112,25 @@ describe("3 Color", function () {
   it("0 Pain Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: PainLandProcessor = new PainLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.size(), 0);
   });
 
   it("0 Slow Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: SlowLandProcessor = new SlowLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.size(), 0);
   });
 
   it("1 Horizon Land", function () {
@@ -188,31 +196,37 @@ describe("3 Color", function () {
   it("0 Bounce Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: BounceLandProcessor = new BounceLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.size(), 0);
   });
 
   it("0 Pathway Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: PathwayLandProcessor = new PathwayLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.size(), 0);
   });
 
   it("0 Utility Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: UtilityLandProcessor = new UtilityLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.size(), 0);
   });
 
   it("1 Triome Land", function () {
