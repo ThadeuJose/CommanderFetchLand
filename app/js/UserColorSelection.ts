@@ -40,4 +40,8 @@ export default class UserColorSelection {
   isDualColor(): boolean {
     return this.size() === 2;
   }
+
+  isTriColor(): boolean {
+    return this.size() === 3;
+  }
 }

@@ -22,14 +22,13 @@ export default class FetchLandProcessor implements Processor {
   }
   process(userColorSelection: UserColorSelection): Category {
     const category = new Category("Fetch Lands");
-    if (userColorSelection.isDualColor()) {
+    if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
       category.add(1, "Prismatic Vista");
       this.lands.forEach((element) => {
         if (element.hasSomeColor(userColorSelection)) {
           category.add(1, element.getName());
         }
       });
-      return category;
     }
     return category;
   }
