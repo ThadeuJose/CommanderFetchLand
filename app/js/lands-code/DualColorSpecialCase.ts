@@ -8,10 +8,10 @@ export function DualColorSpecialCase(
   lands: DualLand[]
 ) {
   const category = new Category(categoryName);
-  lands.forEach((element) => {
-    if (element.isSameColor(userColorSelection)) {
-      category.add(1, element.getName());
-    }
-  });
+  if (userColorSelection.isDualColor()) {
+    lands
+      .filter((element) => element.isSameColor(userColorSelection))
+      .forEach((element) => category.add(1, element.getName()));
+  }
   return category;
 }

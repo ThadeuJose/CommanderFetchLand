@@ -65,13 +65,10 @@ export default class PathwayLandProcessor implements Processor {
   }
 
   process(userColorSelection: UserColorSelection): Category {
-    if (userColorSelection.isDualColor()) {
-      return DualColorSpecialCase(
-        this.categoryName,
-        userColorSelection,
-        this.lands
-      );
-    }
-    return new Category(this.categoryName);
+    return DualColorSpecialCase(
+      this.categoryName,
+      userColorSelection,
+      this.lands
+    );
   }
 }
