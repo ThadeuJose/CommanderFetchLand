@@ -16,6 +16,8 @@ import ShockLandProcessor from "./lands-code/ShockLandProcessor";
 import SlowLandProcessor from "./lands-code/SlowLandProcessor";
 import UtilityLandProcessor from "./lands-code/UtilityLandProcessor";
 import TemplateProcessor from "./lands-code/TemplateProcessor";
+import TriomeProcessor from "./lands-code/TriomeProcessor";
+import PathwayLandProcessor from "./lands-code/PathwayLandProcessor";
 
 const userColorSelection: UserColorSelection = new UserColorSelection();
 
@@ -34,6 +36,38 @@ const ProcessorArray: Processor[] = [
   new HorizonLandProcessor(),
   new DualLandProcessor(),
   new BounceLandProcessor(),
+  new PathwayLandProcessor(),
+  new TriomeProcessor(),
+  new UtilityLandProcessor(),
+  new TemplateProcessor("Mana Ramp", 10),
+  new TemplateProcessor("Commander", 1),
+  new TemplateProcessor("Burst Card Draw", 5),
+  new TemplateProcessor("Repeatable Card Draw", 5),
+  new TemplateProcessor("Board Wipe", 4),
+  new TemplateProcessor("Target Removal", 6),
+  new TemplateProcessor("Theme 1", 10),
+  new TemplateProcessor("Theme 2", 10),
+  new TemplateProcessor("Theme 3", 10),
+];
+
+const LandsProcessors: Processor[] = [
+  new BasicLandProcessor(),
+  new DualLandProcessor(),
+  new CrowdLandProcessor(),
+  new CheckLandProcessor(),
+  new FetchLandProcessor(),
+  new FilterLandProcessor(),
+  new ShockLandProcessor(),
+  new PainLandProcessor(),
+  new SlowLandProcessor(),
+  new RainbowLandProcessor(),
+  new HorizonLandProcessor(),
+  new BounceLandProcessor(),
+  new PathwayLandProcessor(),
+  new TriomeProcessor(),
+];
+
+const TemplateProcessors: Processor[] = [
   new UtilityLandProcessor(),
   new TemplateProcessor("Mana Ramp", 10),
   new TemplateProcessor("Commander", 1),
@@ -116,6 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return elem.process(userColorSelection);
       });
 
+      const landsCategories: Category[] = LandsProcessors.map((elem) => {
+        return elem.process(userColorSelection);
+      });
+
+      const templateCategories: Category[] = TemplateProcessors.map((elem) => {
+        return elem.process(userColorSelection);
+      });
+
       const outputElement = document.getElementById(
         "output"
       ) as HTMLTextAreaElement;
@@ -125,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (detail_checked) {
           resp = printLandsWithTitle(categories);
         } else {
-          resp = printLandsNoTitle(categories); //printLandsNoTitle(landsCategories, ManaRampCategories);
+          resp = printLandsNoTitle(landsCategories, templateCategories);
         }
       } else {
         resp = "Click to copy the lands";
@@ -150,34 +192,42 @@ function printLandsMoxfield(categories: Category[]): string {
     .join("");
 }
 
-function printLandsNoTitle(categories: Category[]) {
+function printLandsNoTitle(
+  landsCategories: Category[],
+  templateCategories: Category[]
+) {
   let resp = "";
-  //Print all lands together
+  let size = landsCategories.reduce((sum, current) => {
+    return sum + current.size();
+  }, 0);
 
-  // const landsRepository = new LandsRepository("Lands");
+  resp += `Lands: ${size}\n`;
 
-  // if (colorManager.qtdColor() > 0) {
-  //   if (colorManager.qtdColor() > 1) {
-  //     landsRepository.addDictLands(getDualLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getFetchLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getShockLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getPainLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getManLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getFilterLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getOtherLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getTriLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getBattleLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getCheckLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(getCrowdLands(colorManager).getDictLands());
-  //     landsRepository.addDictLands(
-  //       getAnyColorLand(colorManager).getDictLands()
-  //     );
-  //   }
-  //   resp += landsRepositoryToString(landsRepository);
-  //   resp += landsRepositoryToString(getBasicLands(colorManager));
-  //   resp += landsRepositoryToString(getUtilityLand(colorManager));
-  //   resp += landsRepositoryToString(getManaRamp(colorManager));
-  // }
+  resp += landsCategories
+    .map((elem) => {
+      let resp: string = "";
+
+      if (elem.lines.trim()) {
+        resp = `${elem.lines}`;
+      }
+
+      return resp;
+    })
+    .join("");
+
+  resp += "\n";
+
+  resp += templateCategories
+    .map((elem) => {
+      let resp: string = "";
+
+      if (!elem.isEmpty()) {
+        resp = `${elem.title}: ${elem.size()}\n${elem.lines}\n`;
+      }
+
+      return resp;
+    })
+    .join("");
 
   return resp;
 }
