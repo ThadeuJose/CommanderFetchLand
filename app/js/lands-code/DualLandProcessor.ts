@@ -25,22 +25,12 @@ export default class DualLandProcessor implements Processor {
   }
 
   process(userColorSelection: UserColorSelection): Category {
-    if (userColorSelection.isDualColor()) {
-      return DualColorSpecialCase(
-        this.categoryName,
-        userColorSelection,
-        this.lands
-      );
+    const category = new Category(this.categoryName);
+    if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
+      this.lands
+        .filter((element) => element.isSameColor(userColorSelection))
+        .forEach((element) => category.add(1, element.getName()));
     }
-    if (userColorSelection.isTriColor()) {
-      const category = new Category(this.categoryName);
-      this.lands.forEach((element) => {
-        if (element.isSameColor(userColorSelection)) {
-          category.add(1, element.getName());
-        }
-      });
-      return category;
-    }
-    return new Category(this.categoryName);
+    return category;
   }
 }

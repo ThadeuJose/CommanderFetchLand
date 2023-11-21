@@ -28,18 +28,15 @@ export default class HorizonLandProcessor implements Processor {
   }
 
   process(userColorSelection: UserColorSelection): Category {
+    const category: Category = new Category(this.categoryName);
     if (userColorSelection.isDualColor()) {
-      return DualColorSpecialCase(
-        this.categoryName,
-        userColorSelection,
-        this.lands
-      );
+      this.lands
+        .filter((element) => element.isSameColor(userColorSelection))
+        .forEach((element) => category.add(1, element.getName()));
     }
     if (userColorSelection.isTriColor()) {
-      const category: Category = new Category(this.categoryName);
       category.add(1, this.defaultForMissingLand);
-      return category;
     }
-    return new Category(this.categoryName);
+    return category;
   }
 }
