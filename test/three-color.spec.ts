@@ -172,31 +172,40 @@ describe("3 Color", function () {
   it("1 Mana Confluence", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("Mana Confluence"), 1);
   });
 
   it("1 Exotic Orchard", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("Exotic Orchard"), 1);
   });
 
   it("1 Reflecting Pool", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("Reflecting Pool"), 1);
   });
 
   it("3 Dual Land", function () {

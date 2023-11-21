@@ -13,6 +13,12 @@ export default class RainbowLandProcessor implements Processor {
       category.add(1, "Command Tower");
       category.add(1, "Mana Confluence");
     }
+    if (userColorSelection.isTriColor()) {
+      category.add(1, "Command Tower");
+      category.add(1, "Mana Confluence");
+      category.add(1, "Exotic Orchard");
+      category.add(1, "Reflecting Pool");
+    }
     return category;
   }
 }
