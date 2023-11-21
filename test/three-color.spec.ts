@@ -17,14 +17,19 @@ import UtilityLandProcessor from "../app/js/lands-code/UtilityLandProcessor";
 import Processor from "../app/js/lands-code/Processor";
 import PathwayLandProcessor from "../app/js/lands-code/PathwayLandProcessor";
 import TriomeProcessor from "../app/js/lands-code/TriomeProcessor";
+import { calculateTotalAmountOfLands } from "./CustomAssertion";
 
 describe("3 Color", function () {
-  it("9 Fetch Lands", function () {
-    let colors: UserColorSelection = new UserColorSelection();
+  let colors: UserColorSelection;
+
+  beforeEach(function () {
+    colors = new UserColorSelection();
     colors.add(Color.Red);
     colors.add(Color.Green);
     colors.add(Color.Black);
+  });
 
+  it("10 Fetch Lands", function () {
     let processor: FetchLandProcessor = new FetchLandProcessor();
 
     const actual = processor.process(colors);
@@ -41,11 +46,6 @@ describe("3 Color", function () {
   });
 
   it("1 Prismatic Vista", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: FetchLandProcessor = new FetchLandProcessor();
 
     const actual = processor.process(colors);
@@ -53,11 +53,6 @@ describe("3 Color", function () {
   });
 
   it("12 Basic Lands", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: BasicLandProcessor = new BasicLandProcessor();
 
     const actual = processor.process(colors);
@@ -67,11 +62,6 @@ describe("3 Color", function () {
   });
 
   it("0 Check Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: CheckLandProcessor = new CheckLandProcessor();
 
     const actual = processor.process(colors);
@@ -79,11 +69,6 @@ describe("3 Color", function () {
   });
 
   it("3 Crowd Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: CrowdLandProcessor = new CrowdLandProcessor();
 
     const actual = processor.process(colors);
@@ -94,11 +79,6 @@ describe("3 Color", function () {
   });
 
   it("0 Filter Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: FilterLandProcessor = new FilterLandProcessor();
 
     const actual = processor.process(colors);
@@ -106,11 +86,6 @@ describe("3 Color", function () {
   });
 
   it("3 Shock Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: ShockLandProcessor = new ShockLandProcessor();
 
     const actual = processor.process(colors);
@@ -121,11 +96,6 @@ describe("3 Color", function () {
   });
 
   it("0 Pain Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: PainLandProcessor = new PainLandProcessor();
 
     const actual = processor.process(colors);
@@ -133,11 +103,6 @@ describe("3 Color", function () {
   });
 
   it("0 Slow Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: SlowLandProcessor = new SlowLandProcessor();
 
     const actual = processor.process(colors);
@@ -145,11 +110,6 @@ describe("3 Color", function () {
   });
 
   it("1 Horizon Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: HorizonLandProcessor = new HorizonLandProcessor();
 
     const actual = processor.process(colors);
@@ -158,11 +118,6 @@ describe("3 Color", function () {
   });
 
   it("1 Command Tower", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
@@ -171,11 +126,6 @@ describe("3 Color", function () {
   });
 
   it("1 Mana Confluence", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
@@ -184,11 +134,6 @@ describe("3 Color", function () {
   });
 
   it("1 Exotic Orchard", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
@@ -197,11 +142,6 @@ describe("3 Color", function () {
   });
 
   it("1 Reflecting Pool", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
@@ -210,11 +150,6 @@ describe("3 Color", function () {
   });
 
   it("1 Plaza of Heroes", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
@@ -223,11 +158,6 @@ describe("3 Color", function () {
   });
 
   it("3 Dual Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: DualLandProcessor = new DualLandProcessor();
 
     const actual = processor.process(colors);
@@ -238,11 +168,6 @@ describe("3 Color", function () {
   });
 
   it("0 Bounce Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: BounceLandProcessor = new BounceLandProcessor();
 
     const actual = processor.process(colors);
@@ -250,11 +175,6 @@ describe("3 Color", function () {
   });
 
   it("0 Pathway Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: PathwayLandProcessor = new PathwayLandProcessor();
 
     const actual = processor.process(colors);
@@ -262,11 +182,6 @@ describe("3 Color", function () {
   });
 
   it("0 Utility Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: UtilityLandProcessor = new UtilityLandProcessor();
 
     const actual = processor.process(colors);
@@ -274,11 +189,6 @@ describe("3 Color", function () {
   });
 
   it("1 Triome Land", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
     let processor: TriomeProcessor = new TriomeProcessor();
 
     const actual = processor.process(colors);
@@ -286,33 +196,6 @@ describe("3 Color", function () {
   });
 
   it("38 Lands Total", function () {
-    let colors: UserColorSelection = new UserColorSelection();
-    colors.add(Color.Red);
-    colors.add(Color.Green);
-    colors.add(Color.Black);
-
-    const ProcessorArray: Processor[] = [
-      new BasicLandProcessor(),
-      new CrowdLandProcessor(),
-      new CheckLandProcessor(),
-      new FetchLandProcessor(),
-      new FilterLandProcessor(),
-      new ShockLandProcessor(),
-      new PainLandProcessor(),
-      new SlowLandProcessor(),
-      new RainbowLandProcessor(),
-      new HorizonLandProcessor(),
-      new DualLandProcessor(),
-      new BounceLandProcessor(),
-      new PathwayLandProcessor(),
-      new TriomeProcessor(),
-      new UtilityLandProcessor(),
-    ];
-
-    const amount: number = ProcessorArray.reduce((sum, current) => {
-      return sum + current.process(colors).size();
-    }, 0);
-
-    assert.strictEqual(amount, 38);
+    assert.strictEqual(calculateTotalAmountOfLands(colors), 38);
   });
 });
