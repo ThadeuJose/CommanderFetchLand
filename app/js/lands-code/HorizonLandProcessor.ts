@@ -35,6 +35,11 @@ export default class HorizonLandProcessor implements Processor {
         this.lands
       );
     }
+    if (userColorSelection.isTriColor()) {
+      const category: Category = new Category(this.categoryName);
+      category.add(1, this.defaultForMissingLand);
+      return category;
+    }
     return new Category(this.categoryName);
   }
 }

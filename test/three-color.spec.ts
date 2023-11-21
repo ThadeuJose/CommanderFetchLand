@@ -146,21 +146,27 @@ describe("3 Color", function () {
   it("1 Horizon Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: HorizonLandProcessor = new HorizonLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("City of Brass"), 1);
   });
 
   it("1 Command Tower", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+
+    assert.strictEqual(actual.getAmount("Command Tower"), 1);
   });
 
   it("1 Mana Confluence", function () {
@@ -300,5 +306,3 @@ describe("3 Color", function () {
 //  City of brass
 // Triome 1
 // 	37
-//Put Triome test in other tests
-//Ask chatgpt to tefactor to put a variable for color in beforeEach
