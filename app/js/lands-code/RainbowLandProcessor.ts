@@ -18,6 +18,7 @@ export default class RainbowLandProcessor implements Processor {
       category.add(1, "Mana Confluence");
       category.add(1, "Exotic Orchard");
       category.add(1, "Reflecting Pool");
+      category.add(1, "Plaza of Heroes");
     }
     return category;
   }

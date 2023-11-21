@@ -16,6 +16,7 @@ import BounceLandProcessor from "../app/js/lands-code/BounceLandProcessor";
 import UtilityLandProcessor from "../app/js/lands-code/UtilityLandProcessor";
 import Processor from "../app/js/lands-code/Processor";
 import PathwayLandProcessor from "../app/js/lands-code/PathwayLandProcessor";
+import TriomeProcessor from "../app/js/lands-code/TriomeProcessor";
 
 describe("3 Color", function () {
   it("9 Fetch Lands", function () {
@@ -208,6 +209,19 @@ describe("3 Color", function () {
     assert.strictEqual(actual.getAmount("Reflecting Pool"), 1);
   });
 
+  it("1 Plaza of Heroes", function () {
+    let colors: UserColorSelection = new UserColorSelection();
+    colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
+
+    let processor: RainbowLandProcessor = new RainbowLandProcessor();
+
+    const actual = processor.process(colors);
+
+    assert.strictEqual(actual.getAmount("Plaza of Heroes"), 1);
+  });
+
   it("3 Dual Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
@@ -262,11 +276,13 @@ describe("3 Color", function () {
   it("1 Triome Land", function () {
     let colors: UserColorSelection = new UserColorSelection();
     colors.add(Color.Red);
+    colors.add(Color.Green);
+    colors.add(Color.Black);
 
-    let processor: UtilityLandProcessor = new UtilityLandProcessor();
+    let processor: TriomeProcessor = new TriomeProcessor();
 
     const actual = processor.process(colors);
-    assert.fail("Not Implemented");
+    assert.strictEqual(actual.getAmount("Ziatora's Proving Ground"), 1);
   });
 
   it("38 Lands Total", function () {
@@ -289,6 +305,7 @@ describe("3 Color", function () {
       new DualLandProcessor(),
       new BounceLandProcessor(),
       new PathwayLandProcessor(),
+      new TriomeProcessor(),
       new UtilityLandProcessor(),
     ];
 
@@ -299,19 +316,3 @@ describe("3 Color", function () {
     assert.strictEqual(amount, 38);
   });
 });
-
-// Basics	12
-// Fetch lands 	9
-// Prismatic Vista	1
-// Command Tower	1
-// Dual 	3
-// Shock 	3
-// Crowd 	3
-// horizon	1
-// rainbow	3
-// 	Reflecting Pool
-// 	Exotic Orchard
-// 	Mana Confluence
-//  City of brass
-// Triome 1
-// 	37
