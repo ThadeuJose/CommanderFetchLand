@@ -19,7 +19,7 @@ import PathwayLandProcessor from "../app/js/lands-code/PathwayLandProcessor";
 import TriomeProcessor from "../app/js/lands-code/TriomeProcessor";
 import { calculateTotalAmountOfLands } from "./CustomAssertion";
 
-describe("3 Color", function () {
+describe("5 Color", function () {
   let colors: UserColorSelection;
 
   beforeEach(function () {
