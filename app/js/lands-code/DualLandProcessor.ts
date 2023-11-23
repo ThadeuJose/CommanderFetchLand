@@ -26,7 +26,11 @@ export default class DualLandProcessor implements Processor {
 
   process(userColorSelection: UserColorSelection): Category {
     const category = new Category(this.categoryName);
-    if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
+    if (
+      userColorSelection.isDualColor() ||
+      userColorSelection.isTriColor() ||
+      userColorSelection.isFiveColor()
+    ) {
       this.lands
         .filter((element) => element.isSameColor(userColorSelection))
         .forEach((element) => category.add(1, element.getName()));
