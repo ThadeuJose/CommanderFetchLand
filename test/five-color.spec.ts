@@ -149,6 +149,13 @@ describe("5 Color", function () {
     assert.strictEqual(actual.getAmount("Plaza of Heroes"), 1);
   });
 
+  it("1 City of Brass", function () {
+    let processor: RainbowLandProcessor = new RainbowLandProcessor();
+
+    const actual = processor.process(colors);
+    assert.strictEqual(actual.getAmount("City of Brass"), 1);
+  });
+
   it("1 The World Tree", function () {
     let processor: RainbowLandProcessor = new RainbowLandProcessor();
 
