@@ -48,4 +48,8 @@ export default class UserColorSelection {
   isTriColor(): boolean {
     return this.size() === 3;
   }
+
+  isFiveColor(): boolean {
+    return this.size() === 5;
+  }
 }
