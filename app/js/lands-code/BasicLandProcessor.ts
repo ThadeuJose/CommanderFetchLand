@@ -31,6 +31,10 @@ export default class BasicLandProcessor implements Processor {
       amountOfLand = 4;
     }
 
+    if (userColorSelection.isFiveColor()) {
+      amountOfLand = 2;
+    }
+
     if (amountOfLand === 0) {
       return category;
     }
