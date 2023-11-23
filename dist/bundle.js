@@ -187,6 +187,9 @@ class UserColorSelection {
     has(color) {
         return this.colors.get(color) === true;
     }
+    isEmpty() {
+        return this.size() === 0;
+    }
     isSingleColor() {
         return this.size() === 1;
     }
@@ -200,6 +203,23 @@ class UserColorSelection {
 exports.default = UserColorSelection;
 
 },{"./Color":2}],8:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.copyToClipboard = void 0;
+const showSnackbar_1 = require("./showSnackbar");
+function copyToClipboard(value) {
+    navigator.clipboard
+        .writeText(value)
+        .then(() => {
+        (0, showSnackbar_1.showSnackbar)();
+    })
+        .catch((error) => {
+        console.error("Clipboard writeText error:", error);
+    });
+}
+exports.copyToClipboard = copyToClipboard;
+
+},{"./showSnackbar":28}],9:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -243,7 +263,7 @@ class BasicLandProcessor {
 }
 exports.default = BasicLandProcessor;
 
-},{"../Category":1,"../Color":2,"../SingleLand":5}],9:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../SingleLand":5}],10:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -274,7 +294,7 @@ class BounceLandProcessor {
 }
 exports.default = BounceLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":12}],10:[function(require,module,exports){
+},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],11:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -309,7 +329,7 @@ class CheckLandProcessor {
 }
 exports.default = CheckLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3,"./DualColorSpecialCase":12}],11:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],12:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -346,7 +366,7 @@ class CrowdLandProcessor {
 }
 exports.default = CrowdLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],12:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3}],13:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -365,7 +385,7 @@ function DualColorSpecialCase(categoryName, userColorSelection, lands) {
 }
 exports.DualColorSpecialCase = DualColorSpecialCase;
 
-},{"../Category":1}],13:[function(require,module,exports){
+},{"../Category":1}],14:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -402,7 +422,7 @@ class DualLandProcessor {
 }
 exports.default = DualLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],14:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3}],15:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -441,7 +461,7 @@ class FetchLandProcessor {
 }
 exports.default = FetchLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],15:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3}],16:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -472,7 +492,7 @@ class FilterLandProcessor {
 }
 exports.default = FilterLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":12}],16:[function(require,module,exports){
+},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],17:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -514,7 +534,7 @@ class HorizonLandProcessor {
 }
 exports.default = HorizonLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],17:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3}],18:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -545,7 +565,7 @@ class PainLandProcessor {
 }
 exports.default = PainLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":12}],18:[function(require,module,exports){
+},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],19:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -576,7 +596,7 @@ class PathwayLandProcessor {
 }
 exports.default = PathwayLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":12}],19:[function(require,module,exports){
+},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],20:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -605,7 +625,7 @@ class RainbowLandProcessor {
 }
 exports.default = RainbowLandProcessor;
 
-},{"../Category":1}],20:[function(require,module,exports){
+},{"../Category":1}],21:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -642,7 +662,7 @@ class ShockLandProcessor {
 }
 exports.default = ShockLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],21:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3}],22:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -673,7 +693,7 @@ class SlowLandProcessor {
 }
 exports.default = SlowLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":12}],22:[function(require,module,exports){
+},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],23:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -691,7 +711,7 @@ class TemplateProcessor {
 }
 exports.default = TemplateProcessor;
 
-},{"../EmptyCategory":4}],23:[function(require,module,exports){
+},{"../EmptyCategory":4}],24:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -730,7 +750,7 @@ class TriomeProcessor {
 }
 exports.default = TriomeProcessor;
 
-},{"../Category":1,"../Color":2,"../ThreeColorLand":6}],24:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../ThreeColorLand":6}],25:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -750,7 +770,7 @@ class UtilityLandProcessor {
 }
 exports.default = UtilityLandProcessor;
 
-},{"../EmptyCategory":4}],25:[function(require,module,exports){
+},{"../EmptyCategory":4}],26:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -774,34 +794,10 @@ const UtilityLandProcessor_1 = __importDefault(require("./lands-code/UtilityLand
 const TemplateProcessor_1 = __importDefault(require("./lands-code/TemplateProcessor"));
 const TriomeProcessor_1 = __importDefault(require("./lands-code/TriomeProcessor"));
 const PathwayLandProcessor_1 = __importDefault(require("./lands-code/PathwayLandProcessor"));
+const print_1 = require("./print");
+const copyToClipboard_1 = require("./copyToClipboard");
 const userColorSelection = new UserColorSelection_1.default();
 let detail_checked = false;
-const ProcessorArray = [
-    new BasicLandProcessor_1.default(),
-    new CrowdLandProcessor_1.default(),
-    new CheckLandProcessor_1.default(),
-    new FetchLandProcessor_1.default(),
-    new FilterLandProcessor_1.default(),
-    new ShockLandProcessor_1.default(),
-    new PainLandProcessor_1.default(),
-    new SlowLandProcessor_1.default(),
-    new RainbowLandProcessor_1.default(),
-    new HorizonLandProcessor_1.default(),
-    new DualLandProcessor_1.default(),
-    new BounceLandProcessor_1.default(),
-    new PathwayLandProcessor_1.default(),
-    new TriomeProcessor_1.default(),
-    new UtilityLandProcessor_1.default(),
-    new TemplateProcessor_1.default("Mana Ramp", 10),
-    new TemplateProcessor_1.default("Commander", 1),
-    new TemplateProcessor_1.default("Burst Card Draw", 5),
-    new TemplateProcessor_1.default("Repeatable Card Draw", 5),
-    new TemplateProcessor_1.default("Board Wipe", 4),
-    new TemplateProcessor_1.default("Target Removal", 6),
-    new TemplateProcessor_1.default("Theme 1", 10),
-    new TemplateProcessor_1.default("Theme 2", 10),
-    new TemplateProcessor_1.default("Theme 3", 10),
-];
 const LandsProcessors = [
     new BasicLandProcessor_1.default(),
     new DualLandProcessor_1.default(),
@@ -831,139 +827,115 @@ const TemplateProcessors = [
     new TemplateProcessor_1.default("Theme 3", 10),
 ];
 document.addEventListener("DOMContentLoaded", () => {
+    var _a;
     const inputList = document.getElementsByTagName("input");
+    const outputElement = document.getElementById("output");
     for (let i = 0; i < inputList.length; i += 1) {
         inputList[i].checked = false;
     }
-    const outputElement = document.getElementById("output");
     if (outputElement) {
         outputElement.value = "Click to copy the lands";
     }
     outputElement.addEventListener("click", (event) => {
-        const categories = ProcessorArray.map((elem) => {
-            return elem.process(userColorSelection);
-        });
         event.preventDefault();
-        if (outputElement.value !== "Click to copy the lands") {
-            const value = printLandsMoxfield(categories);
+        if (!userColorSelection.isEmpty()) {
+            const value = (0, print_1.printLandsMoxfield)(processorToCategory(LandsProcessors, userColorSelection));
             console.log(value);
-            navigator.clipboard
-                .writeText(value)
-                .then(() => {
-                showSnackbar();
-            })
-                .catch((error) => {
-                console.error("Clipboard writeText error:", error);
-            });
+            (0, copyToClipboard_1.copyToClipboard)(value);
         }
     });
+    (_a = document
+        .getElementById("details")) === null || _a === void 0 ? void 0 : _a.addEventListener("change", (event) => {
+        const target = event.target;
+        detail_checked = target.checked;
+        const landsCategories = processorToCategory(LandsProcessors, userColorSelection);
+        const templateCategories = processorToCategory(TemplateProcessors, userColorSelection);
+        outputElement.value = print(landsCategories, templateCategories);
+    });
     // Add event listeners for the checkboxes
-    const checkboxes = document.querySelectorAll(".checkbox_box input[type='checkbox']");
+    const checkboxes = document.querySelectorAll(".color");
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", (event) => {
             const target = event.target;
             const checkboxName = target.getAttribute("data-name");
-            if (checkboxName === "details") {
-                detail_checked = target.checked;
-            }
-            else {
-                if (target.checked) {
-                    console.log(`Checked ${checkboxName}`);
-                    if (checkboxName) {
-                        const color = (0, Color_1.stringToColor)(checkboxName);
-                        if (color) {
-                            userColorSelection.add(color);
-                        }
-                    }
+            if (checkboxName) {
+                const color = (0, Color_1.stringToColor)(checkboxName);
+                if (!color) {
+                    return;
                 }
-                else {
-                    console.log(`Unchecked ${checkboxName}`);
-                    if (checkboxName) {
-                        const color = (0, Color_1.stringToColor)(checkboxName);
-                        if (color) {
-                            userColorSelection.remove(color);
-                        }
-                    }
-                }
+                toggle(color, target.checked);
             }
-            const categories = ProcessorArray.map((elem) => {
-                return elem.process(userColorSelection);
-            });
-            const landsCategories = LandsProcessors.map((elem) => {
-                return elem.process(userColorSelection);
-            });
-            const templateCategories = TemplateProcessors.map((elem) => {
-                return elem.process(userColorSelection);
-            });
-            const outputElement = document.getElementById("output");
-            let resp;
-            if (userColorSelection.size() >= 1) {
-                if (detail_checked) {
-                    resp = printLandsWithTitle(categories);
-                }
-                else {
-                    resp = printLandsNoTitle(landsCategories, templateCategories);
-                }
-            }
-            else {
-                resp = "Click to copy the lands";
-            }
-            outputElement.value = resp;
+            const landsCategories = processorToCategory(LandsProcessors, userColorSelection);
+            const templateCategories = processorToCategory(TemplateProcessors, userColorSelection);
+            outputElement.value = print(landsCategories, templateCategories);
         });
     });
 });
-function printLandsMoxfield(categories) {
-    return categories
-        .map((elem) => {
-        let resp = "";
-        if (elem.lines.trim()) {
-            resp = `${elem.lines}`;
-        }
-        return resp;
-    })
-        .join("");
+function toggle(color, checked) {
+    if (checked) {
+        userColorSelection.add(color);
+    }
+    else {
+        userColorSelection.remove(color);
+    }
 }
-function printLandsNoTitle(landsCategories, templateCategories) {
-    let resp = "";
-    let size = landsCategories.reduce((sum, current) => {
+function print(landsCategories, templateCategories) {
+    if (userColorSelection.isEmpty()) {
+        return "Click to copy the lands";
+    }
+    if (detail_checked) {
+        return (0, print_1.printWithDetails)([...landsCategories, ...templateCategories]);
+    }
+    return (0, print_1.printWithoutDetails)(landsCategories, templateCategories);
+}
+function processorToCategory(processors, color) {
+    return processors.map((elem) => elem.process(color));
+}
+
+},{"./Color":2,"./UserColorSelection":7,"./copyToClipboard":8,"./lands-code/BasicLandProcessor":9,"./lands-code/BounceLandProcessor":10,"./lands-code/CheckLandProcessor":11,"./lands-code/CrowdLandProcessor":12,"./lands-code/DualLandProcessor":14,"./lands-code/FetchLandProcessor":15,"./lands-code/FilterLandProcessor":16,"./lands-code/HorizonLandProcessor":17,"./lands-code/PainLandProcessor":18,"./lands-code/PathwayLandProcessor":19,"./lands-code/RainbowLandProcessor":20,"./lands-code/ShockLandProcessor":21,"./lands-code/SlowLandProcessor":22,"./lands-code/TemplateProcessor":23,"./lands-code/TriomeProcessor":24,"./lands-code/UtilityLandProcessor":25,"./print":27}],27:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.printWithDetails = exports.printWithoutDetails = exports.printLandsMoxfield = void 0;
+function printLandsMoxfield(categories) {
+    return printWithoutTitle(categories);
+}
+exports.printLandsMoxfield = printLandsMoxfield;
+function printWithoutDetails(landsCategories, templateCategories) {
+    return `Lands: ${calculateSize(landsCategories)}\n${printWithoutTitle(landsCategories)}\n${printWithTitle(templateCategories)}`;
+}
+exports.printWithoutDetails = printWithoutDetails;
+function calculateSize(categories) {
+    return categories.reduce((sum, current) => {
         return sum + current.size();
     }, 0);
-    resp += `Lands: ${size}\n`;
-    resp += landsCategories
-        .map((elem) => {
-        let resp = "";
-        if (elem.lines.trim()) {
-            resp = `${elem.lines}`;
-        }
-        return resp;
-    })
-        .join("");
-    resp += "\n";
-    resp += templateCategories
-        .map((elem) => {
-        let resp = "";
-        if (!elem.isEmpty()) {
-            resp = `${elem.title}: ${elem.size()}\n${elem.lines}\n`;
-        }
-        return resp;
-    })
-        .join("");
-    return resp;
 }
-function printLandsWithTitle(categories) {
+function printWithoutTitle(categories) {
+    return categories
+        .filter((elem) => elem.lines.trim())
+        .map((elem) => `${elem.lines}`)
+        .join("");
+}
+function printWithDetails(categories) {
     //Print
     // Category Title: 1
     // 1 Element
     return categories
-        .map((elem) => {
-        let resp = "";
-        if (!elem.isEmpty()) {
-            resp = `${elem.title}: ${elem.size()}\n${elem.lines}\n`;
-        }
-        return resp;
-    })
+        .filter((elem) => !elem.isEmpty())
+        .map((elem) => `${elem.title}: ${elem.size()}\n${elem.lines}\n`)
         .join("");
 }
+exports.printWithDetails = printWithDetails;
+function printWithTitle(categories) {
+    return categories
+        .filter((elem) => !elem.isEmpty())
+        .map((elem) => `${elem.title}: ${elem.size()}\n${elem.lines}\n`)
+        .join("");
+}
+
+},{}],28:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.showSnackbar = void 0;
 function showSnackbar() {
     // Get the snackbar DIV
     const snackbar = document.getElementById("snackbar");
@@ -976,5 +948,6 @@ function showSnackbar() {
         }, 3000);
     }
 }
+exports.showSnackbar = showSnackbar;
 
-},{"./Color":2,"./UserColorSelection":7,"./lands-code/BasicLandProcessor":8,"./lands-code/BounceLandProcessor":9,"./lands-code/CheckLandProcessor":10,"./lands-code/CrowdLandProcessor":11,"./lands-code/DualLandProcessor":13,"./lands-code/FetchLandProcessor":14,"./lands-code/FilterLandProcessor":15,"./lands-code/HorizonLandProcessor":16,"./lands-code/PainLandProcessor":17,"./lands-code/PathwayLandProcessor":18,"./lands-code/RainbowLandProcessor":19,"./lands-code/ShockLandProcessor":20,"./lands-code/SlowLandProcessor":21,"./lands-code/TemplateProcessor":22,"./lands-code/TriomeProcessor":23,"./lands-code/UtilityLandProcessor":24}]},{},[25]);
+},{}]},{},[26]);

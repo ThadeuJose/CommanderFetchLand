@@ -33,6 +33,10 @@ export default class UserColorSelection {
     return this.colors.get(color) === true;
   }
 
+  isEmpty(): boolean {
+    return this.size() === 0;
+  }
+
   isSingleColor(): boolean {
     return this.size() === 1;
   }
