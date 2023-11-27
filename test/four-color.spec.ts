@@ -57,7 +57,6 @@ describe("4 Color", function () {
     let processor: BasicLandProcessor = new BasicLandProcessor();
 
     const actual = processor.process(colors);
-    assert.strictEqual(actual.getAmount("Mountain"), 2);
     assert.strictEqual(actual.getAmount("Forest"), 2);
     assert.strictEqual(actual.getAmount("Swamp"), 2);
     assert.strictEqual(actual.getAmount("Mountain"), 2);
