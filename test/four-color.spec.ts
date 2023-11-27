@@ -89,6 +89,7 @@ describe("4 Color", function () {
     let processor: ShockLandProcessor = new ShockLandProcessor();
 
     const actual = processor.process(colors);
+    assert.strictEqual(actual.size(), 3);
     assert.strictEqual(actual.getAmount("Stomping Ground"), 1);
     assert.strictEqual(actual.getAmount("Overgrown Tomb"), 1);
     assert.strictEqual(actual.getAmount("Temple Garden"), 1);
