@@ -29,6 +29,7 @@ export default class DualLandProcessor implements Processor {
     if (
       userColorSelection.isDualColor() ||
       userColorSelection.isTriColor() ||
+      userColorSelection.isFourColor() ||
       userColorSelection.isFiveColor()
     ) {
       this.lands
