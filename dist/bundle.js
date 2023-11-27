@@ -185,7 +185,30 @@ class UserColorSelection {
         return count;
     }
     has(color) {
-        return this.colors.get(color) === true;
+        const colorMap = this.colors.get(color);
+        if (colorMap) {
+            return colorMap;
+        }
+        return false;
+    }
+    getAllColor() {
+        let resp = [];
+        if (this.has(Color_1.Color.Green)) {
+            resp.push(Color_1.Color.Green);
+        }
+        if (this.has(Color_1.Color.White)) {
+            resp.push(Color_1.Color.White);
+        }
+        if (this.has(Color_1.Color.Black)) {
+            resp.push(Color_1.Color.Black);
+        }
+        if (this.has(Color_1.Color.Red)) {
+            resp.push(Color_1.Color.Red);
+        }
+        if (this.has(Color_1.Color.Blue)) {
+            resp.push(Color_1.Color.Blue);
+        }
+        return resp;
     }
     isEmpty() {
         return this.size() === 0;
@@ -198,6 +221,12 @@ class UserColorSelection {
     }
     isTriColor() {
         return this.size() === 3;
+    }
+    isFourColor() {
+        return this.size() === 4;
+    }
+    isFiveColor() {
+        return this.size() === 5;
     }
 }
 exports.default = UserColorSelection;
@@ -240,6 +269,12 @@ class BasicLandProcessor {
     }
     process(userColorSelection) {
         const category = new Category_1.default("Basic Lands");
+        this.lands
+            .filter((element) => element.hasSomeColor(userColorSelection))
+            .forEach((element) => category.add(this.getAmountOfLand(userColorSelection), element.getName()));
+        return category;
+    }
+    getAmountOfLand(userColorSelection) {
         let amountOfLand = 0;
         if (userColorSelection.isSingleColor()) {
             amountOfLand = 30;
@@ -250,15 +285,10 @@ class BasicLandProcessor {
         if (userColorSelection.isTriColor()) {
             amountOfLand = 4;
         }
-        if (amountOfLand === 0) {
-            return category;
+        if (userColorSelection.isFourColor() || userColorSelection.isFiveColor()) {
+            amountOfLand = 2;
         }
-        this.lands.forEach((element) => {
-            if (element.hasSomeColor(userColorSelection)) {
-                category.add(amountOfLand, element.getName());
-            }
-        });
-        return category;
+        return amountOfLand;
     }
 }
 exports.default = BasicLandProcessor;
@@ -412,7 +442,10 @@ class DualLandProcessor {
     }
     process(userColorSelection) {
         const category = new Category_1.default(this.categoryName);
-        if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
+        if (userColorSelection.isDualColor() ||
+            userColorSelection.isTriColor() ||
+            userColorSelection.isFourColor() ||
+            userColorSelection.isFiveColor()) {
             this.lands
                 .filter((element) => element.isSameColor(userColorSelection))
                 .forEach((element) => category.add(1, element.getName()));
@@ -448,7 +481,10 @@ class FetchLandProcessor {
     }
     process(userColorSelection) {
         const category = new Category_1.default("Fetch Lands");
-        if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
+        if (userColorSelection.isDualColor() ||
+            userColorSelection.isTriColor() ||
+            userColorSelection.isFourColor() ||
+            userColorSelection.isFiveColor()) {
             category.add(1, "Prismatic Vista");
             this.lands.forEach((element) => {
                 if (element.hasSomeColor(userColorSelection)) {
@@ -613,12 +649,21 @@ class RainbowLandProcessor {
             category.add(1, "Command Tower");
             category.add(1, "Mana Confluence");
         }
-        if (userColorSelection.isTriColor()) {
+        if (userColorSelection.isTriColor() || userColorSelection.isFourColor()) {
             category.add(1, "Command Tower");
             category.add(1, "Mana Confluence");
             category.add(1, "Exotic Orchard");
             category.add(1, "Reflecting Pool");
             category.add(1, "Plaza of Heroes");
+        }
+        if (userColorSelection.isFiveColor()) {
+            category.add(1, "Command Tower");
+            category.add(1, "Mana Confluence");
+            category.add(1, "Exotic Orchard");
+            category.add(1, "Reflecting Pool");
+            category.add(1, "Plaza of Heroes");
+            category.add(1, "City of Brass");
+            category.add(1, "The World Tree");
         }
         return category;
     }
@@ -634,6 +679,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
 const DualLand_1 = __importDefault(require("../DualLand"));
+const UserColorSelection_1 = __importDefault(require("../UserColorSelection"));
 class ShockLandProcessor {
     constructor() {
         this.categoryName = "Shock Lands";
@@ -657,12 +703,35 @@ class ShockLandProcessor {
                 .filter((element) => element.isSameColor(userColorSelection))
                 .forEach((element) => category.add(1, element.getName()));
         }
+        if (userColorSelection.isFourColor()) {
+            const colors = this.combinate(userColorSelection);
+            this.lands.forEach((element) => {
+                if (element.isSameColor(colors[0]) ||
+                    element.isSameColor(colors[1]) ||
+                    element.isSameColor(colors[2])) {
+                    category.add(1, element.getName());
+                }
+            });
+        }
         return category;
+    }
+    combinate(colors) {
+        const arr = colors.getAllColor();
+        const color1 = new UserColorSelection_1.default();
+        color1.add(arr[0]);
+        color1.add(arr[1]);
+        const color2 = new UserColorSelection_1.default();
+        color2.add(arr[0]);
+        color2.add(arr[2]);
+        const color3 = new UserColorSelection_1.default();
+        color3.add(arr[0]);
+        color3.add(arr[3]);
+        return [color1, color2, color3];
     }
 }
 exports.default = ShockLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],22:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../DualLand":3,"../UserColorSelection":7}],22:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -720,6 +789,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
 const ThreeColorLand_1 = __importDefault(require("../ThreeColorLand"));
+const UserColorSelection_1 = __importDefault(require("../UserColorSelection"));
 class TriomeProcessor {
     constructor() {
         this.categoryName = "Triome Lands";
@@ -745,12 +815,33 @@ class TriomeProcessor {
                 }
             });
         }
+        if (userColorSelection.isFourColor()) {
+            const colors = this.combinate(userColorSelection);
+            this.lands.forEach((element) => {
+                if (element.isSameColor(colors[0]) || element.isSameColor(colors[1])) {
+                    category.add(1, element.getName());
+                }
+            });
+        }
         return category;
+    }
+    combinate(colors) {
+        const arr = colors.getAllColor();
+        console.log(arr);
+        const color1 = new UserColorSelection_1.default();
+        color1.add(arr[0]);
+        color1.add(arr[1]);
+        color1.add(arr[2]);
+        const color2 = new UserColorSelection_1.default();
+        color2.add(arr[0]);
+        color2.add(arr[2]);
+        color2.add(arr[3]);
+        return [color1, color2];
     }
 }
 exports.default = TriomeProcessor;
 
-},{"../Category":1,"../Color":2,"../ThreeColorLand":6}],25:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../ThreeColorLand":6,"../UserColorSelection":7}],25:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -762,8 +853,11 @@ class UtilityLandProcessor {
         this.categoryName = "Utility Lands";
     }
     process(userColorSelection) {
-        if (userColorSelection.isTriColor()) {
+        if (userColorSelection.isTriColor() || userColorSelection.isFiveColor()) {
             return new EmptyCategory_1.default(this.categoryName, 0);
+        }
+        if (userColorSelection.isFourColor()) {
+            return new EmptyCategory_1.default(this.categoryName, 3);
         }
         return new EmptyCategory_1.default(this.categoryName, 8);
     }

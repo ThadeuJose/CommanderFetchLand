@@ -30,24 +30,24 @@ export default class UserColorSelection {
   }
 
   has(color: Color): boolean {
-    return this.colors.get(color) === true;
+    return this.colors.get(color) || false;
   }
 
   getAllColor(): Color[] {
     let resp: Color[] = [];
-    if (this.colors.has(Color.Green)) {
+    if (this.has(Color.Green)) {
       resp.push(Color.Green);
     }
-    if (this.colors.has(Color.White)) {
+    if (this.has(Color.White)) {
       resp.push(Color.White);
     }
-    if (this.colors.has(Color.Black)) {
+    if (this.has(Color.Black)) {
       resp.push(Color.Black);
     }
-    if (this.colors.has(Color.Red)) {
+    if (this.has(Color.Red)) {
       resp.push(Color.Red);
     }
-    if (this.colors.has(Color.Blue)) {
+    if (this.has(Color.Blue)) {
       resp.push(Color.Blue);
     }
     return resp;
