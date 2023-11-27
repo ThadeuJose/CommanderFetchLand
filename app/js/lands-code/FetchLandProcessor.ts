@@ -25,6 +25,7 @@ export default class FetchLandProcessor implements Processor {
     if (
       userColorSelection.isDualColor() ||
       userColorSelection.isTriColor() ||
+      userColorSelection.isFourColor() ||
       userColorSelection.isFiveColor()
     ) {
       category.add(1, "Prismatic Vista");
