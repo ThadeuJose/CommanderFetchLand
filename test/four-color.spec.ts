@@ -19,7 +19,7 @@ import PathwayLandProcessor from "../app/js/lands-code/PathwayLandProcessor";
 import TriomeProcessor from "../app/js/lands-code/TriomeProcessor";
 import { calculateTotalAmountOfLands } from "./CustomAssertion";
 
-describe("5 Color", function () {
+describe("4 Color", function () {
   let colors: UserColorSelection;
 
   beforeEach(function () {
@@ -28,7 +28,6 @@ describe("5 Color", function () {
     colors.add(Color.Green);
     colors.add(Color.Black);
     colors.add(Color.White);
-    colors.add(Color.Blue);
   });
 
   it("10 Fetch Lands", function () {
@@ -54,7 +53,7 @@ describe("5 Color", function () {
     assert.strictEqual(actual.getAmount("Prismatic Vista"), 1);
   });
 
-  it("10 Basic Lands", function () {
+  it("8 Basic Lands", function () {
     let processor: BasicLandProcessor = new BasicLandProcessor();
 
     const actual = processor.process(colors);
@@ -86,11 +85,13 @@ describe("5 Color", function () {
     assert.strictEqual(actual.size(), 0);
   });
 
-  it("0 Shock Land", function () {
+  it("3 Shock Land", function () {
     let processor: ShockLandProcessor = new ShockLandProcessor();
 
     const actual = processor.process(colors);
-    assert.strictEqual(actual.size(), 0);
+    assert.strictEqual(actual.getAmount("Stomping Ground"), 1);
+    assert.strictEqual(actual.getAmount("Overgrown Tomb"), 1);
+    assert.strictEqual(actual.getAmount("Temple Garden"), 1);
   });
 
   it("0 Pain Land", function () {
@@ -149,21 +150,7 @@ describe("5 Color", function () {
     assert.strictEqual(actual.getAmount("Plaza of Heroes"), 1);
   });
 
-  it("1 City of Brass", function () {
-    let processor: RainbowLandProcessor = new RainbowLandProcessor();
-
-    const actual = processor.process(colors);
-    assert.strictEqual(actual.getAmount("City of Brass"), 1);
-  });
-
-  it("1 The World Tree", function () {
-    let processor: RainbowLandProcessor = new RainbowLandProcessor();
-
-    const actual = processor.process(colors);
-    assert.strictEqual(actual.getAmount("The World Tree"), 1);
-  });
-
-  it("10 Dual Land", function () {
+  it("6 Dual Land", function () {
     let processor: DualLandProcessor = new DualLandProcessor();
 
     const actual = processor.process(colors);
@@ -172,13 +159,9 @@ describe("5 Color", function () {
     assert.strictEqual(actual.getAmount("Taiga"), 1);
     assert.strictEqual(actual.getAmount("Bayou"), 1);
     assert.strictEqual(actual.getAmount("Tundra"), 1);
-
-    assert.strictEqual(actual.getAmount("Volcanic Island"), 1);
-    assert.strictEqual(actual.getAmount("Underground Sea"), 1);
     assert.strictEqual(actual.getAmount("Savannah"), 1);
     assert.strictEqual(actual.getAmount("Scrubland"), 1);
     assert.strictEqual(actual.getAmount("Plateau"), 1);
-    assert.strictEqual(actual.getAmount("Tropical Island"), 1);
   });
 
   it("0 Bounce Land", function () {
@@ -195,21 +178,42 @@ describe("5 Color", function () {
     assert.strictEqual(actual.size(), 0);
   });
 
-  it("0 Utility Land", function () {
+  it("3 Utility Land", function () {
     let processor: UtilityLandProcessor = new UtilityLandProcessor();
 
     const actual = processor.process(colors);
-    assert.strictEqual(actual.size(), 0);
+    assert.strictEqual(actual.size(), 3);
   });
 
-  it("0 Triome Land", function () {
+  it("2 Triome Land", function () {
     let processor: TriomeProcessor = new TriomeProcessor();
 
     const actual = processor.process(colors);
-    assert.strictEqual(actual.size(), 0);
+    assert.strictEqual(actual.getAmount("Ziatora's Proving Ground"), 1);
+    assert.strictEqual(actual.getAmount("Indatha Triome"), 1);
   });
 
   it("38 Lands Total", function () {
     assert.strictEqual(calculateTotalAmountOfLands(colors), 38);
   });
 });
+
+// Basics	8
+// Triome	2
+// abc bcd
+// Fetch lands 	10
+// Prismatic Vista	1
+// Dual 	6
+//Remove the color who doesnot show
+// Command Tower	1
+// rainbow	4
+// Shock	3
+// Let's say your colors are A, B, C, and D. You want to create three pairs from these colors.
+
+// Pair 1: AB
+// Pair 2: AC
+// Pair 3: AD
+
+// This way, you've used each color once with each of the other colors to form three distinct pairs.
+// Utility	3
+// 38
