@@ -63,6 +63,29 @@ export default class TriomeProcessor implements Processor {
         }
       });
     }
+    if (userColorSelection.isFourColor()) {
+      const colors = this.combinate(userColorSelection);
+      this.lands.forEach((element) => {
+        if (element.isSameColor(colors[0]) || element.isSameColor(colors[1])) {
+          category.add(1, element.getName());
+        }
+      });
+    }
     return category;
+  }
+
+  combinate(
+    colors: UserColorSelection
+  ): [UserColorSelection, UserColorSelection] {
+    const arr: Color[] = colors.getAllColor();
+    const color1 = new UserColorSelection();
+    color1.add(arr[0]);
+    color1.add(arr[1]);
+    color1.add(arr[2]);
+    const color2 = new UserColorSelection();
+    color2.add(arr[0]);
+    color2.add(arr[2]);
+    color2.add(arr[3]);
+    return [color1, color2];
   }
 }

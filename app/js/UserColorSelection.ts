@@ -33,6 +33,26 @@ export default class UserColorSelection {
     return this.colors.get(color) === true;
   }
 
+  getAllColor(): Color[] {
+    let resp: Color[] = [];
+    if (this.colors.has(Color.Green)) {
+      resp.push(Color.Green);
+    }
+    if (this.colors.has(Color.White)) {
+      resp.push(Color.White);
+    }
+    if (this.colors.has(Color.Black)) {
+      resp.push(Color.Black);
+    }
+    if (this.colors.has(Color.Red)) {
+      resp.push(Color.Red);
+    }
+    if (this.colors.has(Color.Blue)) {
+      resp.push(Color.Blue);
+    }
+    return resp;
+  }
+
   isEmpty(): boolean {
     return this.size() === 0;
   }
@@ -47,6 +67,10 @@ export default class UserColorSelection {
 
   isTriColor(): boolean {
     return this.size() === 3;
+  }
+
+  isFourColor(): boolean {
+    return this.size() === 4;
   }
 
   isFiveColor(): boolean {

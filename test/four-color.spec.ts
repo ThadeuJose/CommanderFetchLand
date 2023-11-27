@@ -155,10 +155,10 @@ describe("4 Color", function () {
 
     const actual = processor.process(colors);
 
+    assert.strictEqual(actual.size(), 6);
     assert.strictEqual(actual.getAmount("Badlands"), 1);
     assert.strictEqual(actual.getAmount("Taiga"), 1);
     assert.strictEqual(actual.getAmount("Bayou"), 1);
-    assert.strictEqual(actual.getAmount("Tundra"), 1);
     assert.strictEqual(actual.getAmount("Savannah"), 1);
     assert.strictEqual(actual.getAmount("Scrubland"), 1);
     assert.strictEqual(actual.getAmount("Plateau"), 1);
@@ -189,6 +189,7 @@ describe("4 Color", function () {
     let processor: TriomeProcessor = new TriomeProcessor();
 
     const actual = processor.process(colors);
+    assert.strictEqual(actual.size(), 2);
     assert.strictEqual(actual.getAmount("Ziatora's Proving Ground"), 1);
     assert.strictEqual(actual.getAmount("Indatha Triome"), 1);
   });
