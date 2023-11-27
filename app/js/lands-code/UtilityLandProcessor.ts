@@ -12,6 +12,9 @@ export default class UtilityLandProcessor implements Processor {
     if (userColorSelection.isTriColor() || userColorSelection.isFiveColor()) {
       return new EmptyCategory(this.categoryName, 0);
     }
+    if (userColorSelection.isFourColor()) {
+      return new EmptyCategory(this.categoryName, 3);
+    }
     return new EmptyCategory(this.categoryName, 8);
   }
 }
