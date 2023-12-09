@@ -12,10 +12,6 @@ https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-2
 
 The fast way to concat a string is with string template: `${res}${data[i]}`
 
-Make Automatized test
-
-Still use Browserify ?
-
 ---
 
 Terminar o projeto quando as features abaixo estiverem prontas:
@@ -92,7 +88,6 @@ Refatorar o test
 		Capitalize title
 				Is removing correct
 
-	Colocar a parte de lands em uma pasta
 	Usar before
 		https://mochajs.org/#hooks
 	Colocar landsRepository e ColorManager no commons.js
@@ -127,8 +122,6 @@ Refatorar o test
 Ver se o nome do arquivo esta correto com airbnb
 - Não está, tem que ser igual o nome da função
 - https://github.com/airbnb/javascript#naming--filename-matches-export
-
-Test and put the code in the master branch
 
 Upgrade the logic of Basic Land, Fetch
 

@@ -4,11 +4,13 @@ const {
 const browserSync = require('browser-sync').create();
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
+const tsify = require('tsify');
 
 
-function js() {
-  return browserify('app/js/main.js').bundle()
-    // Pass desired output filename to vinyl-source-stream
+function ts() {
+  return browserify('app/js/main.ts')
+    .plugin(tsify)
+    .bundle()
     .pipe(source('bundle.js'))
     .pipe(dest('dist'))
     .pipe(browserSync.reload({ stream: true }));
@@ -34,7 +36,7 @@ function watchFiles() {
   });
   watch('app/css', css);
   watch('app/*.html', html);
-  watch('app/js/**/*.js', js);
+  watch('app/js/**/*.ts', ts);
 }
 
 exports.default = watchFiles;
