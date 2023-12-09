@@ -17,34 +17,33 @@
         <div class="line flex">
 
             <div class="checkbox_box">
-              <input type="checkbox" id="white" name="white" onchange="onChecked(this)"><label class='label' for="white">White</label>
+              <input type="checkbox" class="color" id="white" name="white" data-name="white"><label class='label' for="white">White</label>
             </div>
 
             <div class="checkbox_box">
-              <input type="checkbox" id="blue" name="blue" onchange="onChecked(this)"><label class='label' for="blue">Blue</label>
+              <input type="checkbox" class="color" id="blue" name="blue" data-name="blue"><label class='label' for="blue">Blue</label>
             </div>
 
             <div class="checkbox_box">
-              <input type="checkbox" id="black" name="black" onchange="onChecked(this)"><label class='label' for="black">Black</label>
+              <input type="checkbox" class="color" id="black" name="black" data-name="black"><label class='label' for="black">Black</label>
             </div>
 
             <div class="checkbox_box">
-              <input type="checkbox" id="red" name="red" onchange="onChecked(this)"><label class='label' for="red">Red</label>
+              <input type="checkbox" class="color" id="red" name="red" data-name="red"><label class='label' for="red">Red</label>
             </div>
 
             <div class="checkbox_box">
-              <input type="checkbox" id="green" name="green" onchange="onChecked(this)"><label class='label' for="green">Green</label>
-            </div>
+              <input type="checkbox" class="color" id="green" name="green" data-name="green"><label class='label' for="green">Green</label>
+            </div>            
 
-            <div class="detail" id='detail' onclick="check_icon()">
-              <img class="detail_icon" src="img/Details Icon.svg" alt="Details Icon"><span>Details</span>
+            <div class="checkbox_box">
+              <input type="checkbox" id="details" name="details" data-name="details"><label class='label' for="details">Details</label>
             </div>
-
           </div>
         </div>
 
         <div class="output_box">
-          <textarea class='output' id="output" name="output" cols="40" rows="1" class="output" onclick="copyToClipboard(event)" readonly></textarea>
+          <textarea class='output' id="output" name="output" cols="40" rows="1" class="output" readonly></textarea>
         </div>
       </div>
 

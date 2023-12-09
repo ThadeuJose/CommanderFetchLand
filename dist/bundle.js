@@ -1,1118 +1,1042 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-module.exports =  class ColorManager {
-  constructor() {
-    this.colorArr = [];
-    this.ORDER_COLOR = ['white', 'blue', 'black', 'red', 'green'];
-    this.allValidColorPair = ['whiteblue', 'blueblack', 'blackred', 'redgreen',
-                              'greenwhite', 'whiteblack', 'bluered',
-                              'blackgreen', 'redwhite', 'greenblue'];
-  }
-
-  addColor(name){
-    if(!this.colorArr.includes(name)) {
-      this.colorArr.push(name);
-      if(this.qtdColor() >= 2) {
-        this.colorArr = this.orderArrayByColor(this.colorArr, this.ORDER_COLOR);
-      }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class Category {
+    constructor(title) {
+        this._title = title;
+        this._lines = new Map();
     }
-  }
-
-  orderArrayByColor(arr, order_array){
-    let auxArr = arr;
-    let resp = [];
-    for (var elem of order_array) {
-      if(auxArr.includes(elem)){
-        resp.push(elem);
-      }
+    get title() {
+        return this._title;
     }
-    return resp
-  }
-
-  removeColor(name){
-    this.colorArr = this.colorArr.filter(item => item !== name)
-  }
-
-  qtdColor(){
-    return this.colorArr.length
-  }
-
-  hasColor(color){
-    return this.colorArr.indexOf(color) !== -1;
-  }
-
-  //return Valid pairs
-  fixPair(color1, color2) {
-    if (this.allValidColorPair.includes(`${color1}${color2}`)) {
-      return `${color1}${color2}`;
+    add(amount, name) {
+        this._lines.set(name, amount);
     }
-
-    return `${color2}${color1}`;
-
-  }
-
-  getAllColors(){
-    return this.ORDER_COLOR;
-  }
-
-  //Return all valid pair
-  getAllColorPairs() {
-    if (this.qtdColor() === 1) {
-      return [this.colorArr[0]];
+    has(key) {
+        return this._lines.has(key);
     }
-
-    if (this.qtdColor() === 2) {
-      return [this.fixPair(this.colorArr[0], this.colorArr[1])];
+    getAmount(key) {
+        return this._lines.get(key);
     }
-
-    if (this.qtdColor() === 3) {
-      return [this.fixPair(this.colorArr[0], this.colorArr[1]), this.fixPair(this.colorArr[0], this.colorArr[2]),
-              this.fixPair(this.colorArr[1], this.colorArr[2]),
-              ];
+    size() {
+        if (this.isEmpty()) {
+            return 0;
+        }
+        let sum = 0;
+        this._lines.forEach((value) => {
+            sum += value;
+        });
+        return sum;
     }
-
-    if (this.qtdColor() === 4) {
-      return [this.fixPair(this.colorArr[0], this.colorArr[1]),this.fixPair(this.colorArr[0], this.colorArr[2]), this.fixPair(this.colorArr[0], this.colorArr[3]),
-              this.fixPair(this.colorArr[1], this.colorArr[2]), this.fixPair(this.colorArr[1], this.colorArr[3]),
-              this.fixPair(this.colorArr[2], this.colorArr[3])];
+    isEmpty() {
+        return this._lines.size === 0;
     }
-
-    if (this.qtdColor() === 5) {
-      return this.allValidColorPair;
+    get lines() {
+        let resp = "";
+        if (!this.isEmpty()) {
+            for (const [key, value] of this._lines) {
+                resp += `${value} ${key}\n`;
+            }
+        }
+        return resp;
     }
-
-  }
-
-
-
 }
+exports.default = Category;
 
 },{}],2:[function(require,module,exports){
-module.exports =  class LandsRepository {
-  constructor(title) {
-    this.title = title;
-    this.lands = {};
-  }
-
-  addLand(name,qtd) {
-    this.lands[qtd] = name;
-  }
-
-  addDictLands(dict){
-    this.lands = Object.assign({}, this.lands, dict);
-  }
-
-  getDictLands() {
-    return this.lands;
-  }
-
-  qtdLands() {
-    if(this.isEmpty()){
-      return 0;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.stringToColor = exports.Color = void 0;
+var Color;
+(function (Color) {
+    Color["White"] = "white";
+    Color["Blue"] = "blue";
+    Color["Black"] = "black";
+    Color["Red"] = "red";
+    Color["Green"] = "green";
+})(Color || (exports.Color = Color = {}));
+function stringToColor(str) {
+    switch (str.toLowerCase()) {
+        case "white":
+            return Color.White;
+        case "blue":
+            return Color.Blue;
+        case "black":
+            return Color.Black;
+        case "red":
+            return Color.Red;
+        case "green":
+            return Color.Green;
+        default:
+            return undefined; // Return undefined for unknown colors
     }
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    return Object.values(this.lands).reduce(reducer);
-  }
-
-  isEmpty() {
-    let obj = this.lands;
-    for(var prop in obj) {
-      if(obj.hasOwnProperty(prop)) {
-        return false;
-      }
-    }
-
-    return JSON.stringify(obj) === JSON.stringify({});
-  }
-
-  getAllLands() {
-    let resp = [];
-    for (let [key, value] of Object.entries(this.lands)) {
-      resp.push([value,key]);
-    }
-    return resp;
-  }
-
-  getAllLands2() {
-    let resp = [];
-    for (let key of Object.keys(this.lands)) {
-      resp.push(key);
-    }
-    return resp;
-  }
-
 }
+exports.stringToColor = stringToColor;
 
 },{}],3:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_CANOPY_LAND = {
-  greenwhite: 'Horizon Canopy',
-  whiteblack: 'Silent Clearing',
-  bluered: 'Fiery Islet',
-  blackgreen: 'Nurturing Peatland',
-  redwhite: 'Sunbaked Canyon',
-  greenblue: 'Waterlogged Grove',
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-function getAnyColorLand(colorManager) {
-  let landsRepository = new LandsRepository('Any Color Lands');
-  if (colorManager.qtdColor() === 1) {
-    return landsRepository;
-  }
-
-  if (colorManager.qtdColor() === 4) {
-    landsRepository.addLand(1, 'Command Tower');
-    landsRepository.addLand(1, 'Mana Confluence');
-    landsRepository.addLand(1, getCanopyLand(colorManager));
-    return landsRepository;
-  } else {
-    landsRepository.addLand(1, 'Command Tower');
-    landsRepository.addLand(1, 'Mana Confluence');
-    landsRepository.addLand(1, 'Reflecting Pool');
-    landsRepository.addLand(1, getCanopyLand(colorManager));
-    return landsRepository;
-  }
-}
-
-function getCanopyLand(colorManager) {
-  const cityOfBrass = 'City of Brass';
-
-  if(colorManager.qtdColor() === 5) {
-    return COLORS_TO_CANOPY_LAND['greenblue'];
-  }
-
-  let validPairs = colorManager.getAllColorPairs();
-  for (var pair of validPairs) {
-    if(pair in COLORS_TO_CANOPY_LAND) {
-      return COLORS_TO_CANOPY_LAND[pair];
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("./Category"));
+class EmptyCategory extends Category_1.default {
+    constructor(title, size) {
+        super(title);
+        this._size = size;
     }
-  }
-
-  return cityOfBrass;
-
-}
-
-module.exports.getAnyColorLand = getAnyColorLand;
-
-},{"../LandsRepository":2}],4:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLOR_TO_BASIC_LAND = {
-  white: 'Plains',
-  blue: 'Island',
-  black: 'Swamp',
-  red: 'Mountain',
-  green: 'Forest',
-};
-
-function monoBase(landsRepository, color) {
-  if (color === 'white') {
-    landsRepository.addLand(21, 'Plains');
-  }
-  if (color === 'blue') {
-    landsRepository.addLand(22, 'Island');
-  }
-  if (color === 'black') {
-    landsRepository.addLand(22, 'Swamp');
-  }
-  if (color === 'red') {
-    landsRepository.addLand(21, 'Mountain');
-  }
-  if (color === 'green') {
-    landsRepository.addLand(21, 'Forest');
-  }
-  return landsRepository;
-}
-
-function getBasicLands(colorManager) {
-  if (colorManager.qtdColor() === 5) {
-    let landsRepository = new LandsRepository('Basic Lands');
-    const qtdArr = [3, 3, 3, 2, 3];
-    const colorArr = colorManager.getAllColors();
-    for (const [index, color]  of colorArr.entries()) {
-      let qtd = qtdArr[index]
-      let land = COLOR_TO_BASIC_LAND[color];
-      landsRepository.addLand(qtd, land);
+    isEmpty() {
+        return this._size === 0;
     }
-    return landsRepository;
-  }
-
-  if (colorManager.qtdColor() === 4) {
-    let landsRepository = new LandsRepository('Basic Lands');
-    const qtdArr = [3, 3, 2, 1];
-    let priorityQueue = ['green', 'black', 'blue', 'white', 'red']
-    let intersection = priorityQueue.filter(function(color) {
-                                      return colorManager.hasColor(color);
-                                    });
-    for (const [index, color]  of intersection.entries()) {
-        const qtd = qtdArr[index]
-        const land = COLOR_TO_BASIC_LAND[color];
-        landsRepository.addLand(qtd,land);
+    size() {
+        return this._size;
     }
-    return landsRepository;
-  }
-
-  if (colorManager.qtdColor() === 3) {
-    let landsRepository = new LandsRepository('Basic Lands');
-    for (color of colorManager.colorArr) {
-      const qtd = 3
-      const land = COLOR_TO_BASIC_LAND[color];
-      landsRepository.addLand(qtd,land);
+    get lines() {
+        return "\n";
     }
-    return landsRepository;
-  }
+}
+exports.default = EmptyCategory;
 
-  if (colorManager.qtdColor() === 2) {
-    let landsRepository = new LandsRepository('Basic Lands');
-    for (color of colorManager.colorArr) {
-      const qtd = 6
-      const land = COLOR_TO_BASIC_LAND[color];
-      landsRepository.addLand(qtd,land);
+},{"./Category":1}],4:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class SingleLand {
+    constructor(color1, landname) {
+        this.color1 = color1;
+        this.landname = landname;
     }
-    return landsRepository;
-  }
-
-  if (colorManager.qtdColor() === 1) {
-    let landsRepository = new LandsRepository('Basic Lands');
-    return monoBase(landsRepository, colorManager.colorArr[0]);
-  }
-}
-
-module.exports.getBasicLands = getBasicLands;
-
-},{"../LandsRepository":2}],5:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_BATTLE_LAND = {
-  whiteblue: 'Prairie Stream',
-  blueblack: 'Sunken Hollow',
-  blackred: 'Smoldering Marsh',
-  redgreen: 'Cinder Glade',
-  greenwhite: 'Canopy Vista ',
-};
-
-const COLORS_TO_BATTLE_AND_FAST_LAND = {
-  whiteblue: 'Prairie Stream',
-  blueblack: 'Sunken Hollow',
-  blackred: 'Smoldering Marsh',
-  redgreen: 'Cinder Glade',
-  greenwhite: 'Canopy Vista ',
-  whiteblack: 'Concealed Courtyard',
-  bluered: 'Spirebluff Canal',
-  blackgreen: 'Blooming Marsh',
-  redwhite: 'Inspiring Vantage',
-  greenblue: 'Botanical Sanctum',
-};
-
-function getBattleLands(colorManager) {
-  let landsRepository = new LandsRepository('Battle or Fast Land');
-  if (colorManager.qtdColor() === 4) {
-    landsRepository = new LandsRepository('Fast Land');
-    const MAX_QTD_LANDS = 2;
-    const colorPairs = colorManager.getAllColorPairs();
-    for (var colorPair of colorPairs) {
-      if(COLORS_TO_BATTLE_LAND[colorPair]){
-        landsRepository.addLand(1, COLORS_TO_BATTLE_LAND[colorPair]);
-      }
-      if(landsRepository.qtdLands() == MAX_QTD_LANDS){
-        return landsRepository;
-      }
+    hasSomeColor(userColorSelection) {
+        return userColorSelection.has(this.color1);
     }
-  }
-  if (colorManager.qtdColor() === 2) {
-    landsRepository = new LandsRepository('Battle or Fast Land');
-    const colorPair = colorManager.getAllColorPairs()[0];
-    landsRepository.addLand(1, COLORS_TO_BATTLE_AND_FAST_LAND[colorPair]);
-    return landsRepository;
-  }
-  return landsRepository;
+    getName() {
+        return this.landname;
+    }
 }
+exports.default = SingleLand;
 
-module.exports.getBattleLands = getBattleLands;
-
-},{"../LandsRepository":2}],6:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_CHECK_LAND = {
-  whiteblue: 'Glacial Fortress',
-  blueblack: 'Drowned Catacomb',
-  blackred: 'Dragonskull Summit',
-  redgreen: 'Rootbound Crag',
-  greenwhite: 'Sunpetal Grove',
-  whiteblack: 'Isolated Chapel',
-  bluered: 'Sulfur Falls',
-  blackgreen: 'Woodland Cemetery',
-  redwhite: 'Clifftop Retreat',
-  greenblue: 'Hinterland Harbor',
-};
-
-function getCheckLands(colorManager) {
-  let landsRepository = new LandsRepository('Check Land');
-  if (colorManager.qtdColor() === 2) {
-    let colorPair = colorManager.getAllColorPairs()[0]
-    landsRepository.addLand(1,COLORS_TO_CHECK_LAND[colorPair]);
-  }
-  return landsRepository;
+},{}],5:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class ThreeColorLand {
+    constructor(color1, color2, color3, landname) {
+        this.color1 = color1;
+        this.color2 = color2;
+        this.color3 = color3;
+        this.landname = landname;
+    }
+    isSameColor(userColorSelection) {
+        return (userColorSelection.has(this.color1) &&
+            userColorSelection.has(this.color2) &&
+            userColorSelection.has(this.color3));
+    }
+    getName() {
+        return this.landname;
+    }
 }
+exports.default = ThreeColorLand;
 
-module.exports.getCheckLands = getCheckLands;
-
-},{"../LandsRepository":2}],7:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_CROWD_LAND = {
-  whiteblue: 'Sea of Clouds',
-  blueblack: 'Morphic Pool',
-  blackred: 'Luxury Suite',
-  redgreen: 'Spire Garden',
-  greenwhite: 'Bountiful Promenade',
-  whiteblack: 'Vault of Champions',
-  bluered: 'Training Center',
-  blackgreen: 'Undergrowth Stadium',
-  redwhite: 'Spectator Seating',
-  greenblue: 'Rejuvenating Springs',
-};
-
-function getCrowdLands(colorManager) {
-  const landsRepository = new LandsRepository('Crowd Lands');
-  if (colorManager.qtdColor() === 2) {
-    const colorPair = colorManager.getAllColorPairs()[0];
-    landsRepository.addLand(1, COLORS_TO_CROWD_LAND[colorPair]);
-  }
-  return landsRepository;
+},{}],6:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class TwoColorLand {
+    constructor(color1, color2, landname) {
+        this.color1 = color1;
+        this.color2 = color2;
+        this.landname = landname;
+    }
+    isSameColor(userColorSelection) {
+        return (userColorSelection.has(this.color1) && userColorSelection.has(this.color2));
+    }
+    hasSomeColor(userColorSelection) {
+        return (userColorSelection.has(this.color1) || userColorSelection.has(this.color2));
+    }
+    getName() {
+        return this.landname;
+    }
 }
+exports.default = TwoColorLand;
 
-module.exports.getCrowdLands = getCrowdLands;
-
-},{"../LandsRepository":2}],8:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_DUAL_LAND = {
-  whiteblue: 'Tundra',
-  blueblack: 'Underground Sea',
-  blackred: 'Badlands',
-  redgreen: 'Taiga',
-  greenwhite: 'Savannah',
-  whiteblack: 'Scrubland',
-  bluered: 'Volcanic Island',
-  blackgreen: 'Bayou',
-  redwhite: 'Plateau',
-  greenblue: 'Tropical Island',
-};
-
-function getDualLands(colorManager) {
-  if (colorManager.qtdColor() > 1) {
-    let landsRepository = new LandsRepository('Dual Land');
-    const MAX_QTD_LANDS = 3
-    if (colorManager.qtdColor() === 4) {
-      for (pair of colorManager.getAllColorPairs()) {
-        landsRepository.addLand(1, COLORS_TO_DUAL_LAND[pair]);
-        if (landsRepository.qtdLands() === MAX_QTD_LANDS) {
-          return landsRepository;
+},{}],7:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Color_1 = require("./Color");
+class UserColorSelection {
+    constructor() {
+        this.colors = new Map();
+        this.colors.set(Color_1.Color.Black, false);
+        this.colors.set(Color_1.Color.White, false);
+        this.colors.set(Color_1.Color.Red, false);
+        this.colors.set(Color_1.Color.Green, false);
+        this.colors.set(Color_1.Color.Blue, false);
+    }
+    add(color) {
+        this.colors.set(color, true);
+    }
+    remove(color) {
+        this.colors.set(color, false);
+    }
+    size() {
+        let count = 0;
+        this.colors.forEach((value) => {
+            if (value) {
+                count++;
+            }
+        });
+        return count;
+    }
+    has(color) {
+        return this.colors.get(color) || false;
+    }
+    getAllColor() {
+        let resp = [];
+        if (this.has(Color_1.Color.Green)) {
+            resp.push(Color_1.Color.Green);
         }
-      }
-    }
-
-    for (pair of colorManager.getAllColorPairs()) {
-      landsRepository.addLand(1, COLORS_TO_DUAL_LAND[pair]);
-    }
-    return landsRepository;
-  }
-
-}
-
-module.exports.getDualLands = getDualLands;
-
-},{"../LandsRepository":2}],9:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_FETCH_LAND = {
-  whiteblue: 'Flooded Strand',
-  blueblack: 'Polluted Delta',
-  blackred: 'Bloodstained Mire',
-  redgreen: 'Wooded Foothills',
-  greenwhite: 'Windswept Heath',
-  whiteblack: 'Marsh Flats',
-  bluered: 'Scalding Tarn',
-  blackgreen: 'Verdant Catacombs',
-  redwhite: 'Arid Mesa',
-  greenblue: 'Misty Rainforest',
-};
-
-function getFetchLands(colorManager) {
-  if (colorManager.qtdColor() === 5) {
-    let landsRepository = new LandsRepository('Fetch Land');
-    for (land of Object.values(COLORS_TO_FETCH_LAND)) {
-      landsRepository.addLand(1,land);
-    }
-    return landsRepository;
-  }
-
-  if (colorManager.qtdColor() === 4) {
-    let landsRepository = new LandsRepository('Fetch Land');
-    let excludedColor = colorManager.getAllColors().filter(value => !colorManager.colorArr.includes(value));
-    let AllValidColorsPairs = Object.keys(COLORS_TO_FETCH_LAND).filter(value => value.indexOf(excludedColor) === -1);
-    for (colorPair of AllValidColorsPairs) {
-        landsRepository.addLand(1, COLORS_TO_FETCH_LAND[colorPair]);
-    }
-    return landsRepository;
-  }
-
-  if (colorManager.qtdColor() === 3) {
-    let landsRepository = new LandsRepository('Fetch Land');
-    for (colorPair of colorManager.getAllColorPairs()) {
-      landsRepository.addLand(1,COLORS_TO_FETCH_LAND[colorPair]);
-    }
-    return landsRepository;
-  }
-
-  if (colorManager.qtdColor() === 2) {
-    let landsRepository = new LandsRepository('Fetch Land');
-    let colors = colorManager.colorArr;
-    let AllValidColorPairs = Object.keys(COLORS_TO_FETCH_LAND).filter(
-      value => value.indexOf(colors[0]) !== -1 || value.indexOf(colors[1]) !== -1);
-    for (colorPair of AllValidColorPairs) {
-      landsRepository.addLand(1,COLORS_TO_FETCH_LAND[colorPair]);
-    }
-    return landsRepository;
-  }
-}
-
-module.exports.getFetchLands = getFetchLands;
-
-},{"../LandsRepository":2}],10:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_LOW_PRIORITY_FILTER_LANDS = {
-  whiteblue: 'Mystic Gate',
-  blueblack: 'Sunken Ruins',
-  blackred: 'Graven Cairns',
-  redgreen: 'Fire-lit Thicket',
-  greenwhite: 'Wooded Bastion',
-  whiteblack: 'Fetid Heath',
-  bluered: 'Cascade Bluffs',
-  blackgreen: 'Twilight Mire',
-  redwhite: 'Rugged Prairie',
-  greenblue: 'Flooded Grove',
-};
-
-const COLORS_TO_HIGH_PRIORITY_FILTER_LANDS = {
-  whiteblue: 'Skycloud Expanse',
-  blueblack: 'Darkwater Catacombs',
-  blackred: 'Shadowblood Ridge',
-  redgreen: 'Mossfire Valley',
-  greenwhite: 'Sungrass Prairie',
-};
-
-function getFilterLands(colorManager) {
-  const landsRepository = new LandsRepository('Filter Lands');
-  let colorPairs = '';
-
-  if (colorManager.qtdColor() === 4) {
-    colorPairs = colorManager.getAllColorPairs();
-
-    colorPairs
-      .filter(item => COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[item])
-      .map(item => COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[item])
-      .forEach(item => landsRepository.addLand(1, item));
-  }
-
-  if (colorManager.qtdColor() === 3) {
-    colorPairs = colorManager.getAllColorPairs();
-    colorPairs
-      .map((colorPair) => {
-        if (COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair]) {
-          return COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair];
+        if (this.has(Color_1.Color.White)) {
+            resp.push(Color_1.Color.White);
         }
-        return COLORS_TO_LOW_PRIORITY_FILTER_LANDS[colorPair];
-      })
-      .forEach(item => landsRepository.addLand(1, item));
-  }
-
-  if (colorManager.qtdColor() === 2) {
-    const colorPair = colorManager.getAllColorPairs()[0];
-    const defaultLand = 'Unknown Shores';
-    landsRepository.addLand(1, COLORS_TO_LOW_PRIORITY_FILTER_LANDS[colorPair]);
-    if (colorPair in COLORS_TO_HIGH_PRIORITY_FILTER_LANDS) {
-      landsRepository.addLand(1, COLORS_TO_HIGH_PRIORITY_FILTER_LANDS[colorPair]);
-    } else {
-      landsRepository.addLand(1, defaultLand);
+        if (this.has(Color_1.Color.Black)) {
+            resp.push(Color_1.Color.Black);
+        }
+        if (this.has(Color_1.Color.Red)) {
+            resp.push(Color_1.Color.Red);
+        }
+        if (this.has(Color_1.Color.Blue)) {
+            resp.push(Color_1.Color.Blue);
+        }
+        return resp;
     }
-  }
-
-  return landsRepository;
-}
-
-module.exports.getFilterLands = getFilterLands;
-
-},{"../LandsRepository":2}],11:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_MAN_LAND = {
-  whiteblue: 'Celestial Colonnade',
-  blueblack: 'Creeping Tar Pit',
-  blackred: 'Lavaclaw Reaches',
-  redgreen: 'Raging Ravine',
-  greenwhite: 'Stirring Wildwood',
-  whiteblack: 'Shambling Vent',
-  bluered: 'Spirebluff Canal',
-  blackgreen: 'Hissing Quagmire',
-  redwhite: 'Needle Spires',
-  greenblue: 'Lumbering Falls',
-};
-
-
-function getManLands(colorManager) {
-  let landsRepository = new LandsRepository('Man Land');
-  if (colorManager.qtdColor() === 2) {
-    let colorPair = colorManager.getAllColorPairs()[0]
-    landsRepository.addLand(1,COLORS_TO_MAN_LAND[colorPair]);
-  }
-  return landsRepository;
-}
-
-module.exports.getManLands = getManLands;
-
-},{"../LandsRepository":2}],12:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_GUILD = {
-  whiteblue: 'Azorius',
-  blueblack: 'Dimir',
-  blackred: 'Rakdos',
-  redgreen: 'Gruul',
-  greenwhite: 'Selesnya',
-  whiteblack: 'Orzhov',
-  bluered: 'Izzet',
-  blackgreen: 'Golgari',
-  redwhite: 'Boros',
-  greenblue: 'Simic',
-};
-
-const COLORS_TO_PAIN_TALISMAN = {
-  whiteblue: 'Progress',
-  blueblack: 'Dominance',
-  blackred: 'Indulgence',
-  redgreen: 'Impulse',
-  greenwhite: 'Unity',
-  whiteblack: 'Hierarchy',
-  bluered: 'Creativity ',
-  blackgreen: 'Resilience',
-  redwhite: 'Conviction',
-  greenblue: 'Curiosity',
-};
-
-function greenRampPackage() {
-  const landsRepository = new LandsRepository('Mana Ramp');
-  landsRepository.addLand(1, 'Sol Ring');
-  landsRepository.addLand(1, "Wayfarer's Bauble");
-  landsRepository.addLand(1, 'Arcane Signet');
-  landsRepository.addLand(1, 'Fellwar Stone');
-  landsRepository.addLand(1, 'Sakura-tribe Elder');
-  landsRepository.addLand(1, 'Rampant Growth');
-  landsRepository.addLand(1, "Kodama's Reach");
-  landsRepository.addLand(1, 'Cultivate');
-  landsRepository.addLand(1, 'Nature\'s Lore');
-  landsRepository.addLand(1, 'Three Visits');
-  return landsRepository;
-}
-
-function monoGreenRampPackage() {
-  const landsRepository = new LandsRepository('Mana Ramp');
-  landsRepository.addLand(1, 'Sol Ring');
-  landsRepository.addLand(1, "Wayfarer's Bauble");
-  landsRepository.addLand(1, 'Arcane Signet');
-  landsRepository.addLand(1, 'Fellwar Stone');
-  landsRepository.addLand(1, 'Wild Growth');
-  landsRepository.addLand(1, 'Utopia Sprawl');
-  landsRepository.addLand(1, 'Sakura-tribe Elder');
-  landsRepository.addLand(1, 'Rampant Growth');
-  landsRepository.addLand(1, "Kodama's Reach");
-  landsRepository.addLand(1, 'Cultivate');
-  return landsRepository;
-}
-
-function getManaRamp(colorManager) {
-  const colorPairs = colorManager.getAllColorPairs();
-
-  if (colorManager.hasColor('green')) {
-    if (colorManager.qtdColor() === 1) {
-      return monoGreenRampPackage();
+    isEmpty() {
+        return this.size() === 0;
     }
-    return greenRampPackage();
-  }
-
-  const landsRepository = new LandsRepository('Mana Ramp');
-  landsRepository.addLand(1, 'Sol Ring');
-  landsRepository.addLand(1, "Wayfarer's Bauble");
-  landsRepository.addLand(1, 'Arcane Signet');
-  landsRepository.addLand(1, 'Fellwar Stone');
-
-  if (colorManager.qtdColor() === 4 || colorManager.qtdColor() === 3) {
-    landsRepository.addLand(1, 'Mind Stone');
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[0]]} Signet`);
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[1]]} Signet`);
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPairs[2]]} Signet`);
-    landsRepository.addLand(1, 'Mana Geode');
-    landsRepository.addLand(1, 'Chromatic Lantern');
-  }
-  if (colorManager.qtdColor() === 2) {
-    const colorPair = colorManager.getAllColorPairs()[0];
-    landsRepository.addLand(1, 'Mind Stone');
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Signet`);
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Keyrune`);
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Cluestone`);
-    landsRepository.addLand(1, `${COLORS_TO_GUILD[colorPair]} Locket`);
-    landsRepository.addLand(1, `Talisman of ${COLORS_TO_PAIN_TALISMAN[colorPair]}`);
-  }
-
-  if (colorManager.qtdColor() === 1) {
-    landsRepository.addLand(1, 'Mind Stone');
-    landsRepository.addLand(1, 'Treasure Map');
-    landsRepository.addLand(1, 'Sword of the Animist');
-    landsRepository.addLand(1, "Commander's Sphere");
-    landsRepository.addLand(1, 'Worn Powerstone');
-    landsRepository.addLand(1, 'Solemn Simulacrum');
-  }
-
-  return landsRepository;
+    isSingleColor() {
+        return this.size() === 1;
+    }
+    isDualColor() {
+        return this.size() === 2;
+    }
+    isTriColor() {
+        return this.size() === 3;
+    }
+    isFourColor() {
+        return this.size() === 4;
+    }
+    isFiveColor() {
+        return this.size() === 5;
+    }
 }
+exports.default = UserColorSelection;
 
-module.exports.getManaRamp = getManaRamp;
-
-},{"../LandsRepository":2}],13:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_BATTLE_LAND = {
-  whiteblue: 'Prairie Stream',
-  blueblack: 'Sunken Hollow',
-  blackred: 'Smoldering Marsh',
-  redgreen: 'Cinder Glade',
-  greenwhite: 'Canopy Vista ',
-};
-
-const COLORS_TO_CHECK_LAND = {
-  whiteblack: 'Isolated Chapel',
-  bluered: 'Sulfur Falls',
-  blackgreen: 'Woodland Cemetery',
-  redwhite: 'Clifftop Retreat',
-  greenblue: 'Hinterland Harbor',
-};
-
-function getOtherLands(colorManager) {
-  const landsRepository = new LandsRepository('Other Lands (Battle and Check Lands)');
-  if (colorManager.qtdColor() === 3) {
-    const colorPairs = colorManager.getAllColorPairs();
-    colorPairs.forEach((colorPair) => {
-      if (COLORS_TO_BATTLE_LAND[colorPair]) {
-        landsRepository.addLand(1, COLORS_TO_BATTLE_LAND[colorPair]);
-      }
-      if (COLORS_TO_CHECK_LAND[colorPair]) {
-        landsRepository.addLand(1, COLORS_TO_CHECK_LAND[colorPair]);
-      }
+},{"./Color":2}],8:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.copyToClipboard = void 0;
+const showSnackbar_1 = require("./showSnackbar");
+function copyToClipboard(value) {
+    navigator.clipboard
+        .writeText(value)
+        .then(() => {
+        (0, showSnackbar_1.showSnackbar)();
+    })
+        .catch((error) => {
+        console.error("Clipboard writeText error:", error);
     });
-  }
-
-  return landsRepository;
 }
+exports.copyToClipboard = copyToClipboard;
 
-module.exports.getOtherLands = getOtherLands;
-
-},{"../LandsRepository":2}],14:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_PAIN_LAND = {
-  whiteblue: 'Adarkar Wastes',
-  blueblack: 'Underground River',
-  blackred: 'Sulfurous Springs',
-  redgreen: 'Karplusan Forest',
-  greenwhite: 'Brushland',
-  whiteblack: 'Caves of Koilos',
-  bluered: 'Shivan Reef',
-  blackgreen: 'Llanowar Wastes',
-  redwhite: 'Battlefield Forge',
-  greenblue: 'Yavimaya Coast',
+},{"./showSnackbar":28}],9:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-function getPainLands(colorManager) {
-  let landsRepository = new LandsRepository('Pain Land');
-  if (colorManager.qtdColor() === 3) {
-    const MAX_QTD_LANDS = 3;
-    const colorPairs = colorManager.getAllColorPairs();
-    for (var colorPair of colorPairs) {
-      if(COLORS_TO_PAIN_LAND[colorPair]){
-        landsRepository.addLand(1, COLORS_TO_PAIN_LAND[colorPair]);
-      }
-      if(landsRepository.qtdLands() == MAX_QTD_LANDS){
-        return landsRepository;
-      }
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const SingleLand_1 = __importDefault(require("../SingleLand"));
+class BasicLandProcessor {
+    constructor() {
+        this.lands = [
+            new SingleLand_1.default(Color_1.Color.White, "Plains"),
+            new SingleLand_1.default(Color_1.Color.Blue, "Island"),
+            new SingleLand_1.default(Color_1.Color.Black, "Swamp"),
+            new SingleLand_1.default(Color_1.Color.Red, "Mountain"),
+            new SingleLand_1.default(Color_1.Color.Green, "Forest"),
+        ];
     }
-  }
-  if (colorManager.qtdColor() === 2) {
-    let colorPair = colorManager.getAllColorPairs()[0]
-    landsRepository.addLand(1,COLORS_TO_PAIN_LAND[colorPair]);
-  }
-  return landsRepository;
-}
-
-module.exports.getPainLands = getPainLands;
-
-},{"../LandsRepository":2}],15:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_SCRY_LAND = {
-  whiteblue: 'Temple of Enlightenment',
-  blueblack: 'Temple of Deceit',
-  blackred: 'Temple of Malice',
-  redgreen: 'Temple of Abandon',
-  greenwhite: 'Temple of Plenty',
-  whiteblack: 'Temple of Silence',
-  bluered: 'Temple of Epiphany',
-  blackgreen: 'Temple of Malady',
-  redwhite: 'Temple of Triumph',
-  greenblue: 'Temple of Mystery',
-};
-
-function getScryLands(colorManager) {
-  let landsRepository = new LandsRepository('Scry Land');
-  if (colorManager.qtdColor() == 2) {
-    let colorPair = colorManager.getAllColorPairs()[0]
-    landsRepository.addLand(1,COLORS_TO_SCRY_LAND[colorPair]);
-  }
-  return landsRepository;
-}
-
-module.exports.getScryLands = getScryLands;
-
-},{"../LandsRepository":2}],16:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_SHOCK_LAND = {
-  whiteblue: 'Hallowed Fountain',
-  blueblack: 'Watery Grave',
-  blackred: 'Blood Crypt',
-  redgreen: 'Stomping Ground',
-  greenwhite: 'Temple Garden',
-  whiteblack: 'Godless Shrine',
-  bluered: 'Steam Vents',
-  blackgreen: 'Overgrown Tomb',
-  redwhite: 'Sacred Foundry',
-  greenblue: 'Breeding Pool',
-};
-
-function getShockLands(colorManager) {
-  let landsRepository = new LandsRepository('Shock Land');
-  if (colorManager.qtdColor() > 1 && colorManager.qtdColor() < 5) {
-    for (pair of colorManager.getAllColorPairs()) {
-      landsRepository.addLand(1, COLORS_TO_SHOCK_LAND[pair]);
+    process(userColorSelection) {
+        const category = new Category_1.default("Basic Lands");
+        this.lands
+            .filter((element) => element.hasSomeColor(userColorSelection))
+            .forEach((element) => category.add(this.getAmountOfLand(userColorSelection), element.getName()));
+        return category;
     }
-  }
-  return landsRepository;
-
+    getAmountOfLand(userColorSelection) {
+        let amountOfLand = 0;
+        if (userColorSelection.isSingleColor()) {
+            amountOfLand = 30;
+        }
+        if (userColorSelection.isDualColor()) {
+            amountOfLand = 5;
+        }
+        if (userColorSelection.isTriColor()) {
+            amountOfLand = 4;
+        }
+        if (userColorSelection.isFourColor() || userColorSelection.isFiveColor()) {
+            amountOfLand = 2;
+        }
+        return amountOfLand;
+    }
 }
+exports.default = BasicLandProcessor;
 
-module.exports.getShockLands = getShockLands;
-
-},{"../LandsRepository":2}],17:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-const COLORS_TO_TRI_LAND = {
-  whitebluegreen: 'Seaside Citadel',
-  whiteblueblack: 'Arcane Sanctum',
-  blueblackred: 'Crumbling Necropolis',
-  blackredgreen: 'Savage Lands',
-  whiteredgreen: 'Jungle Shrine',
-  whiteblackgreen: 'Indatha Triome',
-  whitebluered: 'Raugrin Triome',
-  blueblackgreen: 'Zagoth Triome',
-  whiteblackred: 'Savai Triome',
-  blueredgreen: 'Ketria Triome',
+},{"../Category":1,"../Color":2,"../SingleLand":4}],10:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-function getTriLands(colorManager) {
-  let landsRepository = new LandsRepository('Tri Land');
-  let colorArr = colorManager.colorArr;
-  if (colorManager.qtdColor() === 3) {
-    color = colorArr.slice(0,3).join('');
-    landsRepository.addLand(1, COLORS_TO_TRI_LAND[color]);
-  }
-  if (colorManager.qtdColor() === 4) {
-    color_1 = colorArr.slice(0,3).join('');
-    color_2 = colorArr.slice(1,4).join('');
-    landsRepository.addLand(1, COLORS_TO_TRI_LAND[color_1]);
-    landsRepository.addLand(1, COLORS_TO_TRI_LAND[color_2]);
-  }
-  return landsRepository;
+Object.defineProperty(exports, "__esModule", { value: true });
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
+class BounceLandProcessor {
+    constructor() {
+        this.categoryName = "Bounce Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Azorius Chancery"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Izzet Boilerworks"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Dimir Aqueduct"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Rakdos Carnarium"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Gruul Turf"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Selesnya Sanctuary"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Orzhov Basilica"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Golgari Rot Farm"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Boros Garrison"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Simic Growth Chamber"),
+        ];
+    }
+    process(userColorSelection) {
+        return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
+    }
 }
+exports.default = BounceLandProcessor;
 
-module.exports.getTriLands = getTriLands;
-
-},{"../LandsRepository":2}],18:[function(require,module,exports){
-const LandsRepository = require('../LandsRepository');
-
-function monoBase(landsRepository, color) {
-  landsRepository.addLand(1, 'Arch of Orazca');
-  landsRepository.addLand(1, 'Dust Bowl');
-  if (color !== 'red') {
-    landsRepository.addLand(1, 'Strip Mine');
-  }
-  landsRepository.addLand(1, 'Scavenger Grounds');
-  landsRepository.addLand(1, 'Myriad Landscape');
-  landsRepository.addLand(1, "Rogue's Passage");
-  if (color !== 'red') {
-    landsRepository.addLand(1, 'Nykthos, Shrine to Nyx');
-  }
-  if (color === 'white') {
-    landsRepository.addLand(1, 'Sea Gate Wreckage');
-    landsRepository.addLand(1, 'Mikokoro, Center of the Sea');
-    landsRepository.addLand(1, 'Endless Sands');
-    landsRepository.addLand(1, 'Terrain Generator');
-    landsRepository.addLand(1, 'Emeria, the Sky Ruin');
-    landsRepository.addLand(1, 'Secluded Steppe');
-    landsRepository.addLand(1, 'Mistveil Plains');
-    landsRepository.addLand(1, 'Drifting Meadow');
-    landsRepository.addLand(1, 'Desert of the True');
-    landsRepository.addLand(1, 'Castle Ardenvale');
-  }
-  if (color === 'blue') {
-    landsRepository.addLand(1, 'Reliquary Tower');
-    landsRepository.addLand(1, 'Blast Zone');
-    landsRepository.addLand(1, 'Winding Canyons');
-    landsRepository.addLand(1, 'Mirrorpool');
-    landsRepository.addLand(1, 'Mystic Sanctuary');
-    landsRepository.addLand(1, 'Lonely Sandbar');
-    landsRepository.addLand(1, 'Remote Isle');
-    landsRepository.addLand(1, 'Desert of The Mindful');
-    landsRepository.addLand(1, 'Castle Vantress');
-  }
-  if (color === 'black') {
-    landsRepository.addLand(1, 'Vesuva');
-    landsRepository.addLand(1, "Thespian's Stage");
-    landsRepository.addLand(1, 'Blast Zone');
-    landsRepository.addLand(1, 'Westvale Abbey');
-    landsRepository.addLand(1, 'Phyrexian Tower');
-    landsRepository.addLand(1, 'Bojuka Bog');
-    landsRepository.addLand(1, 'Cabal Stronghold');
-    landsRepository.addLand(1, 'Cabal Coffers');
-    landsRepository.addLand(1, 'Castle Lochtwain');
-  }
-  if (color === 'red') {
-    landsRepository.addLand(1, 'Sea Gate Wreckage');
-    landsRepository.addLand(1, 'Mikokoro, Center of the Sea');
-    landsRepository.addLand(1, 'Blast Zone');
-    landsRepository.addLand(1, 'Kher Keep');
-    landsRepository.addLand(1, "Thespian's Stage");
-    landsRepository.addLand(1, 'Valakut, the Molten Pinnacle');
-    landsRepository.addLand(1, 'Flamekin Village');
-    landsRepository.addLand(1, 'Shinka, the Bloodsoaked Keep');
-    landsRepository.addLand(1, 'Forgotten Cave');
-    landsRepository.addLand(1, 'Smoldering Crater');
-    landsRepository.addLand(1, 'Desert of The Fervent');
-    landsRepository.addLand(1, 'Castle Embereth');
-  }
-  if (color === 'green') {
-    landsRepository.addLand(1, 'Endless Sands');
-    landsRepository.addLand(1, 'Blighted Woodland');
-    landsRepository.addLand(1, 'Miren, the Moaning Well');
-    landsRepository.addLand(1, 'Winding Canyons');
-    landsRepository.addLand(1, 'Treetop Village');
-    landsRepository.addLand(1, 'Oran-rief, the Vastwood');
-    landsRepository.addLand(1, 'Tranquil Thicket');
-    landsRepository.addLand(1, 'Slippery Karst');
-    landsRepository.addLand(1, 'Desert of the Indomitable');
-    landsRepository.addLand(1, 'Castle Garenbrig');
-  }
-  return landsRepository;
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],11:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
+class CheckLandProcessor {
+    constructor() {
+        this.categoryName = "Check Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Glacial Fortress"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Sulfur Falls"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Drowned Catacomb"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Dragonskull Summit"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Rootbound Crag"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Sunpetal Grove"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Isolated Chapel"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Woodland Cemetery"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Clifftop Retreat"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Hinterland Harbor"),
+        ];
+    }
+    process(userColorSelection) {
+        if (userColorSelection.isDualColor()) {
+            return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
+        }
+        return new Category_1.default(this.categoryName);
+    }
 }
+exports.default = CheckLandProcessor;
 
-function getUtilityLand(colorManager) {
-  let landsRepository = new LandsRepository('Utility Lands');
-  if (colorManager.qtdColor() === 4) {
-    landsRepository.addLand(4, 'UTILITY LAND');
-  }
-  if (colorManager.qtdColor() === 3) {
-    landsRepository.addLand(6, 'UTILITY LAND');
-  }
-  if (colorManager.qtdColor() === 2) {
-    landsRepository.addLand(5, 'UTILITY LAND');
-  }
-  if (colorManager.qtdColor() === 1) {
-    landsRepository = monoBase(landsRepository, colorManager.colorArr[0]);
-  }
-  return landsRepository;
+},{"../Category":1,"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],12:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+class CrowdLandProcessor {
+    constructor() {
+        this.categoryName = "Crowd Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Sea of Clouds"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Training Center"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Morphic Pool"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Luxury Suite"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Spire Garden"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Bountiful Promenade"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Vault of Champions"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Undergrowth Stadium"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Spectator Seating"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Rejuvenating Springs"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default(this.categoryName);
+        if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
+            this.lands
+                .filter((element) => element.isSameColor(userColorSelection))
+                .forEach((element) => category.add(1, element.getName()));
+        }
+        return category;
+    }
 }
+exports.default = CrowdLandProcessor;
 
-module.exports.getUtilityLand = getUtilityLand;
-
-},{"../LandsRepository":2}],19:[function(require,module,exports){
-const getAnyColorLand = require('./lands-code/any-color-lands').getAnyColorLand;
-const getBasicLands = require('./lands-code/basic-lands').getBasicLands;
-const getBattleLands = require('./lands-code/battle-and-fast-lands').getBattleLands;
-const getCrowdLands = require('./lands-code/crowd-lands').getCrowdLands;
-const getCheckLands = require('./lands-code/check-lands').getCheckLands;
-const getDualLands = require('./lands-code/dual-lands').getDualLands;
-const getFetchLands = require('./lands-code/fetch-lands').getFetchLands;
-const getFilterLands = require('./lands-code/filter-lands').getFilterLands;
-const getManLands = require('./lands-code/man-lands').getManLands;
-const getManaRamp = require('./lands-code/mana-ramp').getManaRamp;
-const getOtherLands = require('./lands-code/other-lands').getOtherLands;
-const getPainLands = require('./lands-code/pain-lands').getPainLands;
-const getScryLands = require('./lands-code/scry-lands').getScryLands;
-const getShockLands = require('./lands-code/shock-lands').getShockLands;
-const getTriLands = require('./lands-code/tri-lands').getTriLands;
-const getUtilityLand = require('./lands-code/utility-lands').getUtilityLand;
-
-
-const LandsRepository = require('./LandsRepository');
-const ColorManager = require('./ColorManager');
-
-document.addEventListener('DOMContentLoaded', function resetView() {
-  const inputList = document.getElementsByTagName('input');
-  for (let i = 0; i < inputList.length; i += 1) {
-    inputList[i].checked = false;
-  }
-  document.getElementById('output').value = 'Click to copy the lands';
-});
-
-window.copyToClipboard = function (obj) {
-
-  event.preventDefault();
-
-  const copyText = document.getElementById('output');
-
-  if (copyText.value !== 'Click to copy the lands') {
-    navigator.clipboard.writeText(copyText.value);
-    console.log("Copied the text: " + copyText.value);
-    showSnackbar();
-  }
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],13:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DualColorSpecialCase = void 0;
+const Category_1 = __importDefault(require("../Category"));
+function DualColorSpecialCase(categoryName, userColorSelection, lands) {
+    const category = new Category_1.default(categoryName);
+    if (userColorSelection.isDualColor()) {
+        lands
+            .filter((element) => element.isSameColor(userColorSelection))
+            .forEach((element) => category.add(1, element.getName()));
+    }
+    return category;
 }
+exports.DualColorSpecialCase = DualColorSpecialCase;
 
+},{"../Category":1}],14:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+class DualLandProcessor {
+    constructor() {
+        this.categoryName = "Dual Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Tundra"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Volcanic Island"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Underground Sea"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Badlands"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Taiga"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Savannah"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Scrubland"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Bayou"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Plateau"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Tropical Island"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default(this.categoryName);
+        if (userColorSelection.isDualColor() ||
+            userColorSelection.isTriColor() ||
+            userColorSelection.isFourColor() ||
+            userColorSelection.isFiveColor()) {
+            this.lands
+                .filter((element) => element.isSameColor(userColorSelection))
+                .forEach((element) => category.add(1, element.getName()));
+        }
+        return category;
+    }
+}
+exports.default = DualLandProcessor;
 
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],15:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+class FetchLandProcessor {
+    constructor() {
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Flooded Strand"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Scalding Tarn"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Polluted Delta"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Bloodstained Mire"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Wooded Foothills"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Windswept Heath"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Marsh Flats"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Verdant Catacombs"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Arid Mesa"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Misty Rainforest"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default("Fetch Lands");
+        if (userColorSelection.isDualColor() ||
+            userColorSelection.isTriColor() ||
+            userColorSelection.isFourColor() ||
+            userColorSelection.isFiveColor()) {
+            category.add(1, "Prismatic Vista");
+            this.lands.forEach((element) => {
+                if (element.hasSomeColor(userColorSelection)) {
+                    category.add(1, element.getName());
+                }
+            });
+        }
+        return category;
+    }
+}
+exports.default = FetchLandProcessor;
+
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],16:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
+class FilterLandProcessor {
+    constructor() {
+        this.categoryName = "Filter Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Mystic Gate"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Cascade Bluffs"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Sunken Ruins"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Graven Cairns"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Fire-lit Thicket"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Wooded Bastion"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Fetid Heath"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Twilight Mire"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Rugged Prairie"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Flooded Grove"),
+        ];
+    }
+    process(userColorSelection) {
+        return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
+    }
+}
+exports.default = FilterLandProcessor;
+
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],17:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+class HorizonLandProcessor {
+    constructor() {
+        this.categoryName = "Horizon Lands";
+        this.defaultForMissingLand = "City of Brass";
+        this.strictlyBetterRedBlack = "Mount Doom";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, this.defaultForMissingLand),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Fiery Islet"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, this.defaultForMissingLand),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, this.strictlyBetterRedBlack),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, this.defaultForMissingLand),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Horizon Canopy"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Silent Clearing"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Nurturing Peatland"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sunbaked Canyon"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Waterlogged Grove"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default(this.categoryName);
+        if (userColorSelection.isDualColor()) {
+            this.lands
+                .filter((element) => element.isSameColor(userColorSelection))
+                .forEach((element) => category.add(1, element.getName()));
+        }
+        if (userColorSelection.isTriColor()) {
+            category.add(1, this.defaultForMissingLand);
+        }
+        return category;
+    }
+}
+exports.default = HorizonLandProcessor;
+
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],18:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
+class PainLandProcessor {
+    constructor() {
+        this.categoryName = "Pain Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Adarkar Wastes"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Shivan Reef"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Underground River"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Sulfurous Springs"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Karplusan Forest"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Brushland"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Caves of Koilos"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Llanowar Wastes"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Battlefield Forge"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Yavimaya Coast"),
+        ];
+    }
+    process(userColorSelection) {
+        return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
+    }
+}
+exports.default = PainLandProcessor;
+
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],19:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
+class PathwayLandProcessor {
+    constructor() {
+        this.categoryName = "Pathway Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Hengegate Pathway / Mistgate Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Riverglide Pathway / Lavaglide Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Clearwater Pathway / Murkwater Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Blightstep Pathway / Searstep Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Cragcrown Pathway / Timbercrown Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Branchloft Pathway / Boulderloft Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Brightclimb Pathway / Grimclimb Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Darkbore Pathway / Slitherbore Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Needleverge Pathway / Pillarverge Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Barkchannel Pathway / Tidechannel Pathway"),
+        ];
+    }
+    process(userColorSelection) {
+        return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
+    }
+}
+exports.default = PathwayLandProcessor;
+
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],20:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+class RainbowLandProcessor {
+    constructor() {
+        this.categoryName = "Rainbow Lands";
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default(this.categoryName);
+        if (userColorSelection.isDualColor()) {
+            category.add(1, "Command Tower");
+            category.add(1, "Mana Confluence");
+        }
+        if (userColorSelection.isTriColor() || userColorSelection.isFourColor()) {
+            category.add(1, "Command Tower");
+            category.add(1, "Mana Confluence");
+            category.add(1, "Exotic Orchard");
+            category.add(1, "Reflecting Pool");
+            category.add(1, "Plaza of Heroes");
+        }
+        if (userColorSelection.isFiveColor()) {
+            category.add(1, "Command Tower");
+            category.add(1, "Mana Confluence");
+            category.add(1, "Exotic Orchard");
+            category.add(1, "Reflecting Pool");
+            category.add(1, "Plaza of Heroes");
+            category.add(1, "City of Brass");
+            category.add(1, "The World Tree");
+        }
+        return category;
+    }
+}
+exports.default = RainbowLandProcessor;
+
+},{"../Category":1}],21:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+const UserColorSelection_1 = __importDefault(require("../UserColorSelection"));
+class ShockLandProcessor {
+    constructor() {
+        this.categoryName = "Shock Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Hallowed Fountain"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Steam Vents"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Watery Grave"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Blood Crypt"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Stomping Ground"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Temple Garden"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Godless Shrine"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Overgrown Tomb"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sacred Foundry"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Breeding Pool"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default(this.categoryName);
+        if (userColorSelection.isDualColor() || userColorSelection.isTriColor()) {
+            this.lands
+                .filter((element) => element.isSameColor(userColorSelection))
+                .forEach((element) => category.add(1, element.getName()));
+        }
+        if (userColorSelection.isFourColor()) {
+            const colors = this.combinate(userColorSelection);
+            this.lands.forEach((element) => {
+                if (element.isSameColor(colors[0]) ||
+                    element.isSameColor(colors[1]) ||
+                    element.isSameColor(colors[2])) {
+                    category.add(1, element.getName());
+                }
+            });
+        }
+        return category;
+    }
+    combinate(colors) {
+        const arr = colors.getAllColor();
+        const color1 = new UserColorSelection_1.default();
+        color1.add(arr[0]);
+        color1.add(arr[1]);
+        const color2 = new UserColorSelection_1.default();
+        color2.add(arr[0]);
+        color2.add(arr[2]);
+        const color3 = new UserColorSelection_1.default();
+        color3.add(arr[0]);
+        color3.add(arr[3]);
+        return [color1, color2, color3];
+    }
+}
+exports.default = ShockLandProcessor;
+
+},{"../Category":1,"../Color":2,"../TwoColorLand":6,"../UserColorSelection":7}],22:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Color_1 = require("../Color");
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
+const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
+class SlowLandProcessor {
+    constructor() {
+        this.categoryName = "Slow Lands";
+        this.lands = [
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Deserted Beach"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Stormcarved Coast"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Shipwreck Marsh"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Haunted Ridge"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Rockfall Vale"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Overgrown Farmland "),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Shattered Sanctum"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Deathcap Glade"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sundown Pass"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Dreamroot Cascade"),
+        ];
+    }
+    process(userColorSelection) {
+        return (0, DualColorSpecialCase_1.DualColorSpecialCase)(this.categoryName, userColorSelection, this.lands);
+    }
+}
+exports.default = SlowLandProcessor;
+
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],23:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const EmptyCategory_1 = __importDefault(require("../EmptyCategory"));
+class TemplateProcessor {
+    constructor(categoryName, amount) {
+        this.categoryName = categoryName;
+        this.amount = amount;
+    }
+    process(userColorSelection) {
+        return new EmptyCategory_1.default(this.categoryName, this.amount);
+    }
+}
+exports.default = TemplateProcessor;
+
+},{"../EmptyCategory":3}],24:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Category_1 = __importDefault(require("../Category"));
+const Color_1 = require("../Color");
+const ThreeColorLand_1 = __importDefault(require("../ThreeColorLand"));
+const UserColorSelection_1 = __importDefault(require("../UserColorSelection"));
+class TriomeProcessor {
+    constructor() {
+        this.categoryName = "Triome Lands";
+        this.lands = [
+            new ThreeColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, Color_1.Color.Green, "Spara's Headquarters"),
+            new ThreeColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, Color_1.Color.Black, "Raffine's Tower"),
+            new ThreeColorLand_1.default(Color_1.Color.Blue, Color_1.Color.Black, Color_1.Color.Red, "Xander's Lounge "),
+            new ThreeColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, Color_1.Color.Green, "Ziatora's Proving Ground"),
+            new ThreeColorLand_1.default(Color_1.Color.White, Color_1.Color.Red, Color_1.Color.Green, "Jetmir's Garden"),
+            new ThreeColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, Color_1.Color.Green, "Indatha Triome"),
+            new ThreeColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, Color_1.Color.Red, "Raugrin Triome"),
+            new ThreeColorLand_1.default(Color_1.Color.Blue, Color_1.Color.Black, Color_1.Color.Green, "Zagoth Triome"),
+            new ThreeColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, Color_1.Color.Red, "Savai Triome"),
+            new ThreeColorLand_1.default(Color_1.Color.Blue, Color_1.Color.Red, Color_1.Color.Green, "Ketria Triome"),
+        ];
+    }
+    process(userColorSelection) {
+        const category = new Category_1.default(this.categoryName);
+        if (userColorSelection.isTriColor()) {
+            this.lands.forEach((element) => {
+                if (element.isSameColor(userColorSelection)) {
+                    category.add(1, element.getName());
+                }
+            });
+        }
+        if (userColorSelection.isFourColor()) {
+            const colors = this.combinate(userColorSelection);
+            this.lands.forEach((element) => {
+                if (element.isSameColor(colors[0]) || element.isSameColor(colors[1])) {
+                    category.add(1, element.getName());
+                }
+            });
+        }
+        return category;
+    }
+    combinate(colors) {
+        const arr = colors.getAllColor();
+        const color1 = new UserColorSelection_1.default();
+        color1.add(arr[0]);
+        color1.add(arr[1]);
+        color1.add(arr[2]);
+        const color2 = new UserColorSelection_1.default();
+        color2.add(arr[0]);
+        color2.add(arr[2]);
+        color2.add(arr[3]);
+        return [color1, color2];
+    }
+}
+exports.default = TriomeProcessor;
+
+},{"../Category":1,"../Color":2,"../ThreeColorLand":5,"../UserColorSelection":7}],25:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const EmptyCategory_1 = __importDefault(require("../EmptyCategory"));
+class UtilityLandProcessor {
+    constructor() {
+        this.categoryName = "Utility Lands";
+    }
+    process(userColorSelection) {
+        if (userColorSelection.isTriColor() || userColorSelection.isFiveColor()) {
+            return new EmptyCategory_1.default(this.categoryName, 0);
+        }
+        if (userColorSelection.isFourColor()) {
+            return new EmptyCategory_1.default(this.categoryName, 3);
+        }
+        return new EmptyCategory_1.default(this.categoryName, 8);
+    }
+}
+exports.default = UtilityLandProcessor;
+
+},{"../EmptyCategory":3}],26:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Color_1 = require("./Color");
+const UserColorSelection_1 = __importDefault(require("./UserColorSelection"));
+const BasicLandProcessor_1 = __importDefault(require("./lands-code/BasicLandProcessor"));
+const BounceLandProcessor_1 = __importDefault(require("./lands-code/BounceLandProcessor"));
+const CheckLandProcessor_1 = __importDefault(require("./lands-code/CheckLandProcessor"));
+const CrowdLandProcessor_1 = __importDefault(require("./lands-code/CrowdLandProcessor"));
+const DualLandProcessor_1 = __importDefault(require("./lands-code/DualLandProcessor"));
+const FetchLandProcessor_1 = __importDefault(require("./lands-code/FetchLandProcessor"));
+const FilterLandProcessor_1 = __importDefault(require("./lands-code/FilterLandProcessor"));
+const HorizonLandProcessor_1 = __importDefault(require("./lands-code/HorizonLandProcessor"));
+const PainLandProcessor_1 = __importDefault(require("./lands-code/PainLandProcessor"));
+const RainbowLandProcessor_1 = __importDefault(require("./lands-code/RainbowLandProcessor"));
+const ShockLandProcessor_1 = __importDefault(require("./lands-code/ShockLandProcessor"));
+const SlowLandProcessor_1 = __importDefault(require("./lands-code/SlowLandProcessor"));
+const UtilityLandProcessor_1 = __importDefault(require("./lands-code/UtilityLandProcessor"));
+const TemplateProcessor_1 = __importDefault(require("./lands-code/TemplateProcessor"));
+const TriomeProcessor_1 = __importDefault(require("./lands-code/TriomeProcessor"));
+const PathwayLandProcessor_1 = __importDefault(require("./lands-code/PathwayLandProcessor"));
+const print_1 = require("./print");
+const copyToClipboard_1 = require("./copyToClipboard");
+const userColorSelection = new UserColorSelection_1.default();
 let detail_checked = false;
-
-
-let colorManager = new ColorManager();
-let colorArr = [];
-
-window.check_icon = function () {
-  detail_checked = !detail_checked;
-  const detailElem = document.getElementById('detail');
-  const classNameRed = 'detail_icon--red';
-  const classNameGreen = 'detail_icon--green';
-  if(detail_checked){
-    detailElem.classList.add(classNameGreen);
-    detailElem.classList.remove(classNameRed);
-    document.getElementById('output').value = printLandsWithTitle(colorManager);
-  }else{
-    detailElem.classList.add(classNameRed);
-    detailElem.classList.remove(classNameGreen);
-    document.getElementById('output').value = printLandsNoTitle(colorManager);
-  }
+const LandsProcessors = [
+    new BasicLandProcessor_1.default(),
+    new DualLandProcessor_1.default(),
+    new CrowdLandProcessor_1.default(),
+    new CheckLandProcessor_1.default(),
+    new FetchLandProcessor_1.default(),
+    new FilterLandProcessor_1.default(),
+    new ShockLandProcessor_1.default(),
+    new PainLandProcessor_1.default(),
+    new SlowLandProcessor_1.default(),
+    new RainbowLandProcessor_1.default(),
+    new HorizonLandProcessor_1.default(),
+    new BounceLandProcessor_1.default(),
+    new PathwayLandProcessor_1.default(),
+    new TriomeProcessor_1.default(),
+];
+const TemplateProcessors = [
+    new UtilityLandProcessor_1.default(),
+    new TemplateProcessor_1.default("Mana Ramp", 10),
+    new TemplateProcessor_1.default("Commander", 1),
+    new TemplateProcessor_1.default("Burst Card Draw", 5),
+    new TemplateProcessor_1.default("Repeatable Card Draw", 5),
+    new TemplateProcessor_1.default("Board Wipe", 4),
+    new TemplateProcessor_1.default("Target Removal", 6),
+    new TemplateProcessor_1.default("Theme 1", 10),
+    new TemplateProcessor_1.default("Theme 2", 10),
+    new TemplateProcessor_1.default("Theme 3", 10),
+];
+document.addEventListener("DOMContentLoaded", () => {
+    var _a;
+    const inputList = document.getElementsByTagName("input");
+    const outputElement = document.getElementById("output");
+    for (let i = 0; i < inputList.length; i += 1) {
+        inputList[i].checked = false;
+    }
+    if (outputElement) {
+        outputElement.value = "Click to copy the lands";
+    }
+    outputElement.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (!userColorSelection.isEmpty()) {
+            const value = (0, print_1.printLandsMoxfield)(processorToCategory(LandsProcessors, userColorSelection));
+            console.log(value);
+            (0, copyToClipboard_1.copyToClipboard)(value);
+        }
+    });
+    (_a = document
+        .getElementById("details")) === null || _a === void 0 ? void 0 : _a.addEventListener("change", (event) => {
+        const target = event.target;
+        detail_checked = target.checked;
+        const landsCategories = processorToCategory(LandsProcessors, userColorSelection);
+        const templateCategories = processorToCategory(TemplateProcessors, userColorSelection);
+        outputElement.value = print(landsCategories, templateCategories);
+    });
+    // Add event listeners for the checkboxes
+    const checkboxes = document.querySelectorAll(".color");
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", (event) => {
+            const target = event.target;
+            const checkboxName = target.getAttribute("data-name");
+            if (checkboxName) {
+                const color = (0, Color_1.stringToColor)(checkboxName);
+                if (!color) {
+                    return;
+                }
+                toggle(color, target.checked);
+            }
+            const landsCategories = processorToCategory(LandsProcessors, userColorSelection);
+            const templateCategories = processorToCategory(TemplateProcessors, userColorSelection);
+            outputElement.value = print(landsCategories, templateCategories);
+        });
+    });
+});
+function toggle(color, checked) {
+    if (checked) {
+        userColorSelection.add(color);
+    }
+    else {
+        userColorSelection.remove(color);
+    }
 }
-
-
-window.onChecked = function (obj) {
-  const color = obj.name;
-  const isChecked = obj.checked;
-
-  if (isChecked) {
-    colorManager.addColor(color);
-  } else {
-    colorManager.removeColor(color);
-  }
-  colorArr = colorManager.colorArr;
-
-  if (colorArr.length >= 1) {
+function print(landsCategories, templateCategories) {
+    if (userColorSelection.isEmpty()) {
+        return "Click to copy the lands";
+    }
     if (detail_checked) {
-      document.getElementById('output').value = printLandsWithTitle(colorManager);
-    } else {
-      document.getElementById('output').value = printLandsNoTitle(colorManager);
+        return (0, print_1.printWithDetails)([...landsCategories, ...templateCategories]);
     }
-
-  } else {
-    document.getElementById('output').value = 'Click to copy the lands';
-  }
+    return (0, print_1.printWithoutDetails)(landsCategories, templateCategories);
+}
+function processorToCategory(processors, color) {
+    return processors.map((elem) => elem.process(color));
 }
 
-function printLandsNoTitle(colorManager) {
-  let resp = '';
-  let landsRepository = new LandsRepository('Lands');
-
-  if(colorManager.qtdColor() > 0){
-    if(colorManager.qtdColor() > 1){
-      landsRepository.addDictLands(getDualLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getFetchLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getShockLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getPainLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getManLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getFilterLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getOtherLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getTriLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getScryLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getBattleLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getCheckLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getCrowdLands(colorManager).getDictLands());
-      landsRepository.addDictLands(getAnyColorLand(colorManager).getDictLands());
-    }
-    resp += landsRepositoryToString(landsRepository);
-    resp += landsRepositoryToString(getBasicLands(colorManager));
-    resp += landsRepositoryToString(getUtilityLand(colorManager));
-    resp += landsRepositoryToString(getManaRamp(colorManager));
-  }
-
-  return resp;
+},{"./Color":2,"./UserColorSelection":7,"./copyToClipboard":8,"./lands-code/BasicLandProcessor":9,"./lands-code/BounceLandProcessor":10,"./lands-code/CheckLandProcessor":11,"./lands-code/CrowdLandProcessor":12,"./lands-code/DualLandProcessor":14,"./lands-code/FetchLandProcessor":15,"./lands-code/FilterLandProcessor":16,"./lands-code/HorizonLandProcessor":17,"./lands-code/PainLandProcessor":18,"./lands-code/PathwayLandProcessor":19,"./lands-code/RainbowLandProcessor":20,"./lands-code/ShockLandProcessor":21,"./lands-code/SlowLandProcessor":22,"./lands-code/TemplateProcessor":23,"./lands-code/TriomeProcessor":24,"./lands-code/UtilityLandProcessor":25,"./print":27}],27:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.printWithDetails = exports.printWithoutDetails = exports.printLandsMoxfield = void 0;
+function printLandsMoxfield(categories) {
+    return printWithoutTitle(categories);
+}
+exports.printLandsMoxfield = printLandsMoxfield;
+function printWithoutDetails(landsCategories, templateCategories) {
+    return `Lands: ${calculateSize(landsCategories)}\n${printWithoutTitle(landsCategories)}\n${printWithTitle(templateCategories)}`;
+}
+exports.printWithoutDetails = printWithoutDetails;
+function calculateSize(categories) {
+    return categories.reduce((sum, current) => {
+        return sum + current.size();
+    }, 0);
+}
+function printWithoutTitle(categories) {
+    return categories
+        .filter((elem) => elem.lines.trim())
+        .map((elem) => `${elem.lines}`)
+        .join("");
+}
+function printWithDetails(categories) {
+    //Print
+    // Category Title: 1
+    // 1 Element
+    return categories
+        .filter((elem) => !elem.isEmpty())
+        .map((elem) => `${elem.title}: ${elem.size()}\n${elem.lines}\n`)
+        .join("");
+}
+exports.printWithDetails = printWithDetails;
+function printWithTitle(categories) {
+    return categories
+        .filter((elem) => !elem.isEmpty())
+        .map((elem) => `${elem.title}: ${elem.size()}\n${elem.lines}\n`)
+        .join("");
 }
 
-function printLandsWithTitle(colorManager) {
-  let resp = '';
-  if(colorManager.qtdColor() > 0){
-    if(colorManager.qtdColor() > 1){
-      resp += landsRepositoryToString(getDualLands(colorManager));
-      resp += landsRepositoryToString(getFetchLands(colorManager));
-      resp += landsRepositoryToString(getShockLands(colorManager));
-      resp += landsRepositoryToString(getPainLands(colorManager));
-      resp += landsRepositoryToString(getManLands(colorManager));
-      resp += landsRepositoryToString(getFilterLands(colorManager));
-      resp += landsRepositoryToString(getOtherLands(colorManager));
-      resp += landsRepositoryToString(getTriLands(colorManager));
-      resp += landsRepositoryToString(getScryLands(colorManager));
-      resp += landsRepositoryToString(getBattleLands(colorManager));
-      resp += landsRepositoryToString(getCheckLands(colorManager));
-      resp += landsRepositoryToString(getCrowdLands(colorManager));
-      resp += landsRepositoryToString(getAnyColorLand(colorManager));
-    }
-    resp += landsRepositoryToString(getBasicLands(colorManager));
-    resp += landsRepositoryToString(getUtilityLand(colorManager));
-    resp += landsRepositoryToString(getManaRamp(colorManager));
-  }
-  return resp;
-}
-
-function landsRepositoryToString(landsRepository) {
-  let resp = '';
-
-  if (!landsRepository.isEmpty()) {
-    resp = '//' + landsRepository.title + ': ' + landsRepository.qtdLands() +'\n';
-    for (var elem of landsRepository.getAllLands()) {
-      resp+=elem.join(' ')+'\n';
-    }
-    resp+='\n';
-  }
-
-  return resp;
-}
-
+},{}],28:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.showSnackbar = void 0;
 function showSnackbar() {
-  // Get the snackbar DIV
-  var snackbar = document.getElementById("snackbar");
-
-  // Add the "show" class to DIV
-  snackbar.className = "show";
-
-  // After 3 seconds, remove the show class from DIV
-  setTimeout(function(){
-    snackbar.className = snackbar.className.replace("show", "");
-  }, 3000);
+    // Get the snackbar DIV
+    const snackbar = document.getElementById("snackbar");
+    if (snackbar) {
+        // Add the "show" class to DIV
+        snackbar.className = "show";
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(() => {
+            snackbar.className = snackbar.className.replace("show", "");
+        }, 3000);
+    }
 }
+exports.showSnackbar = showSnackbar;
 
-},{"./ColorManager":1,"./LandsRepository":2,"./lands-code/any-color-lands":3,"./lands-code/basic-lands":4,"./lands-code/battle-and-fast-lands":5,"./lands-code/check-lands":6,"./lands-code/crowd-lands":7,"./lands-code/dual-lands":8,"./lands-code/fetch-lands":9,"./lands-code/filter-lands":10,"./lands-code/man-lands":11,"./lands-code/mana-ramp":12,"./lands-code/other-lands":13,"./lands-code/pain-lands":14,"./lands-code/scry-lands":15,"./lands-code/shock-lands":16,"./lands-code/tri-lands":17,"./lands-code/utility-lands":18}]},{},[19]);
+},{}]},{},[26]);

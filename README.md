@@ -12,10 +12,6 @@ https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2019-2
 
 The fast way to concat a string is with string template: `${res}${data[i]}`
 
-Make Automatized test
-
-Still use Browserify ?
-
 ---
 
 Terminar o projeto quando as features abaixo estiverem prontas:
@@ -53,15 +49,10 @@ Terminar o projeto quando as features abaixo estiverem prontas:
 		Land Tax
 		Kor Cartographer
 
-
 		Talisman					
 		Signets
 
 # Technical Debt
-
-  Bug
-
-  Clicar em details sem nada tira a mensagem padrão
 
 Colocar os exports direito
 
@@ -97,7 +88,6 @@ Refatorar o test
 		Capitalize title
 				Is removing correct
 
-	Colocar a parte de lands em uma pasta
 	Usar before
 		https://mochajs.org/#hooks
 	Colocar landsRepository e ColorManager no commons.js
@@ -128,15 +118,10 @@ Refatorar o test
 
     Colocar as 3 fetchlands sendo todas contento pelo menos duas cores: RGB -> RG GB BR ver se isso esta acontecendo nas outras lands				
 
-  Colocar sass ? 
 
-  Usar o eslint 
-
- Ver se o nome do arquivo esta correto com airbnb
+Ver se o nome do arquivo esta correto com airbnb
 - Não está, tem que ser igual o nome da função
 - https://github.com/airbnb/javascript#naming--filename-matches-export
-
-Test and put the code in the master branch
 
 Upgrade the logic of Basic Land, Fetch
 
@@ -147,6 +132,3 @@ Upgrade the logic of Basic Land, Fetch
 - https://stackoverflow.com/questions/55626559/document-execcommandcopy-not-working-on-all-browser
 - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
 - https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API
-
-## Icons filters
-- https://css-tricks.com/change-color-of-svg-on-hover/
