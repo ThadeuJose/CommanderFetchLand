@@ -2,7 +2,7 @@ import { Color } from "./Color";
 import { Land } from "./Land";
 import UserColorSelection from "./UserColorSelection";
 
-export default class DualLand implements Land {
+export default class TwoColorLand implements Land {
   private color1: Color;
   private color2: Color;
   private landname: string;

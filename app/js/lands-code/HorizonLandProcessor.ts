@@ -1,12 +1,12 @@
 import Category from "../Category";
 import { Color } from "../Color";
-import DualLand from "../DualLand";
+import TwoColorLand from "../TwoColorLand";
 import UserColorSelection from "../UserColorSelection";
 import { DualColorSpecialCase } from "./DualColorSpecialCase";
 import Processor from "./Processor";
 
 export default class HorizonLandProcessor implements Processor {
-  private lands: DualLand[];
+  private lands: TwoColorLand[];
   private categoryName: string = "Horizon Lands";
 
   private defaultForMissingLand: string = "City of Brass";
@@ -14,16 +14,16 @@ export default class HorizonLandProcessor implements Processor {
 
   constructor() {
     this.lands = [
-      new DualLand(Color.White, Color.Blue, this.defaultForMissingLand),
-      new DualLand(Color.Red, Color.Blue, "Fiery Islet"),
-      new DualLand(Color.Black, Color.Blue, this.defaultForMissingLand),
-      new DualLand(Color.Black, Color.Red, this.strictlyBetterRedBlack),
-      new DualLand(Color.Red, Color.Green, this.defaultForMissingLand),
-      new DualLand(Color.Green, Color.White, "Horizon Canopy"),
-      new DualLand(Color.White, Color.Black, "Silent Clearing"),
-      new DualLand(Color.Black, Color.Green, "Nurturing Peatland"),
-      new DualLand(Color.Red, Color.White, "Sunbaked Canyon"),
-      new DualLand(Color.Green, Color.Blue, "Waterlogged Grove"),
+      new TwoColorLand(Color.White, Color.Blue, this.defaultForMissingLand),
+      new TwoColorLand(Color.Red, Color.Blue, "Fiery Islet"),
+      new TwoColorLand(Color.Black, Color.Blue, this.defaultForMissingLand),
+      new TwoColorLand(Color.Black, Color.Red, this.strictlyBetterRedBlack),
+      new TwoColorLand(Color.Red, Color.Green, this.defaultForMissingLand),
+      new TwoColorLand(Color.Green, Color.White, "Horizon Canopy"),
+      new TwoColorLand(Color.White, Color.Black, "Silent Clearing"),
+      new TwoColorLand(Color.Black, Color.Green, "Nurturing Peatland"),
+      new TwoColorLand(Color.Red, Color.White, "Sunbaked Canyon"),
+      new TwoColorLand(Color.Green, Color.Blue, "Waterlogged Grove"),
     ];
   }
 

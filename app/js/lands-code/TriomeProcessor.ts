@@ -1,6 +1,6 @@
 import Category from "../Category";
 import { Color } from "../Color";
-import DualLand from "../DualLand";
+import TwoColorLand from "../TwoColorLand";
 import ThreeColorLand from "../ThreeColorLand";
 import UserColorSelection from "../UserColorSelection";
 import Processor from "./Processor";

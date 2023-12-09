@@ -1,11 +1,11 @@
 import Category from "../Category";
-import DualLand from "../DualLand";
+import TwoColorLand from "../TwoColorLand";
 import UserColorSelection from "../UserColorSelection";
 
 export function DualColorSpecialCase(
   categoryName: string,
   userColorSelection: UserColorSelection,
-  lands: DualLand[]
+  lands: TwoColorLand[]
 ) {
   const category = new Category(categoryName);
   if (userColorSelection.isDualColor()) {

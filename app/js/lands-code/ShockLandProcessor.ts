@@ -1,26 +1,26 @@
 import Category from "../Category";
 import { Color } from "../Color";
-import DualLand from "../DualLand";
+import TwoColorLand from "../TwoColorLand";
 import UserColorSelection from "../UserColorSelection";
 import { DualColorSpecialCase } from "./DualColorSpecialCase";
 import Processor from "./Processor";
 
 export default class ShockLandProcessor implements Processor {
-  private lands: DualLand[];
+  private lands: TwoColorLand[];
   private categoryName: string = "Shock Lands";
 
   constructor() {
     this.lands = [
-      new DualLand(Color.White, Color.Blue, "Hallowed Fountain"),
-      new DualLand(Color.Red, Color.Blue, "Steam Vents"),
-      new DualLand(Color.Black, Color.Blue, "Watery Grave"),
-      new DualLand(Color.Black, Color.Red, "Blood Crypt"),
-      new DualLand(Color.Red, Color.Green, "Stomping Ground"),
-      new DualLand(Color.Green, Color.White, "Temple Garden"),
-      new DualLand(Color.White, Color.Black, "Godless Shrine"),
-      new DualLand(Color.Black, Color.Green, "Overgrown Tomb"),
-      new DualLand(Color.Red, Color.White, "Sacred Foundry"),
-      new DualLand(Color.Green, Color.Blue, "Breeding Pool"),
+      new TwoColorLand(Color.White, Color.Blue, "Hallowed Fountain"),
+      new TwoColorLand(Color.Red, Color.Blue, "Steam Vents"),
+      new TwoColorLand(Color.Black, Color.Blue, "Watery Grave"),
+      new TwoColorLand(Color.Black, Color.Red, "Blood Crypt"),
+      new TwoColorLand(Color.Red, Color.Green, "Stomping Ground"),
+      new TwoColorLand(Color.Green, Color.White, "Temple Garden"),
+      new TwoColorLand(Color.White, Color.Black, "Godless Shrine"),
+      new TwoColorLand(Color.Black, Color.Green, "Overgrown Tomb"),
+      new TwoColorLand(Color.Red, Color.White, "Sacred Foundry"),
+      new TwoColorLand(Color.Green, Color.Blue, "Breeding Pool"),
     ];
   }
 

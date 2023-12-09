@@ -75,27 +75,6 @@ exports.stringToColor = stringToColor;
 
 },{}],3:[function(require,module,exports){
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class DualLand {
-    constructor(color1, color2, landname) {
-        this.color1 = color1;
-        this.color2 = color2;
-        this.landname = landname;
-    }
-    isSameColor(userColorSelection) {
-        return (userColorSelection.has(this.color1) && userColorSelection.has(this.color2));
-    }
-    hasSomeColor(userColorSelection) {
-        return (userColorSelection.has(this.color1) || userColorSelection.has(this.color2));
-    }
-    getName() {
-        return this.landname;
-    }
-}
-exports.default = DualLand;
-
-},{}],4:[function(require,module,exports){
-"use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -118,7 +97,7 @@ class EmptyCategory extends Category_1.default {
 }
 exports.default = EmptyCategory;
 
-},{"./Category":1}],5:[function(require,module,exports){
+},{"./Category":1}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class SingleLand {
@@ -135,7 +114,7 @@ class SingleLand {
 }
 exports.default = SingleLand;
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class ThreeColorLand {
@@ -155,6 +134,27 @@ class ThreeColorLand {
     }
 }
 exports.default = ThreeColorLand;
+
+},{}],6:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class TwoColorLand {
+    constructor(color1, color2, landname) {
+        this.color1 = color1;
+        this.color2 = color2;
+        this.landname = landname;
+    }
+    isSameColor(userColorSelection) {
+        return (userColorSelection.has(this.color1) && userColorSelection.has(this.color2));
+    }
+    hasSomeColor(userColorSelection) {
+        return (userColorSelection.has(this.color1) || userColorSelection.has(this.color2));
+    }
+    getName() {
+        return this.landname;
+    }
+}
+exports.default = TwoColorLand;
 
 },{}],7:[function(require,module,exports){
 "use strict";
@@ -185,11 +185,7 @@ class UserColorSelection {
         return count;
     }
     has(color) {
-        const colorMap = this.colors.get(color);
-        if (colorMap) {
-            return colorMap;
-        }
-        return false;
+        return this.colors.get(color) || false;
     }
     getAllColor() {
         let resp = [];
@@ -293,29 +289,29 @@ class BasicLandProcessor {
 }
 exports.default = BasicLandProcessor;
 
-},{"../Category":1,"../Color":2,"../SingleLand":5}],10:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../SingleLand":4}],10:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
 class BounceLandProcessor {
     constructor() {
         this.categoryName = "Bounce Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Azorius Chancery"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Izzet Boilerworks"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Dimir Aqueduct"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Rakdos Carnarium"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Gruul Turf"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Selesnya Sanctuary"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Orzhov Basilica"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Golgari Rot Farm"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Boros Garrison"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Simic Growth Chamber"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Azorius Chancery"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Izzet Boilerworks"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Dimir Aqueduct"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Rakdos Carnarium"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Gruul Turf"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Selesnya Sanctuary"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Orzhov Basilica"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Golgari Rot Farm"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Boros Garrison"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Simic Growth Chamber"),
         ];
     }
     process(userColorSelection) {
@@ -324,7 +320,7 @@ class BounceLandProcessor {
 }
 exports.default = BounceLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],11:[function(require,module,exports){
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],11:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -332,22 +328,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
 class CheckLandProcessor {
     constructor() {
         this.categoryName = "Check Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Glacial Fortress"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Sulfur Falls"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Drowned Catacomb"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Dragonskull Summit"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Rootbound Crag"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Sunpetal Grove"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Isolated Chapel"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Woodland Cemetery"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Clifftop Retreat"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Hinterland Harbor"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Glacial Fortress"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Sulfur Falls"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Drowned Catacomb"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Dragonskull Summit"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Rootbound Crag"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Sunpetal Grove"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Isolated Chapel"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Woodland Cemetery"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Clifftop Retreat"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Hinterland Harbor"),
         ];
     }
     process(userColorSelection) {
@@ -359,7 +355,7 @@ class CheckLandProcessor {
 }
 exports.default = CheckLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],12:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],12:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -367,21 +363,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 class CrowdLandProcessor {
     constructor() {
         this.categoryName = "Crowd Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Sea of Clouds"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Training Center"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Morphic Pool"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Luxury Suite"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Spire Garden"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Bountiful Promenade"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Vault of Champions"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Undergrowth Stadium"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Spectator Seating"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Rejuvenating Springs"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Sea of Clouds"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Training Center"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Morphic Pool"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Luxury Suite"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Spire Garden"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Bountiful Promenade"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Vault of Champions"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Undergrowth Stadium"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Spectator Seating"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Rejuvenating Springs"),
         ];
     }
     process(userColorSelection) {
@@ -396,7 +392,7 @@ class CrowdLandProcessor {
 }
 exports.default = CrowdLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],13:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],13:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -423,21 +419,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 class DualLandProcessor {
     constructor() {
         this.categoryName = "Dual Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Tundra"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Volcanic Island"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Underground Sea"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Badlands"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Taiga"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Savannah"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Scrubland"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Bayou"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Plateau"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Tropical Island"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Tundra"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Volcanic Island"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Underground Sea"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Badlands"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Taiga"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Savannah"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Scrubland"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Bayou"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Plateau"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Tropical Island"),
         ];
     }
     process(userColorSelection) {
@@ -455,7 +451,7 @@ class DualLandProcessor {
 }
 exports.default = DualLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],15:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],15:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -463,20 +459,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 class FetchLandProcessor {
     constructor() {
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Flooded Strand"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Scalding Tarn"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Polluted Delta"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Bloodstained Mire"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Wooded Foothills"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Windswept Heath"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Marsh Flats"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Verdant Catacombs"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Arid Mesa"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Misty Rainforest"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Flooded Strand"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Scalding Tarn"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Polluted Delta"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Bloodstained Mire"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Wooded Foothills"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Windswept Heath"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Marsh Flats"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Verdant Catacombs"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Arid Mesa"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Misty Rainforest"),
         ];
     }
     process(userColorSelection) {
@@ -497,29 +493,29 @@ class FetchLandProcessor {
 }
 exports.default = FetchLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],16:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],16:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
 class FilterLandProcessor {
     constructor() {
         this.categoryName = "Filter Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Mystic Gate"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Cascade Bluffs"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Sunken Ruins"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Graven Cairns"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Fire-lit Thicket"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Wooded Bastion"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Fetid Heath"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Twilight Mire"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Rugged Prairie"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Flooded Grove"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Mystic Gate"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Cascade Bluffs"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Sunken Ruins"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Graven Cairns"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Fire-lit Thicket"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Wooded Bastion"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Fetid Heath"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Twilight Mire"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Rugged Prairie"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Flooded Grove"),
         ];
     }
     process(userColorSelection) {
@@ -528,7 +524,7 @@ class FilterLandProcessor {
 }
 exports.default = FilterLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],17:[function(require,module,exports){
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],17:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -536,23 +532,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 class HorizonLandProcessor {
     constructor() {
         this.categoryName = "Horizon Lands";
         this.defaultForMissingLand = "City of Brass";
         this.strictlyBetterRedBlack = "Mount Doom";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, this.defaultForMissingLand),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Fiery Islet"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, this.defaultForMissingLand),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, this.strictlyBetterRedBlack),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, this.defaultForMissingLand),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Horizon Canopy"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Silent Clearing"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Nurturing Peatland"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sunbaked Canyon"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Waterlogged Grove"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, this.defaultForMissingLand),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Fiery Islet"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, this.defaultForMissingLand),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, this.strictlyBetterRedBlack),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, this.defaultForMissingLand),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Horizon Canopy"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Silent Clearing"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Nurturing Peatland"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sunbaked Canyon"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Waterlogged Grove"),
         ];
     }
     process(userColorSelection) {
@@ -570,29 +566,29 @@ class HorizonLandProcessor {
 }
 exports.default = HorizonLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3}],18:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../TwoColorLand":6}],18:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
 class PainLandProcessor {
     constructor() {
         this.categoryName = "Pain Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Adarkar Wastes"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Shivan Reef"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Underground River"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Sulfurous Springs"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Karplusan Forest"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Brushland"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Caves of Koilos"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Llanowar Wastes"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Battlefield Forge"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Yavimaya Coast"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Adarkar Wastes"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Shivan Reef"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Underground River"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Sulfurous Springs"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Karplusan Forest"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Brushland"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Caves of Koilos"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Llanowar Wastes"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Battlefield Forge"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Yavimaya Coast"),
         ];
     }
     process(userColorSelection) {
@@ -601,29 +597,29 @@ class PainLandProcessor {
 }
 exports.default = PainLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],19:[function(require,module,exports){
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],19:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
 class PathwayLandProcessor {
     constructor() {
         this.categoryName = "Pathway Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Hengegate Pathway / Mistgate Pathway"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Riverglide Pathway / Lavaglide Pathway"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Clearwater Pathway / Murkwater Pathway"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Blightstep Pathway / Searstep Pathway"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Cragcrown Pathway / Timbercrown Pathway"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Branchloft Pathway / Boulderloft Pathway"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Brightclimb Pathway / Grimclimb Pathway"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Darkbore Pathway / Slitherbore Pathway"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Needleverge Pathway / Pillarverge Pathway"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Barkchannel Pathway / Tidechannel Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Hengegate Pathway / Mistgate Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Riverglide Pathway / Lavaglide Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Clearwater Pathway / Murkwater Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Blightstep Pathway / Searstep Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Cragcrown Pathway / Timbercrown Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Branchloft Pathway / Boulderloft Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Brightclimb Pathway / Grimclimb Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Darkbore Pathway / Slitherbore Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Needleverge Pathway / Pillarverge Pathway"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Barkchannel Pathway / Tidechannel Pathway"),
         ];
     }
     process(userColorSelection) {
@@ -632,7 +628,7 @@ class PathwayLandProcessor {
 }
 exports.default = PathwayLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],20:[function(require,module,exports){
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],20:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -678,22 +674,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Category_1 = __importDefault(require("../Category"));
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 const UserColorSelection_1 = __importDefault(require("../UserColorSelection"));
 class ShockLandProcessor {
     constructor() {
         this.categoryName = "Shock Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Hallowed Fountain"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Steam Vents"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Watery Grave"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Blood Crypt"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Stomping Ground"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Temple Garden"),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Godless Shrine"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Overgrown Tomb"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sacred Foundry"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Breeding Pool"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Hallowed Fountain"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Steam Vents"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Watery Grave"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Blood Crypt"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Stomping Ground"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Temple Garden"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Godless Shrine"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Overgrown Tomb"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sacred Foundry"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Breeding Pool"),
         ];
     }
     process(userColorSelection) {
@@ -731,29 +727,29 @@ class ShockLandProcessor {
 }
 exports.default = ShockLandProcessor;
 
-},{"../Category":1,"../Color":2,"../DualLand":3,"../UserColorSelection":7}],22:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../TwoColorLand":6,"../UserColorSelection":7}],22:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Color_1 = require("../Color");
-const DualLand_1 = __importDefault(require("../DualLand"));
+const TwoColorLand_1 = __importDefault(require("../TwoColorLand"));
 const DualColorSpecialCase_1 = require("./DualColorSpecialCase");
 class SlowLandProcessor {
     constructor() {
         this.categoryName = "Slow Lands";
         this.lands = [
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Deserted Beach"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Stormcarved Coast"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Shipwreck Marsh"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Haunted Ridge"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Rockfall Vale"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Overgrown Farmland "),
-            new DualLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Shattered Sanctum"),
-            new DualLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Deathcap Glade"),
-            new DualLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sundown Pass"),
-            new DualLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Dreamroot Cascade"),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Blue, "Deserted Beach"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Blue, "Stormcarved Coast"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Blue, "Shipwreck Marsh"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Red, "Haunted Ridge"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.Green, "Rockfall Vale"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.White, "Overgrown Farmland "),
+            new TwoColorLand_1.default(Color_1.Color.White, Color_1.Color.Black, "Shattered Sanctum"),
+            new TwoColorLand_1.default(Color_1.Color.Black, Color_1.Color.Green, "Deathcap Glade"),
+            new TwoColorLand_1.default(Color_1.Color.Red, Color_1.Color.White, "Sundown Pass"),
+            new TwoColorLand_1.default(Color_1.Color.Green, Color_1.Color.Blue, "Dreamroot Cascade"),
         ];
     }
     process(userColorSelection) {
@@ -762,7 +758,7 @@ class SlowLandProcessor {
 }
 exports.default = SlowLandProcessor;
 
-},{"../Color":2,"../DualLand":3,"./DualColorSpecialCase":13}],23:[function(require,module,exports){
+},{"../Color":2,"../TwoColorLand":6,"./DualColorSpecialCase":13}],23:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -780,7 +776,7 @@ class TemplateProcessor {
 }
 exports.default = TemplateProcessor;
 
-},{"../EmptyCategory":4}],24:[function(require,module,exports){
+},{"../EmptyCategory":3}],24:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -827,7 +823,6 @@ class TriomeProcessor {
     }
     combinate(colors) {
         const arr = colors.getAllColor();
-        console.log(arr);
         const color1 = new UserColorSelection_1.default();
         color1.add(arr[0]);
         color1.add(arr[1]);
@@ -841,7 +836,7 @@ class TriomeProcessor {
 }
 exports.default = TriomeProcessor;
 
-},{"../Category":1,"../Color":2,"../ThreeColorLand":6,"../UserColorSelection":7}],25:[function(require,module,exports){
+},{"../Category":1,"../Color":2,"../ThreeColorLand":5,"../UserColorSelection":7}],25:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -864,7 +859,7 @@ class UtilityLandProcessor {
 }
 exports.default = UtilityLandProcessor;
 
-},{"../EmptyCategory":4}],26:[function(require,module,exports){
+},{"../EmptyCategory":3}],26:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };

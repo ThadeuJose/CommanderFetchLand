@@ -1,26 +1,26 @@
 import Category from "../Category";
 import { Color } from "../Color";
-import DualLand from "../DualLand";
+import TwoColorLand from "../TwoColorLand";
 import UserColorSelection from "../UserColorSelection";
 import { DualColorSpecialCase } from "./DualColorSpecialCase";
 import Processor from "./Processor";
 
 export default class CrowdLandProcessor implements Processor {
-  private lands: DualLand[];
+  private lands: TwoColorLand[];
   private categoryName: string = "Crowd Lands";
 
   constructor() {
     this.lands = [
-      new DualLand(Color.White, Color.Blue, "Sea of Clouds"),
-      new DualLand(Color.Red, Color.Blue, "Training Center"),
-      new DualLand(Color.Black, Color.Blue, "Morphic Pool"),
-      new DualLand(Color.Black, Color.Red, "Luxury Suite"),
-      new DualLand(Color.Red, Color.Green, "Spire Garden"),
-      new DualLand(Color.Green, Color.White, "Bountiful Promenade"),
-      new DualLand(Color.White, Color.Black, "Vault of Champions"),
-      new DualLand(Color.Black, Color.Green, "Undergrowth Stadium"),
-      new DualLand(Color.Red, Color.White, "Spectator Seating"),
-      new DualLand(Color.Green, Color.Blue, "Rejuvenating Springs"),
+      new TwoColorLand(Color.White, Color.Blue, "Sea of Clouds"),
+      new TwoColorLand(Color.Red, Color.Blue, "Training Center"),
+      new TwoColorLand(Color.Black, Color.Blue, "Morphic Pool"),
+      new TwoColorLand(Color.Black, Color.Red, "Luxury Suite"),
+      new TwoColorLand(Color.Red, Color.Green, "Spire Garden"),
+      new TwoColorLand(Color.Green, Color.White, "Bountiful Promenade"),
+      new TwoColorLand(Color.White, Color.Black, "Vault of Champions"),
+      new TwoColorLand(Color.Black, Color.Green, "Undergrowth Stadium"),
+      new TwoColorLand(Color.Red, Color.White, "Spectator Seating"),
+      new TwoColorLand(Color.Green, Color.Blue, "Rejuvenating Springs"),
     ];
   }
   process(userColorSelection: UserColorSelection): Category {

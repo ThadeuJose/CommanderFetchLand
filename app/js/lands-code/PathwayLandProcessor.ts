@@ -1,62 +1,62 @@
 import Category from "../Category";
 import { Color } from "../Color";
-import DualLand from "../DualLand";
+import TwoColorLand from "../TwoColorLand";
 import UserColorSelection from "../UserColorSelection";
 import { DualColorSpecialCase } from "./DualColorSpecialCase";
 import Processor from "./Processor";
 
 export default class PathwayLandProcessor implements Processor {
-  private lands: DualLand[];
+  private lands: TwoColorLand[];
   private categoryName: string = "Pathway Lands";
 
   constructor() {
     this.lands = [
-      new DualLand(
+      new TwoColorLand(
         Color.White,
         Color.Blue,
         "Hengegate Pathway / Mistgate Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Red,
         Color.Blue,
         "Riverglide Pathway / Lavaglide Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Black,
         Color.Blue,
         "Clearwater Pathway / Murkwater Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Black,
         Color.Red,
         "Blightstep Pathway / Searstep Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Red,
         Color.Green,
         "Cragcrown Pathway / Timbercrown Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Green,
         Color.White,
         "Branchloft Pathway / Boulderloft Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.White,
         Color.Black,
         "Brightclimb Pathway / Grimclimb Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Black,
         Color.Green,
         "Darkbore Pathway / Slitherbore Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Red,
         Color.White,
         "Needleverge Pathway / Pillarverge Pathway"
       ),
-      new DualLand(
+      new TwoColorLand(
         Color.Green,
         Color.Blue,
         "Barkchannel Pathway / Tidechannel Pathway"

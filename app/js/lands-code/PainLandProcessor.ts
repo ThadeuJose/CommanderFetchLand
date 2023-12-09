@@ -1,26 +1,26 @@
 import Category from "../Category";
 import { Color } from "../Color";
-import DualLand from "../DualLand";
+import TwoColorLand from "../TwoColorLand";
 import UserColorSelection from "../UserColorSelection";
 import { DualColorSpecialCase } from "./DualColorSpecialCase";
 import Processor from "./Processor";
 
 export default class PainLandProcessor implements Processor {
-  private lands: DualLand[];
+  private lands: TwoColorLand[];
   private categoryName: string = "Pain Lands";
 
   constructor() {
     this.lands = [
-      new DualLand(Color.White, Color.Blue, "Adarkar Wastes"),
-      new DualLand(Color.Red, Color.Blue, "Shivan Reef"),
-      new DualLand(Color.Black, Color.Blue, "Underground River"),
-      new DualLand(Color.Black, Color.Red, "Sulfurous Springs"),
-      new DualLand(Color.Red, Color.Green, "Karplusan Forest"),
-      new DualLand(Color.Green, Color.White, "Brushland"),
-      new DualLand(Color.White, Color.Black, "Caves of Koilos"),
-      new DualLand(Color.Black, Color.Green, "Llanowar Wastes"),
-      new DualLand(Color.Red, Color.White, "Battlefield Forge"),
-      new DualLand(Color.Green, Color.Blue, "Yavimaya Coast"),
+      new TwoColorLand(Color.White, Color.Blue, "Adarkar Wastes"),
+      new TwoColorLand(Color.Red, Color.Blue, "Shivan Reef"),
+      new TwoColorLand(Color.Black, Color.Blue, "Underground River"),
+      new TwoColorLand(Color.Black, Color.Red, "Sulfurous Springs"),
+      new TwoColorLand(Color.Red, Color.Green, "Karplusan Forest"),
+      new TwoColorLand(Color.Green, Color.White, "Brushland"),
+      new TwoColorLand(Color.White, Color.Black, "Caves of Koilos"),
+      new TwoColorLand(Color.Black, Color.Green, "Llanowar Wastes"),
+      new TwoColorLand(Color.Red, Color.White, "Battlefield Forge"),
+      new TwoColorLand(Color.Green, Color.Blue, "Yavimaya Coast"),
     ];
   }
 
