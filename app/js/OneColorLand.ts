@@ -2,7 +2,7 @@ import { Color } from "./Color";
 import { Land } from "./Land";
 import UserColorSelection from "./UserColorSelection";
 
-export default class SingleLand {
+export default class OneColorLand {
   private color1: Color;
   private landname: string;
 

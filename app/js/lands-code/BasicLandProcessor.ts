@@ -1,18 +1,18 @@
 import Category from "../Category";
 import { Color } from "../Color";
-import SingleLand from "../SingleLand";
+import OneColorLand from "../OneColorLand";
 import UserColorSelection from "../UserColorSelection";
 import Processor from "./Processor";
 
 export default class BasicLandProcessor implements Processor {
-  private lands: SingleLand[];
+  private lands: OneColorLand[];
   constructor() {
     this.lands = [
-      new SingleLand(Color.White, "Plains"),
-      new SingleLand(Color.Blue, "Island"),
-      new SingleLand(Color.Black, "Swamp"),
-      new SingleLand(Color.Red, "Mountain"),
-      new SingleLand(Color.Green, "Forest"),
+      new OneColorLand(Color.White, "Plains"),
+      new OneColorLand(Color.Blue, "Island"),
+      new OneColorLand(Color.Black, "Swamp"),
+      new OneColorLand(Color.Red, "Mountain"),
+      new OneColorLand(Color.Green, "Forest"),
     ];
   }
   process(userColorSelection: UserColorSelection): Category {
